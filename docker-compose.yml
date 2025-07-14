@@ -1,0 +1,44 @@
+services:
+  webapi:
+    build:
+      context: ./NotifyHub
+      dockerfile: NotifyHub.WebAPI/Dockerfile 
+    container_name: NotifyHub.WebAPI
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Postgres=Host=db;Port=5432;Username=postgres;Password=notify_hub;Database=notify_hub_db;
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    networks:
+      - notify_hub_network
+    volumes:
+      - data_protection:/root/.aspnet/DataProtection-Keys
+    restart: always
+
+  db:
+    image: postgres:16
+    container_name: NotifyHub.PostgresSQL
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: notify_hub
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - notify_hub_network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 5
+
+volumes:
+  db_data:
+  data_protection:
+
+networks:
+  notify_hub_network:
+    driver: bridge

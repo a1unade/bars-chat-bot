@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{1D2D996C-0C21-4098-A6D0-58AF7E0B899B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{CAA3799B-1CE4-4526-86A1-182B1101A6AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{90FFE115-BC52-4E44-AFA4-6971C4F915BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotifyHub.Application", "NotifyHub.Application\NotifyHub.Application.csproj", "{8C4A8414-B752-48EF-8086-11E77D9E2197}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotifyHub.Domain", "NotifyHub.Domain\NotifyHub.Domain.csproj", "{9A13D2D5-0238-4065-B69D-84DFB6B70788}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotifyHub.Persistence", "NotifyHub.Persistence\NotifyHub.Persistence.csproj", "{EB6A23AD-B32F-4141-88F2-D22C3626848E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotifyHub.Infrastructure", "NotifyHub.Infrastructure\NotifyHub.Infrastructure.csproj", "{509D40FC-6C75-431C-BC0C-8FB166712E1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotifyHub.WebApi", "NotifyHub.WebApi\NotifyHub.WebApi.csproj", "{BBBC224F-879C-4706-A4C2-9393AA953A36}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8C4A8414-B752-48EF-8086-11E77D9E2197} = {1D2D996C-0C21-4098-A6D0-58AF7E0B899B}
+		{9A13D2D5-0238-4065-B69D-84DFB6B70788} = {1D2D996C-0C21-4098-A6D0-58AF7E0B899B}
+		{EB6A23AD-B32F-4141-88F2-D22C3626848E} = {CAA3799B-1CE4-4526-86A1-182B1101A6AA}
+		{509D40FC-6C75-431C-BC0C-8FB166712E1D} = {CAA3799B-1CE4-4526-86A1-182B1101A6AA}
+		{BBBC224F-879C-4706-A4C2-9393AA953A36} = {90FFE115-BC52-4E44-AFA4-6971C4F915BC}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C4A8414-B752-48EF-8086-11E77D9E2197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C4A8414-B752-48EF-8086-11E77D9E2197}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C4A8414-B752-48EF-8086-11E77D9E2197}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C4A8414-B752-48EF-8086-11E77D9E2197}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A13D2D5-0238-4065-B69D-84DFB6B70788}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A13D2D5-0238-4065-B69D-84DFB6B70788}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A13D2D5-0238-4065-B69D-84DFB6B70788}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A13D2D5-0238-4065-B69D-84DFB6B70788}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB6A23AD-B32F-4141-88F2-D22C3626848E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB6A23AD-B32F-4141-88F2-D22C3626848E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB6A23AD-B32F-4141-88F2-D22C3626848E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB6A23AD-B32F-4141-88F2-D22C3626848E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{509D40FC-6C75-431C-BC0C-8FB166712E1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{509D40FC-6C75-431C-BC0C-8FB166712E1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{509D40FC-6C75-431C-BC0C-8FB166712E1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{509D40FC-6C75-431C-BC0C-8FB166712E1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBBC224F-879C-4706-A4C2-9393AA953A36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBBC224F-879C-4706-A4C2-9393AA953A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBBC224F-879C-4706-A4C2-9393AA953A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBBC224F-879C-4706-A4C2-9393AA953A36}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
