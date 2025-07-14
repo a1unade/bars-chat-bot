@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Common\Messages\" />
+      <Folder Include="Features\Mutations\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="HotChocolate.AspNetCore" Version="15.1.7" />
+      <PackageReference Include="HotChocolate.Data" Version="15.1.7" />
+      <PackageReference Include="MailKit" Version="4.13.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\NotifyHub.Domain\NotifyHub.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
