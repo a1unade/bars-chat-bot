@@ -3,12 +3,12 @@ using NotifyHub.Application.Interfaces;
 
 namespace NotifyHub.Application.Features.Queries;
 
-[ExtendObjectType("Query")]
-public abstract class BaseQuery
+public abstract class BaseQuery : IQuery
 {
-    [UseSorting]
-    [UseFiltering]
-    [GraphQLDescription("Получение всех данных указанного типа")]
-    public virtual IQueryable<T> GetAll<T>([Service] IDbContext db) where T : class =>
+    protected BaseQuery() { }
+
+    protected IQueryable<T> GetAll<T>(IDbContext db) where T : class =>
         db.Set<T>().AsNoTracking();
+    
+    // TODO: заменить контекст на репозиторий
 }

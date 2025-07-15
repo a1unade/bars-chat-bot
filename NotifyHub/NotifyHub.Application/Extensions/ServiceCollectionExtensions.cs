@@ -17,7 +17,7 @@ public static class ServiceCollectionExtensions
             .Where(t => !t.IsAbstract && typeof(IQuery).IsAssignableFrom(t));
 
         foreach (var type in queryTypes)
-            services.AddSingleton(typeof(IQuery), type);
+            services.AddSingleton(type);
     }
     
     // TODO: зарегистрировать mutations для graphql

@@ -19,4 +19,6 @@ await app.UseMigrations();
 // Обработка исключений
 app.UseExceptionMiddleware();
 
+app.MapGraphQL();
+
 app.Run();

@@ -29,10 +29,12 @@ public class EmailService(IConfiguration configuration, ILogger<EmailService> lo
             await smtpClient.AuthenticateAsync(_options.EmailAddress, _options.Password);
             await smtpClient.SendAsync(GenerateMessage(email, subject, messageBody));
             await smtpClient.DisconnectAsync(true);
+            
+            _logger.LogInformation("Mail successfully sent to: {0}", email);
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Failed to send mail message: { 0 }", ex.Message);
+            _logger.LogError("Failed to send mail message: {0}", ex.Message);
         }
     }
 

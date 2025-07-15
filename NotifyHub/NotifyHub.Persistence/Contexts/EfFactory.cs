@@ -12,7 +12,7 @@ public class EfFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
         // TODO: поправить на подстановку строки подключения из appsettings.json
         // var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__Postgres");
         
-        optionBuilder.UseNpgsql("Host=localhost;Port=5432;Username=postgres;Password=notify_hub;Database=notify_hub_db");
+        optionBuilder.UseNpgsql("Host=db;Port=5432;Username=postgres;Password=notify_hub;Database=notify_hub_db");
         
         return new ApplicationDbContext(optionBuilder.Options);
     }
