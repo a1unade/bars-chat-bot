@@ -11,10 +11,11 @@ public class Migrator(ApplicationDbContext context, ILogger<Migrator> logger)
         try
         {
             await context.Database.MigrateAsync().ConfigureAwait(false);
+            logger.LogInformation("Migrations applied");
         }
         catch (Exception ex)
         {
-            logger.LogError($"migrations apply failed { 0 }", ex.Message);
+            logger.LogError("Migrations apply failed {0}", ex.Message);
             throw;
         }
     }
