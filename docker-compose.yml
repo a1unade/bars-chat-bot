@@ -18,12 +18,50 @@ services:
       - data_protection:/root/.aspnet/DataProtection-Keys
     restart: always
 
+  notification_microservice:
+    build:
+      context: ./NotifyHub.NotificationService
+      dockerfile: NotifyHub.NotificationService.WebAPI/Dockerfile 
+    container_name: NotifyHub.NotificationService.WebAPI
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Postgres=Host=notify_db;Port=5432;Username=postgres;Password=notify_hub_notifications;Database=notify_hub_notifications_db;
+    depends_on:
+      notify_db:
+        condition: service_healthy
+    ports:
+      - "8084:8084"
+    networks:
+      - notify_hub_network
+    volumes:
+      - data_protection:/root/.aspnet/DataProtection-Keys
+    restart: always
+
+  notify_db:
+    image: postgres:16
+    container_name: NotifyHub.NotificationService.PostgresSQL
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: notify_hub_notifications
+      POSTGRES_DB: notify_hub_notifications_db
+    volumes:
+      - notify_db_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - notify_hub_network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 5
+
   db:
     image: postgres:16
     container_name: NotifyHub.PostgresSQL
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: notify_hub
+      POSTGRES_DB: notify_hub_db
     volumes:
       - db_data:/var/lib/postgresql/data
     ports:
@@ -37,6 +75,7 @@ services:
 
 volumes:
   db_data:
+  notify_db_data:
   data_protection:
 
 networks:

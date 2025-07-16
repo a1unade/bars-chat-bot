@@ -1,5 +1,6 @@
 using NotifyHub.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace NotifyHub.Application.Interfaces;
@@ -17,11 +18,6 @@ public interface IDbContext
     public DbSet<Notification> Notifications { get; set; }
     
     /// <summary>
-    /// Операции по отправке
-    /// </summary>
-    public DbSet<OutboxMessage> OutboxMessages { get; set; }
-    
-    /// <summary>
     /// История 
     /// </summary>
     public DbSet<NotificationLog> NotificationLogs { get; set; }
@@ -30,6 +26,14 @@ public interface IDbContext
     /// Универсальный доступ к DbSet по типу сущности
     /// </summary>
     DbSet<T> Set<T>() where T : class;
+    
+    /// <summary>
+    /// Получает объект для указанной сущности,
+    /// позволяя управлять её состоянием и получать доступ к данным отслеживания.
+    /// </summary>
+    /// <typeparam name="T">Тип сущности.</typeparam>
+    /// <param name="entity">Экземпляр сущности, для которого требуется получить entry.</param>
+    EntityEntry<T> Entry<T>(T entity) where T : class;
     
     /// <summary>
     /// Получить текущую транзакцию

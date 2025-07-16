@@ -1,5 +1,5 @@
 using NotifyHub.Domain.Entities;
-using NotifyHub.Application.Interfaces;
+using NotifyHub.Application.Interfaces.Repositories;
 
 namespace NotifyHub.Application.Features.Queries;
 
@@ -7,8 +7,6 @@ namespace NotifyHub.Application.Features.Queries;
 public class NotificationQuery : BaseQuery
 {
     [GraphQLDescription("Получение уведомлений")]
-    public IQueryable<Notification> GetNotifications([Service] IDbContext db) =>
-        GetAll<Notification>(db);
-    
-    // TODO: заменить контекст на репозиторий
+    public IQueryable<Notification> GetNotifications([Service] IGenericRepository<Notification> repository) =>
+        GetAll(repository);
 }

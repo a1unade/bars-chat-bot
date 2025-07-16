@@ -11,8 +11,6 @@ public class ApplicationDbContext: DbContext, IDbContext
     
     public DbSet<Notification> Notifications { get; set; }
     
-    public DbSet<OutboxMessage> OutboxMessages { get; set; }
-    
     public DbSet<NotificationLog> NotificationLogs { get; set; }
     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 

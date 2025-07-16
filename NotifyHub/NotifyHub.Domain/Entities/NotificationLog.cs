@@ -9,16 +9,6 @@ namespace NotifyHub.Domain.Entities;
 public class NotificationLog : BaseEntity
 {
     /// <summary>
-    /// ID операции с отправкой уведомления
-    /// </summary>
-    public Guid OutboxMessageId { get; set; }
-    
-    /// <summary>
-    /// Навигационное свойство для связи
-    /// </summary>
-    public required OutboxMessage OutboxMessage { get; set; }
-
-    /// <summary>
     /// Во сколько было отправлено
     /// </summary>
     public DateTime SentAt { get; set; }

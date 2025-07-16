@@ -1,5 +1,5 @@
-using NotifyHub.Application.Interfaces;
 using NotifyHub.Domain.Entities;
+using NotifyHub.Application.Interfaces.Repositories;
 
 namespace NotifyHub.Application.Features.Queries;
 
@@ -7,8 +7,6 @@ namespace NotifyHub.Application.Features.Queries;
 public class UserQuery: BaseQuery
 {
     [GraphQLDescription("Получение пользователей")]
-    public IQueryable<User> GetUsers([Service] IDbContext db) =>
-        GetAll<User>(db);
-    
-    // TODO: заменить контекст на репозиторий
+    public IQueryable<User> GetUsers([Service] IGenericRepository<User> repository) =>
+        GetAll(repository);
 }

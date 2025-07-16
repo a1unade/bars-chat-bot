@@ -17,7 +17,7 @@ namespace NotifyHub.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.7")
+                .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -73,9 +73,6 @@ namespace NotifyHub.Persistence.Migrations
                     b.Property<string>("ErrorMessage")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("OutboxMessageId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTime>("SentAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -87,47 +84,7 @@ namespace NotifyHub.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OutboxMessageId");
-
                     b.ToTable("NotificationLogs");
-                });
-
-            modelBuilder.Entity("NotifyHub.Domain.Entities.OutboxMessage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Error")
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("NotificationId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("PayloadJson")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("ScheduledAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("SentAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NotificationId");
-
-                    b.ToTable("OutboxMessages");
                 });
 
             modelBuilder.Entity("NotifyHub.Domain.Entities.User", b =>
@@ -166,33 +123,6 @@ namespace NotifyHub.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("NotifyHub.Domain.Entities.NotificationLog", b =>
-                {
-                    b.HasOne("NotifyHub.Domain.Entities.OutboxMessage", "OutboxMessage")
-                        .WithMany()
-                        .HasForeignKey("OutboxMessageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("OutboxMessage");
-                });
-
-            modelBuilder.Entity("NotifyHub.Domain.Entities.OutboxMessage", b =>
-                {
-                    b.HasOne("NotifyHub.Domain.Entities.Notification", "Notification")
-                        .WithMany("OutboxMessages")
-                        .HasForeignKey("NotificationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Notification");
-                });
-
-            modelBuilder.Entity("NotifyHub.Domain.Entities.Notification", b =>
-                {
-                    b.Navigation("OutboxMessages");
                 });
 
             modelBuilder.Entity("NotifyHub.Domain.Entities.User", b =>

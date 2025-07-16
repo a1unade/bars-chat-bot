@@ -8,7 +8,6 @@ public class NotFoundException : Exception
     {
         [typeof(User)] = "Пользователь не найден",
         [typeof(Notification)] = "Уведомление не найдено",
-        [typeof(OutboxMessage)] = "Операция не найдена",
         [typeof(NotificationLog)] = "Запись с такой операцией не найдена",
     };
 
