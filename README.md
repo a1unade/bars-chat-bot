@@ -1,5 +1,9 @@
 ![build](https://github.com/a1unade/bars-chat-bot/actions/workflows/build.yml/badge.svg)
 
+### Архитектура проекта
+
+<img src="./materials/2.jpg" style="border-radius: 12px" />
+
 ### Как запускать проект
 
 Весь проект запускается с помощью `docker-compose`. 

@@ -1,10 +1,8 @@
 using System.Reflection;
+using NotifyHub.Application.Interfaces;
 using HotChocolate.Execution.Configuration;
-using NotifyHub.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 using NotifyHub.Application.Features.Queries;
-using NotifyHub.Application.Interfaces;
-using NotifyHub.Application.Interfaces.Services;
 
 namespace NotifyHub.Infrastructure.Extensions;
 
@@ -12,14 +10,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddInfrastructureLayer(this IServiceCollection services)
     {
-        services.AddServices();
         services.AddGraphQl();
-    }
-    
-    private static void AddServices(this IServiceCollection services)
-    {
-        services
-            .AddScoped<IEmailService, EmailService>();
     }
 
     private static void AddGraphQl(this IServiceCollection services)

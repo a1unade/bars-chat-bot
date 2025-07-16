@@ -31,9 +31,6 @@ public static class ServiceCollectionExtensions
         services
             .AddTransient<Migrator>()
             .AddScoped<IDbContext, ApplicationDbContext>()
-            .AddScoped<IUserRepository, UserRepository>()
-            .AddScoped<INotificationRepository, NotificationRepository>()
-            .AddScoped<IOutboxMessageRepository, OutboxMessageRepository>()
-            .AddScoped<INotificationLogRepository, NotificationLogRepository>();
+            .AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
     }
 }

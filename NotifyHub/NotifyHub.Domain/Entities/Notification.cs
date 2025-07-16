@@ -42,9 +42,4 @@ public class Notification: BaseEntity
     /// Навигационное свойство для связи
     /// </summary>
     public required User User { get; set; }
-
-    /// <summary>
-    /// Коллекция операций, связанных с уведомлением
-    /// </summary>
-    public required ICollection<OutboxMessage> OutboxMessages { get; set; }
 }
