@@ -8,11 +8,11 @@ public abstract class BaseMutation: IMutation
     protected BaseMutation() { }
     
     protected Task<T> Add<T>(IGenericRepository<T> repository, T entity, CancellationToken cancellationToken) where T : class => 
-        repository.Add(entity, cancellationToken);
+        repository.AddAsync(entity, cancellationToken);
     
     protected Task<T> Update<T>(IGenericRepository<T> repository, Guid id, T entity, CancellationToken cancellationToken) where T : class =>
-        repository.Update(id, entity, cancellationToken);
+        repository.UpdateAsync(id, entity, cancellationToken);
     
     protected Task Remove<T>(IGenericRepository<T> repository, Guid id, CancellationToken cancellationToken) where T : class =>
-        repository.RemoveById(id, cancellationToken);
+        repository.RemoveByIdAsync(id, cancellationToken);
 }

@@ -12,6 +12,11 @@ public class OutboxMessage: BaseEntity
     /// ID уведомления
     /// </summary>
     public Guid NotificationId { get; set; }
+    
+    /// <summary>
+    /// Навигационное свойство для связи
+    /// </summary>
+    public required Notification Notification { get; set; }
 
     /// <summary>
     /// Когда запланирована отправка

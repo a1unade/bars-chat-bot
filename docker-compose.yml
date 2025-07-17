@@ -55,9 +55,11 @@ services:
     image: postgres:16
     container_name: NotifyHub.NotificationService.PostgresSQL
     environment:
+      TZ: UTC
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: notify_hub_notifications
       POSTGRES_DB: notify_hub_notifications_db
+    command: ["postgres", "-c", "timezone=UTC"]
     volumes:
       - notify_db_data:/var/lib/postgresql/data
     ports:
@@ -73,9 +75,11 @@ services:
     image: postgres:16
     container_name: NotifyHub.PostgresSQL
     environment:
+      TZ: UTC
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: notify_hub
       POSTGRES_DB: notify_hub_db
+    command: ["postgres", "-c", "timezone=UTC"]
     volumes:
       - db_data:/var/lib/postgresql/data
     ports:

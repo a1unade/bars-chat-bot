@@ -9,13 +9,16 @@ public enum OperationStatus
 {
     [Description("Создана")]
     Created,
-    
-    [Description("Выполняется")]
+
+    [Description("В процессе")]
     InProgress,
-    
-    [Description("Завершена")]
-    Completed,
-    
+
+    [Description("Успешно отправлена")]
+    Sent,
+
+    [Description("Ошибка отправки")]
+    Failed,
+
     [Description("Отменена")]
     Cancelled
 }
