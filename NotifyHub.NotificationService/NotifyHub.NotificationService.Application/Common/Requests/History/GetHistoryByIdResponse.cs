@@ -1,13 +1,17 @@
-using NotifyHub.Domain.Common;
-using NotifyHub.Domain.Common.Enums;
+using NotifyHub.NotificationService.Domain.Common.Enums;
 
-namespace NotifyHub.Domain.Entities;
+namespace NotifyHub.NotificationService.Application.Common.Requests.History;
 
 /// <summary>
-/// Лог для завершенных операций
+/// Запись об отправке
 /// </summary>
-public class NotificationLog : BaseEntity
+public class GetHistoryByIdResponse
 {
+    /// <summary>
+    /// Id записи
+    /// </summary>
+    public Guid Id { get; set; }
+
     /// <summary>
     /// Во сколько было отправлено
     /// </summary>

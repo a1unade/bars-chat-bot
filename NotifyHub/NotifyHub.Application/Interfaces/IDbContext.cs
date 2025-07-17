@@ -20,7 +20,7 @@ public interface IDbContext
     /// <summary>
     /// История 
     /// </summary>
-    public DbSet<NotificationLog> NotificationLogs { get; set; }
+    public DbSet<OutboxMessage> OutboxMessages { get; set; }
     
     /// <summary>
     /// Универсальный доступ к DbSet по типу сущности

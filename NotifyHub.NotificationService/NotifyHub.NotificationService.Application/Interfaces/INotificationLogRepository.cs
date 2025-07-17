@@ -1,6 +1,6 @@
 namespace NotifyHub.NotificationService.Application.Interfaces;
 
-public interface IOutboxMessageRepository
+public interface INotificationLogRepository
 {
     
 }

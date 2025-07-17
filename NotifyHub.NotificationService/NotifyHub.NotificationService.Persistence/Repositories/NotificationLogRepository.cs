@@ -2,7 +2,7 @@ using NotifyHub.NotificationService.Application.Interfaces;
 
 namespace NotifyHub.NotificationService.Persistence.Repositories;
 
-public class OutboxMessageRepository(IDbContext context): IOutboxMessageRepository
+public class NotificationLogRepository(IDbContext context): INotificationLogRepository
 {
     private readonly IDbContext _context = context;
     

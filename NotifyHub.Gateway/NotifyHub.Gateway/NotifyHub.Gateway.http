@@ -1,0 +1,6 @@
+@NotifyHub.Gateway_HostAddress = http://localhost:5269
+
+GET {{NotifyHub.Gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,7 +1,7 @@
-using NotifyHub.NotificationService.Domain.Common;
-using NotifyHub.NotificationService.Domain.Common.Enums;
+using NotifyHub.Domain.Common;
+using NotifyHub.Domain.Common.Enums;
 
-namespace NotifyHub.NotificationService.Domain.Entities;
+namespace NotifyHub.Domain.Entities;
 
 /// <summary>
 /// Операция по отправке уведомления

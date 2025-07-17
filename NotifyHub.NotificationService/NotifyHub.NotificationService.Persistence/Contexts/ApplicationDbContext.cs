@@ -7,7 +7,7 @@ namespace NotifyHub.NotificationService.Persistence.Contexts;
 
 public class ApplicationDbContext: DbContext, IDbContext
 {
-    public DbSet<OutboxMessage> OutboxMessages { get; set; }
+    public DbSet<NotificationLog> NotificationLogs { get; set; }
     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
         : base(options)
