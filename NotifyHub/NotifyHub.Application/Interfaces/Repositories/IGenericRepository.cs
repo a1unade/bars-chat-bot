@@ -13,7 +13,7 @@ public interface IGenericRepository<T> where T : class
     /// </summary>
     /// <param name="entity">Сущность</param>
     /// <param name="cancellationToken">CancellationToken</param>
-    Task<T> Add(T entity, CancellationToken cancellationToken);
+    Task<T> AddAsync(T entity, CancellationToken cancellationToken);
 
     /// <summary>
     /// Получить все записи о сущности
@@ -31,14 +31,14 @@ public interface IGenericRepository<T> where T : class
     /// </summary>
     /// <param name="id">Id</param>
     /// <param name="cancellationToken">CancellationToken</param>
-    Task<T?> GetById(Guid id, CancellationToken cancellationToken);
+    Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
     /// <summary>
     /// Удалить сущность по Id
     /// </summary>
     /// <param name="id">Id</param>
     /// <param name="cancellationToken">CancellationToken</param>
-    Task RemoveById(Guid id, CancellationToken cancellationToken);
+    Task RemoveByIdAsync(Guid id, CancellationToken cancellationToken);
     
     /// <summary>
     /// Обновить сущность по ID
@@ -46,5 +46,5 @@ public interface IGenericRepository<T> where T : class
     /// <param name="id">ID сущности</param>
     /// <param name="entity">Сущность</param>
     /// <param name="cancellationToken">CancellationToken</param>
-    Task<T> Update(Guid id, T entity, CancellationToken cancellationToken);
+    Task<T> UpdateAsync(Guid id, T entity, CancellationToken cancellationToken);
 }

@@ -6,6 +6,7 @@ using NotifyHub.Application.Interfaces.Repositories;
 using NotifyHub.Persistence.Contexts;
 using NotifyHub.Persistence.MigrationTools;
 using NotifyHub.Persistence.Repositories;
+using NotifyHub.Persistence.Seeder;
 
 namespace NotifyHub.Persistence.Extensions;
 
@@ -30,6 +31,7 @@ public static class ServiceCollectionExtensions
     {
         services
             .AddTransient<Migrator>()
+            .AddScoped<IDbSeeder, DbSeeder>()
             .AddScoped<IDbContext, ApplicationDbContext>()
             .AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
     }
