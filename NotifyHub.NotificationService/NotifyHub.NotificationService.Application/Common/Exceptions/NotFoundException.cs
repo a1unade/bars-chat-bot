@@ -1,14 +1,12 @@
-using NotifyHub.Domain.Entities;
+using NotifyHub.NotificationService.Domain.Entities;
 
-namespace NotifyHub.Application.Common.Exceptions;
+namespace NotifyHub.NotificationService.Application.Common.Exceptions;
 
 public class NotFoundException : Exception
 {
     private static readonly IDictionary<Type, string> EntityException = new Dictionary<Type, string>
     {
-        [typeof(User)] = "Пользователь не найден",
-        [typeof(Notification)] = "Уведомление не найдено",
-        [typeof(OutboxMessage)] = "Запись с такой операцией не найдена",
+        [typeof(NotificationLog)] = "Запись об отправке не найдена",
     };
 
     public NotFoundException(Guid id)
@@ -27,7 +25,7 @@ public class NotFoundException : Exception
     }
 
     public NotFoundException()
-        : base("Сущность не найдена")
+        : base("Entity not found.`")
     {
     }
 

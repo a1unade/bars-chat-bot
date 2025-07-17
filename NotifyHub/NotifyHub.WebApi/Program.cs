@@ -12,10 +12,15 @@ builder.Services.AddInfrastructureLayer();
 // Регистрация контекста базы данных и репозиториев
 builder.Services.AddPersistenceLayer(builder.Configuration);
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 // Применение миграций
 await app.UseMigrations();
+
+// Применение CORS политики для gateway
+app.UseCorsPolicy();
 // Обработка исключений
 app.UseExceptionMiddleware();
 

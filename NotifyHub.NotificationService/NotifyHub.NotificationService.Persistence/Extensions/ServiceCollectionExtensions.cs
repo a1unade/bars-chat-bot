@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NotifyHub.NotificationService.Application.Interfaces;
+using NotifyHub.NotificationService.Domain.Entities;
 using NotifyHub.NotificationService.Persistence.Contexts;
 using NotifyHub.NotificationService.Persistence.MigrationTools;
 using NotifyHub.NotificationService.Persistence.Repositories;
@@ -30,6 +31,6 @@ public static class ServiceCollectionExtensions
         services
             .AddTransient<Migrator>()
             .AddScoped<IDbContext, ApplicationDbContext>()
-            .AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
+            .AddScoped<INotificationLogRepository, NotificationLogRepository>();
     }
 }

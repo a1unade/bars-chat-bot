@@ -7,9 +7,9 @@ namespace NotifyHub.NotificationService.Application.Interfaces;
 public interface IDbContext
 {
     /// <summary>
-    /// Операции по отправке
+    /// История отправки
     /// </summary>
-    public DbSet<OutboxMessage> OutboxMessages { get; set; }
+    public DbSet<NotificationLog> NotificationLogs { get; set; }
     
     /// <summary>
     /// Универсальный доступ к DbSet по типу сущности
