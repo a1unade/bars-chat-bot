@@ -20,7 +20,7 @@ jobs:
 
       - name: Build and push webapi image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-webapi:latest -f ./NotifyHub/NotifyHub.WebAPI/Dockerfile ./NotifyHub
+          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-webapi:latest -f ./NotifyHub.WebAPI/Dockerfile ./NotifyHub
           docker push ghcr.io/${{ github.repository_owner }}/notifyhub-webapi:latest
 
   deploy-gateway:
@@ -38,7 +38,7 @@ jobs:
 
       - name: Build and push gateway image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-gateway:latest -f ./NotifyHub.Gateway/NotifyHub.Gateway/Dockerfile ./NotifyHub.Gateway
+          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-gateway:latest -f ./NotifyHub.Gateway/Dockerfile ./NotifyHub.Gateway
           docker push ghcr.io/${{ github.repository_owner }}/notifyhub-gateway:latest
 
   deploy-notification:
@@ -56,7 +56,7 @@ jobs:
 
       - name: Build and push notification image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-notification:latest -f ./NotifyHub.NotificationService/NotifyHub.NotificationService.WebAPI/Dockerfile ./NotifyHub.NotificationService
+          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-notification:latest -f ./NotifyHub.NotificationService.WebAPI/Dockerfile ./NotifyHub.NotificationService
           docker push ghcr.io/${{ github.repository_owner }}/notifyhub-notification:latest
 
   deploy-outbox:
@@ -74,7 +74,7 @@ jobs:
 
       - name: Build and push outbox image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-outbox:latest -f ./NotifyHub.OutboxProcessor/NotifyHub.OutboxProcessor.WebAPI/Dockerfile ./NotifyHub.OutboxProcessor
+          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-outbox:latest -f ./NotifyHub.OutboxProcessor.WebAPI/Dockerfile ./NotifyHub.OutboxProcessor
           docker push ghcr.io/${{ github.repository_owner }}/notifyhub-outbox:latest
 
   deploy-compose:
