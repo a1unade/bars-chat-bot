@@ -1,0 +1,93 @@
+name: deploy
+
+on:
+  workflow_run:
+    workflows: ["build"]
+    types: [completed]
+
+jobs:
+  deploy-webapi:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GHCR_DEPLOY_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build and push webapi image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-webapi:latest -f ./NotifyHub/NotifyHub.WebAPI/Dockerfile ./NotifyHub
+          docker push ghcr.io/${{ github.repository_owner }}/notifyhub-webapi:latest
+
+  deploy-gateway:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    needs: deploy-webapi
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GHCR_DEPLOY_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build and push gateway image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-gateway:latest -f ./NotifyHub.Gateway/NotifyHub.Gateway/Dockerfile ./NotifyHub.Gateway
+          docker push ghcr.io/${{ github.repository_owner }}/notifyhub-gateway:latest
+
+  deploy-notification:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    needs: deploy-gateway
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GHCR_DEPLOY_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build and push notification image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-notification:latest -f ./NotifyHub.NotificationService/NotifyHub.NotificationService.WebAPI/Dockerfile ./NotifyHub.NotificationService
+          docker push ghcr.io/${{ github.repository_owner }}/notifyhub-notification:latest
+
+  deploy-outbox:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    needs: deploy-notification
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GHCR_DEPLOY_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build and push outbox image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-outbox:latest -f ./NotifyHub.OutboxProcessor/NotifyHub.OutboxProcessor.WebAPI/Dockerfile ./NotifyHub.OutboxProcessor
+          docker push ghcr.io/${{ github.repository_owner }}/notifyhub-outbox:latest
+
+  deploy-compose:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    needs: [deploy-webapi, deploy-gateway, deploy-notification, deploy-outbox]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GHCR_DEPLOY_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Run docker-compose
+        run: |
+          docker-compose -f docker-compose.yml pull
+          docker-compose -f docker-compose.yml up -d

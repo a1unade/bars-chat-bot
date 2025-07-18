@@ -1,7 +1,7 @@
-using NotifyHub.Domain.Common;
-using NotifyHub.Domain.Common.Enums;
+using NotifyHub.OutboxProcessor.Domain.Common;
+using NotifyHub.OutboxProcessor.Domain.Common.Enums;
 
-namespace NotifyHub.Domain.Entities;
+namespace NotifyHub.OutboxProcessor.Domain.Entities;
 
 /// <summary>
 /// Операция по отправке уведомления
@@ -11,17 +11,22 @@ public class OutboxMessage: BaseEntity
     /// <summary>
     /// ID уведомления
     /// </summary>
-    public Guid NotificationId { get; set; }
+    public required Guid NotificationId { get; set; }
     
     /// <summary>
-    /// Навигационное свойство для связи
+    /// Тип отправки (периодическая/одноразовая)
     /// </summary>
-    public required Notification Notification { get; set; }
+    public required OperationType Type { get; set; }
+    
+    /// <summary>
+    /// Частота отправки
+    /// </summary>
+    public OperationFrequency? Frequency { get; set; }
 
     /// <summary>
     /// Когда запланирована отправка
     /// </summary>
-    public DateTime ScheduledAt { get; set; }
+    public required DateTime ScheduledAt { get; set; }
     
     /// <summary>
     /// Когда было отправлено
@@ -31,7 +36,7 @@ public class OutboxMessage: BaseEntity
     /// <summary>
     /// Статус отправки
     /// </summary>
-    public OperationStatus Status { get; set; } = OperationStatus.Created;
+    public required OperationStatus Status { get; set; } = OperationStatus.Created;
     
     /// <summary>
     /// Сообщение об ошибке

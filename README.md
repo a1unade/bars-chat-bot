@@ -1,8 +1,9 @@
 ![build](https://github.com/a1unade/bars-chat-bot/actions/workflows/build.yml/badge.svg)
+![deploy](https://github.com/a1unade/bars-chat-bot/actions/workflows/deploy.yml/badge.svg)
 
 ### Архитектура проекта
 
-<img src="./materials/2.jpg" style="border-radius: 12px" />
+<img src="./materials/2.jpeg" style="border-radius: 12px" />
 
 ### Как запускать проект
 

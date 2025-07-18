@@ -1,14 +1,14 @@
-using NotifyHub.Domain.Entities;
-using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using NotifyHub.Domain.Common.Enums;
-using NotifyHub.Application.Interfaces.Repositories;
+using Microsoft.Extensions.Logging;
+using NotifyHub.OutboxProcessor.Application.Interfaces;
+using NotifyHub.OutboxProcessor.Domain.Common.Enums;
+using NotifyHub.OutboxProcessor.Domain.Entities;
 
-namespace NotifyHub.Infrastructure.Processors;
+namespace NotifyHub.OutboxProcessor.Infrastructure.Processors;
 
-public class OutboxProcessor(IGenericRepository<OutboxMessage> repository, ILogger<OutboxProcessor> logger)
+public class OutboxProcessor(IOutboxMessageRepository repository, ILogger<OutboxProcessor> logger)
 {
-    private readonly IGenericRepository<OutboxMessage> _repository = repository;
+    private readonly IOutboxMessageRepository _repository = repository;
     private readonly ILogger<OutboxProcessor> _logger = logger;
     
     public async Task ProcessAsync(CancellationToken cancellationToken)
@@ -17,7 +17,6 @@ public class OutboxProcessor(IGenericRepository<OutboxMessage> repository, ILogg
 
         var messages = await _repository
             .Get(x => x.ScheduledAt <= now && x.Status == OperationStatus.Created)
-            .Include(x => x.Notification)
             .ToListAsync(cancellationToken);
 
         foreach (var message in messages)
@@ -37,7 +36,7 @@ public class OutboxProcessor(IGenericRepository<OutboxMessage> repository, ILogg
                 message.SentAt = DateTime.UtcNow;
                 message.ScheduledAt = GetNewScheduledAt(message);
                 
-                if (message.Notification.Type == NotificationType.OneTime)
+                if (message.Type == OperationType.OneTime)
                     await _repository.RemoveByIdAsync(message.Id, cancellationToken);
                 else
                     await _repository.UpdateAsync(message.Id, message, cancellationToken);
@@ -73,13 +72,13 @@ public class OutboxProcessor(IGenericRepository<OutboxMessage> repository, ILogg
     /// <param name="message">Запись с запланированной отправкой</param>
     /// <returns>Время отправки (когда необходимо отправить сообщение)</returns>
     private DateTime GetNewScheduledAt(OutboxMessage message) =>
-        message.Notification.Frequency switch
+        message.Frequency switch
         {
-            NotificationFrequency.Hourly => DateTime.UtcNow.AddHours(1),
-            NotificationFrequency.Daily => DateTime.UtcNow.AddDays(1),
-            NotificationFrequency.Weekly => DateTime.UtcNow.AddDays(7),
-            NotificationFrequency.Monthly => DateTime.UtcNow.AddMonths(1),
-            NotificationFrequency.Yearly => DateTime.UtcNow.AddYears(1),
+            OperationFrequency.Hourly => DateTime.UtcNow.AddHours(1),
+            OperationFrequency.Daily => DateTime.UtcNow.AddDays(1),
+            OperationFrequency.Weekly => DateTime.UtcNow.AddDays(7),
+            OperationFrequency.Monthly => DateTime.UtcNow.AddMonths(1),
+            OperationFrequency.Yearly => DateTime.UtcNow.AddYears(1),
             _ => DateTime.UtcNow
         };
 }
