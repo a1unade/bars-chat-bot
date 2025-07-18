@@ -12,12 +12,13 @@ services:
     depends_on:
       - webapi
       - notification_microservice
+      - outbox_processor
     
   webapi:
     build:
       context: ./NotifyHub
-      dockerfile: NotifyHub.WebAPI/Dockerfile 
-    container_name: NotifyHub.WebAPI
+      dockerfile: NotifyHub.WebApi/Dockerfile 
+    container_name: NotifyHub.WebApi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__Postgres=Host=db;Port=5432;Username=postgres;Password=notify_hub;Database=notify_hub_db;
@@ -35,8 +36,8 @@ services:
   notification_microservice:
     build:
       context: ./NotifyHub.NotificationService
-      dockerfile: NotifyHub.NotificationService.WebAPI/Dockerfile 
-    container_name: NotifyHub.NotificationService.WebAPI
+      dockerfile: NotifyHub.NotificationService.WebApi/Dockerfile 
+    container_name: NotifyHub.NotificationService.WebApi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__Postgres=Host=notify_db;Port=5432;Username=postgres;Password=notify_hub_notifications;Database=notify_hub_notifications_db;
@@ -54,7 +55,7 @@ services:
   outbox_processor:
     build:
       context: ./NotifyHub.OutboxProcessor
-      dockerfile: NotifyHub.OutboxProcessor.WebAPI/Dockerfile 
+      dockerfile: NotifyHub.OutboxProcessor.WebApi/Dockerfile 
     container_name: NotifyHub.OutboxProcessor
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
