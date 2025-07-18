@@ -1,7 +1,7 @@
 using Hangfire;
-using NotifyHub.Infrastructure.Jobs;
+using NotifyHub.OutboxProcessor.Infrastructure.Jobs;
 
-namespace NotifyHub.WebApi.Configurations;
+namespace NotifyHub.OutboxProcessor.WebApi.Configurations;
 
 public static class HangfireConfiguration
 {

@@ -1,15 +1,13 @@
-using NotifyHub.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using NotifyHub.Application.Interfaces;
 using Microsoft.EntityFrameworkCore.Storage;
+using NotifyHub.OutboxProcessor.Application.Interfaces;
+using NotifyHub.OutboxProcessor.Domain.Entities;
 
-namespace NotifyHub.Persistence.Contexts;
+namespace NotifyHub.OutboxProcessor.Persistence.Contexts;
 
 public class ApplicationDbContext: DbContext, IDbContext
 {
-    public DbSet<User> Users { get; set; }
-    
-    public DbSet<Notification> Notifications { get; set; }
+    public DbSet<OutboxMessage> OutboxMessages { get; set; }
     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
         : base(options)

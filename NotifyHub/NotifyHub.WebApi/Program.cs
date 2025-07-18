@@ -23,8 +23,6 @@ await app.UseMigrations();
 app.UseCorsPolicy();
 // Обработка исключений
 app.UseExceptionMiddleware();
-// Hangfire jobs
-app.UseHangfire();
 // GraphQL 
 app.MapGraphQL();
 

@@ -1,13 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NotifyHub.Application.Interfaces;
-using NotifyHub.Application.Interfaces.Repositories;
-using NotifyHub.Persistence.Contexts;
-using NotifyHub.Persistence.MigrationTools;
-using NotifyHub.Persistence.Repositories;
+using NotifyHub.OutboxProcessor.Application.Interfaces;
+using NotifyHub.OutboxProcessor.Persistence.Contexts;
+using NotifyHub.OutboxProcessor.Persistence.MigrationTools;
+using NotifyHub.OutboxProcessor.Persistence.Repositories;
 
-namespace NotifyHub.Persistence.Extensions;
+namespace NotifyHub.OutboxProcessor.Persistence.Extensions;
 
 public static class ServiceCollectionExtensions
 {
@@ -31,6 +30,6 @@ public static class ServiceCollectionExtensions
         services
             .AddTransient<Migrator>()
             .AddScoped<IDbContext, ApplicationDbContext>()
-            .AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            .AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
     }
 }

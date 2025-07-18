@@ -1,21 +1,16 @@
-using NotifyHub.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
+using NotifyHub.OutboxProcessor.Domain.Entities;
 
-namespace NotifyHub.Application.Interfaces;
+namespace NotifyHub.OutboxProcessor.Application.Interfaces;
 
 public interface IDbContext
 {
     /// <summary>
-    /// Пользователи
+    /// Операции на отправку 
     /// </summary>
-    public DbSet<User> Users { get; set; }
-    
-    /// <summary>
-    /// Уведомления
-    /// </summary>
-    public DbSet<Notification> Notifications { get; set; }
+    public DbSet<OutboxMessage> OutboxMessages { get; set; }
     
     /// <summary>
     /// Универсальный доступ к DbSet по типу сущности

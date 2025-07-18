@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using NotifyHub.Application.Interfaces;
-using NotifyHub.Persistence.Contexts;
+using NotifyHub.OutboxProcessor.Persistence.Contexts;
 
-namespace NotifyHub.Persistence.MigrationTools;
+namespace NotifyHub.OutboxProcessor.Persistence.MigrationTools;
 
 public class Migrator(ApplicationDbContext context, ILogger<Migrator> logger)
 {

@@ -1,0 +1,6 @@
+@NotifyHub.OutboxProcessor.WebApi_HostAddress = http://localhost:5156
+
+GET {{NotifyHub.OutboxProcessor.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
