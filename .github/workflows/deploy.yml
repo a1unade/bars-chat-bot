@@ -15,9 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cat Dockerfile
-        run: cat NotifyHub/NotifyHub.WebAPI/Dockerfile
-
       - name: Log in to GHCR
         run: echo "${{ secrets.GHCR_DEPLOY_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
