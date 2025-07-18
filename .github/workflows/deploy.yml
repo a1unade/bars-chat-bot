@@ -15,13 +15,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.11.0
+        with:
+          versionSpec: '5.x'
+
+      - name: Run GitVersion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.11.0
+
       - name: Log in to GHCR
         run: echo "${{ secrets.GHCR_DEPLOY_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build and push webapi image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-webapi:latest -f ./NotifyHub/NotifyHub.WebApi/Dockerfile NotifyHub
-          docker push ghcr.io/${{ github.repository_owner }}/notifyhub-webapi:latest
+          VERSION=${{ steps.gitversion.outputs.semVer }}
+          IMAGE=ghcr.io/${{ github.repository_owner }}/notifyhub-webapi
+          docker build -t $IMAGE:latest -t $IMAGE:$VERSION -f ./NotifyHub/NotifyHub.WebApi/Dockerfile NotifyHub
+          docker push $IMAGE:latest
+          docker push $IMAGE:$VERSION
 
   deploy-gateway:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -33,13 +45,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.11.0
+        with:
+          versionSpec: '5.x'
+
+      - name: Run GitVersion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.11.0
+
       - name: Log in to GHCR
         run: echo "${{ secrets.GHCR_DEPLOY_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build and push gateway image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-gateway:latest -f ./NotifyHub.Gateway/NotifyHub.Gateway/Dockerfile NotifyHub.Gateway
-          docker push ghcr.io/${{ github.repository_owner }}/notifyhub-gateway:latest
+          VERSION=${{ steps.gitversion.outputs.semVer }}
+          IMAGE=ghcr.io/${{ github.repository_owner }}/notifyhub-gateway
+          docker build -t $IMAGE:latest -t $IMAGE:$VERSION -f ./NotifyHub.Gateway/NotifyHub.Gateway/Dockerfile NotifyHub.Gateway
+          docker push $IMAGE:latest
+          docker push $IMAGE:$VERSION
 
   deploy-notification:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -51,13 +75,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.11.0
+        with:
+          versionSpec: '5.x'
+
+      - name: Run GitVersion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.11.0
+
       - name: Log in to GHCR
         run: echo "${{ secrets.GHCR_DEPLOY_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build and push notification image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-notification:latest -f ./NotifyHub.NotificationService/NotifyHub.NotificationService.WebApi/Dockerfile NotifyHub.NotificationService
-          docker push ghcr.io/${{ github.repository_owner }}/notifyhub-notification:latest
+          VERSION=${{ steps.gitversion.outputs.semVer }}
+          IMAGE=ghcr.io/${{ github.repository_owner }}/notifyhub-notification
+          docker build -t $IMAGE:latest -t $IMAGE:$VERSION -f ./NotifyHub.NotificationService/NotifyHub.NotificationService.WebApi/Dockerfile NotifyHub.NotificationService
+          docker push $IMAGE:latest
+          docker push $IMAGE:$VERSION
 
   deploy-outbox:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -69,13 +105,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.11.0
+        with:
+          versionSpec: '5.x'
+
+      - name: Run GitVersion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.11.0
+
       - name: Log in to GHCR
         run: echo "${{ secrets.GHCR_DEPLOY_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build and push outbox image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-outbox:latest -f ./NotifyHub.OutboxProcessor/NotifyHub.OutboxProcessor.WebApi/Dockerfile NotifyHub.OutboxProcessor
-          docker push ghcr.io/${{ github.repository_owner }}/notifyhub-outbox:latest
+          VERSION=${{ steps.gitversion.outputs.semVer }}
+          IMAGE=ghcr.io/${{ github.repository_owner }}/notifyhub-outbox
+          docker build -t $IMAGE:latest -t $IMAGE:$VERSION -f ./NotifyHub.OutboxProcessor/NotifyHub.OutboxProcessor.WebApi/Dockerfile NotifyHub.OutboxProcessor
+          docker push $IMAGE:latest
+          docker push $IMAGE:$VERSION
 
   deploy-compose:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -89,5 +137,5 @@ jobs:
 
       - name: Run docker-compose
         run: |
-          docker-compose -f docker-compose.yml pull
-          docker-compose -f docker-compose.yml up -d
+          docker compose -f docker-compose.yml pull
+          docker compose -f docker-compose.yml up -d
