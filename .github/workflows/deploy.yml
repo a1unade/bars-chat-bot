@@ -15,24 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: List files
-        run: ls -la
-
-      - name: List files NotifyHub
-        run: ls -la NotifyHub
-
-      - name: List files NotifyHub
-        run: ls -la ./NotifyHub/NotifyHub.WebAPI
-
-      - name: Cat Dockerfile
-        run:  cat ./NotifyHub/NotifyHub.WebAPI/Dockerfile    
-
       - name: Log in to GHCR
         run: echo "${{ secrets.GHCR_DEPLOY_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build and push webapi image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-webapi:latest -f ./NotifyHub/NotifyHub.WebAPI/Dockerfile ./NotifyHub
+          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-webapi:latest -f NotifyHub/NotifyHub.WebAPI/Dockerfile NotifyHub
           docker push ghcr.io/${{ github.repository_owner }}/notifyhub-webapi:latest
 
   deploy-gateway:
@@ -50,7 +38,7 @@ jobs:
 
       - name: Build and push gateway image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-gateway:latest -f ./NotifyHub.Gateway/Dockerfile ./NotifyHub.Gateway
+          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-gateway:latest -f NotifyHub.Gateway/Dockerfile NotifyHub.Gateway
           docker push ghcr.io/${{ github.repository_owner }}/notifyhub-gateway:latest
 
   deploy-notification:
@@ -68,7 +56,7 @@ jobs:
 
       - name: Build and push notification image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-notification:latest -f ./NotifyHub.NotificationService.WebAPI/Dockerfile ./NotifyHub.NotificationService
+          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-notification:latest -f NotifyHub.NotificationService.WebAPI/Dockerfile NotifyHub.NotificationService
           docker push ghcr.io/${{ github.repository_owner }}/notifyhub-notification:latest
 
   deploy-outbox:
@@ -86,7 +74,7 @@ jobs:
 
       - name: Build and push outbox image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-outbox:latest -f ./NotifyHub.OutboxProcessor.WebAPI/Dockerfile ./NotifyHub.OutboxProcessor
+          docker build -t ghcr.io/${{ github.repository_owner }}/notifyhub-outbox:latest -f NotifyHub.OutboxProcessor.WebAPI/Dockerfile NotifyHub.OutboxProcessor
           docker push ghcr.io/${{ github.repository_owner }}/notifyhub-outbox:latest
 
   deploy-compose:
