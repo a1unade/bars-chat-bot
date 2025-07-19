@@ -134,38 +134,38 @@ jobs:
           docker push $IMAGE:$VERSION
 
     deploy-compose:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
-    needs: [deploy-webapi, deploy-gateway, deploy-notification, deploy-outbox]
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      if: ${{ github.event.workflow_run.conclusion == 'success' }}
+      runs-on: ubuntu-latest
+      needs: [deploy-webapi, deploy-gateway, deploy-notification, deploy-outbox]
+      steps:
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
 
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.14
-        with:
-          versionSpec: '6.2.x'
+        - name: Install GitVersion
+          uses: gittools/actions/gitversion/setup@v0.9.14
+          with:
+            versionSpec: '6.2.x'
 
-      - name: Run GitVersion
-        id: gitversion
-        uses: gittools/actions/gitversion/execute@v0.9.14
+        - name: Run GitVersion
+          id: gitversion
+          uses: gittools/actions/gitversion/execute@v0.9.14
 
-      - name: Make generate-compose.sh executable
-        run: chmod +x ./prod/generate-compose.sh
+        - name: Make generate-compose.sh executable
+          run: chmod +x ./prod/generate-compose.sh
 
-      - name: Generate docker-compose.yml for release
-        run: |
-          VERSION=${{ steps.gitversion.outputs.semVer }}
-          mkdir -p prod
-          ./prod/generate-compose.sh $VERSION
+        - name: Generate docker-compose.yml for release
+          run: |
+            VERSION=${{ steps.gitversion.outputs.semVer }}
+            mkdir -p prod
+            ./prod/generate-compose.sh $VERSION
 
-      - name: Create GitHub Release with docker-compose
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: v${{ steps.gitversion.outputs.semVer }}
-          name: Release ${{ steps.gitversion.outputs.semVer }}
-          files: prod/docker-compose.yml
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        - name: Create GitHub Release with docker-compose
+          uses: softprops/action-gh-release@v1
+          with:
+            tag_name: v${{ steps.gitversion.outputs.semVer }}
+            name: Release ${{ steps.gitversion.outputs.semVer }}
+            files: prod/docker-compose.yml
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
