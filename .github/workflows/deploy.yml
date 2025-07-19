@@ -155,7 +155,7 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Generate docker-compose.yml for release
-          run: |
+        run: |
             VERSION=${{ steps.gitversion.outputs.semVer }}
             mkdir -p prod
             ./prod/generate-compose.sh $VERSION
