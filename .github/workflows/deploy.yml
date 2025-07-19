@@ -154,7 +154,18 @@ jobs:
       - name: Log in to GHCR
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Run docker-compose
-        run: |
-          docker compose -f docker-compose.yml pull
-          docker compose -f docker-compose.yml up -d
+      - name: Generate docker-compose.yml for release
+          run: |
+            VERSION=${{ steps.gitversion.outputs.semVer }}
+            mkdir -p prod
+            ./prod/generate-compose.sh $VERSION
+      
+      - name: Create GitHub Release with docker-compose
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.gitversion.outputs.semVer }}
+          name: Release ${{ steps.gitversion.outputs.semVer }}
+          files: prod/docker-compose.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
