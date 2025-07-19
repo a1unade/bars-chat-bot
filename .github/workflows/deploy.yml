@@ -32,7 +32,7 @@ jobs:
       - name: Build and push webapi image
         run: |
           VERSION=${{ steps.gitversion.outputs.semVer }}
-          IMAGE=ghcr.io/${{ github.repository_owner }}/bars-chat-bot
+          IMAGE=ghcr.io/${{ github.repository_owner }}/bars-chat-bot-webapi
           docker build -t $IMAGE:latest -t $IMAGE:$VERSION -f ./NotifyHub/NotifyHub.WebApi/Dockerfile NotifyHub
           docker push $IMAGE:latest
           docker push $IMAGE:$VERSION
@@ -64,7 +64,7 @@ jobs:
       - name: Build and push gateway image
         run: |
           VERSION=${{ steps.gitversion.outputs.semVer }}
-          IMAGE=ghcr.io/${{ github.repository_owner }}/bars-chat-bot
+          IMAGE=ghcr.io/${{ github.repository_owner }}/bars-chat-bot-gateway
           docker build -t $IMAGE:latest -t $IMAGE:$VERSION -f ./NotifyHub.Gateway/NotifyHub.Gateway/Dockerfile NotifyHub.Gateway
           docker push $IMAGE:latest
           docker push $IMAGE:$VERSION
@@ -96,7 +96,7 @@ jobs:
       - name: Build and push notification image
         run: |
           VERSION=${{ steps.gitversion.outputs.semVer }}
-          IMAGE=ghcr.io/${{ github.repository_owner }}/bars-chat-bot
+          IMAGE=ghcr.io/${{ github.repository_owner }}/bars-chat-bot-notification
           docker build -t $IMAGE:latest -t $IMAGE:$VERSION -f ./NotifyHub.NotificationService/NotifyHub.NotificationService.WebApi/Dockerfile NotifyHub.NotificationService
           docker push $IMAGE:latest
           docker push $IMAGE:$VERSION
@@ -128,7 +128,7 @@ jobs:
       - name: Build and push outbox image
         run: |
           VERSION=${{ steps.gitversion.outputs.semVer }}
-          IMAGE=ghcr.io/${{ github.repository_owner }}/bars-chat-bot
+          IMAGE=ghcr.io/${{ github.repository_owner }}/bars-chat-bot-outbox
           docker build -t $IMAGE:latest -t $IMAGE:$VERSION -f ./NotifyHub.OutboxProcessor/NotifyHub.OutboxProcessor.WebApi/Dockerfile NotifyHub.OutboxProcessor
           docker push $IMAGE:latest
           docker push $IMAGE:$VERSION
