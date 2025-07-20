@@ -3,6 +3,7 @@ using NotifyHub.Application.Interfaces;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NotifyHub.Application.Features.Queries;
+using NotifyHub.Infrastructure.Configurations;
 
 namespace NotifyHub.Infrastructure.Extensions;
 
@@ -19,25 +20,33 @@ public static class ServiceCollectionExtensions
         services
             .AddGraphQLServer()
             .AddQueryType(d => d.Name("Query"))
+            .AddMutationType(d => d.Name("Mutation"))
             .AddTypeExtensionsFromAssembly(typeof(BaseQuery).Assembly)
             .AddFiltering()
-            .AddSorting();
+            .AddSorting()
+            .AddErrorFilter<GraphQLErrorFilter>();
     }
     
     /// <summary>
-    /// Extension-метод для регистрации всех Query через сборку, 
-    /// помеченных атрибутом <see cref="ExtendObjectTypeAttribute"/> и реализующих <see cref="IQuery"/>
+    /// Extension-метод для регистрации всех Query и Mutation через сборку, 
+    /// помеченных атрибутом <see cref="ExtendObjectTypeAttribute"/> и реализующих <see cref="IQuery"/> и <see cref="IMutation"/>
     /// </summary>
-    /// <param name="builder">GraphQL-билдер HotChocolate</param>
-    /// <param name="assembly">Сборка, в которой будут найдены и зарегистрированы все Query</param>
+    /// <param name="builder">GraphQL-builder HotChocolate</param>
+    /// <param name="assembly">Сборка, в которой будут найдены и зарегистрированы все Query и Mutation</param>
     private static IRequestExecutorBuilder AddTypeExtensionsFromAssembly(
         this IRequestExecutorBuilder builder,
         Assembly assembly)
     {
         var queryTypes = assembly.GetTypes()
             .Where(t => !t.IsAbstract && typeof(IQuery).IsAssignableFrom(t));
+        
+        var mutationTypes = assembly.GetTypes()
+            .Where(t => !t.IsAbstract && typeof(IMutation).IsAssignableFrom(t));
 
         foreach (var type in queryTypes)
+            builder.AddTypeExtension(type);
+        
+        foreach (var type in mutationTypes)
             builder.AddTypeExtension(type);
 
         return builder;

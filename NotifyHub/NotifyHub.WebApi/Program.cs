@@ -21,8 +21,6 @@ await app.UseMigrations();
 
 // Применение CORS политики для gateway
 app.UseCorsPolicy();
-// Обработка исключений
-app.UseExceptionMiddleware();
 // GraphQL 
 app.MapGraphQL();
 
