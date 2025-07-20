@@ -15,12 +15,14 @@ public class KafkaConsumer<TMessage> : IKafkaConsumer<TMessage> where TMessage :
 {
     private readonly ILogger<KafkaConsumer<TMessage>> _logger;
     private readonly IConsumer<string, TMessage> _consumer;
+    private readonly Dictionary<string, string> _consumerTopics;
 
     public KafkaConsumer(
         IOptions<KafkaOptions> options,
         ILogger<KafkaConsumer<TMessage>> logger)
     {
         _logger = logger;
+        _consumerTopics = options.Value.ConsumerTopics;
 
         var config = new ConsumerConfig
         {
@@ -38,20 +40,27 @@ public class KafkaConsumer<TMessage> : IKafkaConsumer<TMessage> where TMessage :
             })
             .Build();
 
-        var topic = options.Value.Topic;
-        _consumer.Subscribe(topic);
+        _consumer.Subscribe(_consumerTopics.Values);
     }
 
-    public Task<TMessage?> ConsumeAsync(CancellationToken cancellationToken)
+    public Task<TMessage?> ConsumeAsync(string topicKey, CancellationToken cancellationToken)
     {
+        if (!_consumerTopics.TryGetValue(topicKey, out var topicName))
+        {
+            _logger.LogError("Topic key '{TopicKey}' not found in ConsumerTopics.", topicKey);
+            return Task.FromResult<TMessage?>(null);
+        }
+
         try
         {
+            _consumer.Subscribe(topicName);
+
             var result = _consumer.Consume(cancellationToken);
             return Task.FromResult(result?.Message?.Value);
         }
         catch (ConsumeException ex)
         {
-            _logger.LogError("Consume error: {0}", ex.Error.Reason);
+            _logger.LogError("Consume error from topic '{TopicName}': {Error}", topicName, ex.Error.Reason);
             return Task.FromResult<TMessage?>(null);
         }
     }
