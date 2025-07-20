@@ -1,12 +1,12 @@
-using NotifyHub.Domain.Common;
+namespace NotifyHub.Domain.DTOs;
 
-namespace NotifyHub.Domain.Entities;
-
-/// <summary>
-/// Пользователь
-/// </summary>
-public class User: BaseEntity
+public class UserDto
 {
+    /// <summary>
+    /// ID пользователя
+    /// </summary>
+    public Guid Id { get; set; }
+    
     /// <summary>
     /// Почта (для отправки уведомлений на почту)
     /// </summary>
@@ -21,9 +21,4 @@ public class User: BaseEntity
     /// Тег телеграм
     /// </summary>
     public required string TelegramTag { get; set; }
-
-    /// <summary>
-    /// Созданные уведомления
-    /// </summary>
-    public ICollection<Notification>? Notifications { get; set; }
 }

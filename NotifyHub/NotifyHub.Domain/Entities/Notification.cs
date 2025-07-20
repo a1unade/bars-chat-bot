@@ -37,9 +37,9 @@ public class Notification: BaseEntity
     /// ID пользователя (автор уведомления)
     /// </summary>
     public Guid UserId { get; set; }
-    
+
     /// <summary>
     /// Навигационное свойство для связи
     /// </summary>
-    public required User User { get; set; }
+    public User User { get; set; } = default!;
 }
