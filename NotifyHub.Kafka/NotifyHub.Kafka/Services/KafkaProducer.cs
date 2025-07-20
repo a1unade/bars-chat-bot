@@ -9,11 +9,12 @@ namespace NotifyHub.Kafka.Services;
 public class KafkaProducer<TMessage> : IKafkaProducer<TMessage>
 {
     private readonly IProducer<string, TMessage> _producer;
-    
-    private readonly string _topic;
+    private readonly KafkaOptions _options;
     
     public KafkaProducer(IOptions<KafkaOptions> options)
     {
+        _options = options.Value;
+        
         ProducerConfig config = new ProducerConfig
         {
             BootstrapServers = options.Value.BootstrapServers,
@@ -22,13 +23,14 @@ public class KafkaProducer<TMessage> : IKafkaProducer<TMessage>
         _producer = new ProducerBuilder<string, TMessage>(config)
             .SetValueSerializer(new KafkaJsonSerializer<TMessage>())
             .Build();
-        
-        _topic = options.Value.Topic;
     }
     
-    public async Task ProduceAsync(string key, TMessage message, CancellationToken cancellationToken = default)
+    public async Task ProduceAsync(string topicKey, string key, TMessage message, CancellationToken cancellationToken = default)
     {
-        await _producer.ProduceAsync(_topic, new Message<string, TMessage>
+        if (!_options.ProducerTopics.TryGetValue(topicKey, out var topicName))
+            throw new InvalidOperationException($"Unknown topic key: {topicKey}");
+        
+        await _producer.ProduceAsync(topicName, new Message<string, TMessage>
         {
             Key = key,
             Value = message

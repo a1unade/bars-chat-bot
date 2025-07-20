@@ -126,11 +126,45 @@ services:
       interval: 5s
       retries: 5
 
+  zookeeper:
+    restart: always
+    image: docker.io/bitnami/zookeeper:3.8
+    ports:
+      - "2181:2181"
+    networks:
+      - notify_hub_network
+    volumes:
+      - "zookeeper-volume:/bitnami"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka:
+    restart: always
+    image: docker.io/bitnami/kafka:3.3
+    ports:
+      - "9093:9093"
+    networks:
+      - notify_hub_network
+    volumes:
+      - "kafka-volume:/bitnami"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9092,EXTERNAL://localhost:9093
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
+    depends_on:
+      - zookeeper
+
 volumes:
   db_data:
+  kafka-volume:
   notify_db_data:
   outbox_db_data:
   data_protection:
+  zookeeper-volume:
 
 networks:
   notify_hub_network:
