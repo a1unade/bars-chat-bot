@@ -37,15 +37,6 @@ jobs:
           docker push $IMAGE:latest
           docker push $IMAGE:$VERSION
 
-      - name: Create GitHub Deployment
-        uses: actions/create-deployment@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          environment: production
-          description: "Deploy webapi version ${{ steps.gitversion.outputs.semVer }}"
-          transient_environment: false
-          auto_merge: false
-
   deploy-gateway:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
@@ -77,15 +68,6 @@ jobs:
           docker build -t $IMAGE:latest -t $IMAGE:$VERSION -f ./NotifyHub.Gateway/NotifyHub.Gateway/Dockerfile NotifyHub.Gateway
           docker push $IMAGE:latest
           docker push $IMAGE:$VERSION
-
-      - name: Create GitHub Deployment
-        uses: actions/create-deployment@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          environment: production
-          description: "Deploy gateway version ${{ steps.gitversion.outputs.semVer }}"
-          transient_environment: false
-          auto_merge: false
 
   deploy-notification:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -119,15 +101,6 @@ jobs:
           docker push $IMAGE:latest
           docker push $IMAGE:$VERSION
 
-      - name: Create GitHub Deployment
-        uses: actions/create-deployment@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          environment: production
-          description: "Deploy notification version ${{ steps.gitversion.outputs.semVer }}"
-          transient_environment: false
-          auto_merge: false
-
   deploy-outbox:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
@@ -159,15 +132,6 @@ jobs:
           docker build -t $IMAGE:latest -t $IMAGE:$VERSION -f ./NotifyHub.OutboxProcessor/NotifyHub.OutboxProcessor.WebApi/Dockerfile NotifyHub.OutboxProcessor
           docker push $IMAGE:latest
           docker push $IMAGE:$VERSION
-
-      - name: Create GitHub Deployment
-        uses: actions/create-deployment@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          environment: production
-          description: "Deploy outbox version ${{ steps.gitversion.outputs.semVer }}"
-          transient_environment: false
-          auto_merge: false
 
   deploy-compose:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -205,16 +169,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create GitHub Deployment
-        uses: actions/create-deployment@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          environment: production
-          description: "Deploy compose version ${{ steps.gitversion.outputs.semVer }}"
-          transient_environment: false
-          auto_merge: false
-
-
   deploy-nuget:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
@@ -251,12 +205,3 @@ jobs:
 
       - name: Publish package to GitHub Packages
         run: dotnet nuget push ./nupkg/*.nupkg --source github --skip-duplicate
-
-      - name: Create GitHub Deployment
-        uses: actions/create-deployment@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          environment: nuget
-          description: "Publish NuGet package version ${{ steps.gitversion.outputs.semVer }}"
-          transient_environment: false
-          auto_merge: false
