@@ -18,8 +18,6 @@ var app = builder.Build();
 
 // Применение миграций
 await app.UseMigrations();
-// Создание топиков в Kafka
-await app.UseKafka();
 
 // Применение CORS политики для gateway
 app.UseCorsPolicy();

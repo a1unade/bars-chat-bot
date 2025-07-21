@@ -1,5 +1,5 @@
 using NotifyHub.Domain.Common;
-using NotifyHub.Abstractions.Enums;
+using NotifyHub.Domain.Common.Enums;
 
 namespace NotifyHub.Domain.Entities;
 

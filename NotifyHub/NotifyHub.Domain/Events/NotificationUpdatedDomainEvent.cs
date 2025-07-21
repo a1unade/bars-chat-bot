@@ -1,5 +1,5 @@
+using NotifyHub.Domain.DTOs;
 using NotifyHub.Domain.Common;
-using NotifyHub.Abstractions.DTOs;
 
 namespace NotifyHub.Domain.Events;
 

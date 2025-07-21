@@ -1,4 +1,4 @@
-using NotifyHub.Abstractions.Enums;
+using NotifyHub.Domain.Common.Enums;
 
 namespace NotifyHub.Application.Requests.Notification;
 
@@ -10,7 +10,7 @@ public class CreateNotificationRequest
     /// <summary>
     /// ID пользователя
     /// </summary>
-    public Guid UserId { get; set; }
+    public required Guid UserId { get; set; }
     
     /// <summary>
     /// Название уведомления
@@ -25,7 +25,7 @@ public class CreateNotificationRequest
     /// <summary>
     /// Тип уведомления (разовое/периодическое)
     /// </summary>
-    public NotificationType Type { get; set; }
+    public required NotificationType Type { get; set; }
     
     /// <summary>
     /// Частота отправки
@@ -35,5 +35,5 @@ public class CreateNotificationRequest
     /// <summary>
     /// Во сколько запланирована отправка
     /// </summary>
-    public DateTime ScheduledAt { get; set; }
+    public required DateTime ScheduledAt { get; set; }
 }

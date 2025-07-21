@@ -1,5 +1,5 @@
 using AutoMapper;
-using NotifyHub.Abstractions.DTOs;
+using NotifyHub.Domain.DTOs;
 using NotifyHub.Domain.Entities;
 using NotifyHub.Application.Requests.Notification;
 

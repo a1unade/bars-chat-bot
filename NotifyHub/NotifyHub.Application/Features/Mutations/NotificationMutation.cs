@@ -1,10 +1,12 @@
 using MediatR;
 using AutoMapper;
-using NotifyHub.Abstractions.DTOs;
+using NotifyHub.Domain.DTOs;
 using NotifyHub.Domain.Events;
 using NotifyHub.Domain.Entities;
 using NotifyHub.Application.Requests.Notification;
 using NotifyHub.Application.Interfaces.Repositories;
+using NotifyHub.Application.Validators;
+using FluentValidation;
 
 namespace NotifyHub.Application.Features.Mutations;
 
@@ -18,6 +20,9 @@ public class NotificationMutation(IMapper mapper, IMediator mediator) : BaseMuta
         CreateNotificationRequest request,
         CancellationToken cancellationToken)
     {
+        var validator = new CreateNotificationValidation();
+        await validator.ValidateAndThrowAsync(request, cancellationToken);
+
         var user = await userRepository.GetByIdAsync(request.UserId, cancellationToken);
 
         if (user is null)
@@ -41,6 +46,9 @@ public class NotificationMutation(IMapper mapper, IMediator mediator) : BaseMuta
         UpdateNotificationRequest request,
         CancellationToken cancellationToken)
     {
+        var validator = new UpdateNotificationValidation();
+        await validator.ValidateAndThrowAsync(request, cancellationToken);
+
         var notification = await notificationRepository.GetByIdAsync(request.Id, cancellationToken);
         
         if (notification is null)

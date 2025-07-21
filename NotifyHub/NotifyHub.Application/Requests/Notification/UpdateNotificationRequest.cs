@@ -1,4 +1,4 @@
-using NotifyHub.Abstractions.Enums;
+using NotifyHub.Domain.Common.Enums;
 
 namespace NotifyHub.Application.Requests.Notification;
 
@@ -10,7 +10,7 @@ public class UpdateNotificationRequest
     /// <summary>
     /// ID уведомления
     /// </summary>
-    public Guid Id { get; set; }
+    public required Guid Id { get; set; }
     
     /// <summary>
     /// Название уведомления

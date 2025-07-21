@@ -6,6 +6,16 @@ namespace NotifyHub.Application.Requests.User;
 public class CreateUserRequest
 {
     /// <summary>
+    /// ID пользователя
+    /// </summary>
+    public required Guid Id { get; set; }
+
+    /// <summary>
+    /// ID пользователя в Телеграме
+    /// </summary>
+    public required long TelegramUserId { get; set; }
+
+    /// <summary>
     /// Почта
     /// </summary>
     public string? Email { get; set; }
@@ -13,10 +23,15 @@ public class CreateUserRequest
     /// <summary>
     /// Имя
     /// </summary>
-    public required string Name { get; set; }
+    public required string FirstName { get; set; }
+
+    /// <summary>
+    /// Фамилия
+    /// </summary>
+    public string? LastName { get; set; }
     
     /// <summary>
     /// Тег в телеграм
     /// </summary>
-    public required string TelegramTag { get; set; }
+    public string? TelegramTag { get; set; }
 }
