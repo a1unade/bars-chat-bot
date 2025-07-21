@@ -10,7 +10,7 @@ public class UpdateNotificationRequest
     /// <summary>
     /// ID уведомления
     /// </summary>
-    public Guid Id { get; set; }
+    public required Guid Id { get; set; }
     
     /// <summary>
     /// Название уведомления

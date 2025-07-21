@@ -8,15 +8,25 @@ public class UpdateUserRequest
     /// <summary>
     /// ID пользователя
     /// </summary>
-    public Guid Id { get; set; }
-    
+    public required long Id { get; set; }
+
     /// <summary>
     /// Почта
     /// </summary>
     public string? Email { get; set; }
-    
+
     /// <summary>
     /// Имя
     /// </summary>
-    public string? Name { get; set; }
+    public string? FirstName { get; set; }
+
+    /// <summary>
+    /// Фамилия
+    /// </summary>
+    public string? LastName { get; set; }
+
+    /// <summary>
+    /// Тег в телеграм
+    /// </summary>
+    public string? TelegramTag { get; set; }
 }
