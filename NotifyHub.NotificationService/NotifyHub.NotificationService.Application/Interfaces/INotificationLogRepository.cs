@@ -6,42 +6,32 @@ namespace NotifyHub.NotificationService.Application.Interfaces;
 public interface INotificationLogRepository
 {
     /// <summary>
-    /// Добавить запись
+    /// Р”РѕР±Р°РІРёС‚СЊ Р·Р°РїРёСЃСЊ
     /// </summary>
-    /// <param name="entity">Сущность</param>
-    /// <param name="cancellationToken">CancellationToken</param>
     Task<NotificationLog> AddAsync(NotificationLog entity, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Получить все записи о сущности
+    /// РџРѕР»СѓС‡РёС‚СЊ РІСЃРµ Р·Р°РїРёСЃРё
     /// </summary>
     IQueryable<NotificationLog> GetAll();
 
     /// <summary>
-    /// Получить сущность
+    /// РџРѕР»СѓС‡РёС‚СЊ Р·Р°РїРёСЃРё РїРѕ СѓСЃР»РѕРІРёСЋ
     /// </summary>
-    /// <param name="predicate">Условие получения</param>
     IQueryable<NotificationLog> Get(Expression<Func<NotificationLog, bool>> predicate);
 
     /// <summary>
-    /// Получить сущность по Id
+    /// РџРѕР»СѓС‡РёС‚СЊ Р·Р°РїРёСЃСЊ РїРѕ Id
     /// </summary>
-    /// <param name="id">Id</param>
-    /// <param name="cancellationToken">CancellationToken</param>
     Task<NotificationLog?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Удалить сущность по Id
+    /// РЈРґР°Р»РёС‚СЊ Р·Р°РїРёСЃСЊ РїРѕ Id
     /// </summary>
-    /// <param name="id">Id</param>
-    /// <param name="cancellationToken">CancellationToken</param>
     Task RemoveByIdAsync(Guid id, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Обновить сущность по ID
+    /// РћР±РЅРѕРІРёС‚СЊ Р·Р°РїРёСЃСЊ РїРѕ Id
     /// </summary>
-    /// <param name="id">ID сущности</param>
-    /// <param name="entity">Сущность</param>
-    /// <param name="cancellationToken">CancellationToken</param>
     Task<NotificationLog> UpdateAsync(Guid id, NotificationLog entity, CancellationToken cancellationToken);
 }

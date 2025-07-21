@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using NotifyHub.NotificationService.Application.Common.Exceptions;
 using NotifyHub.NotificationService.Application.Interfaces;
 using NotifyHub.NotificationService.Domain.Entities;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace NotifyHub.NotificationService.Persistence.Repositories;
@@ -53,5 +52,4 @@ public class NotificationLogRepository(IDbContext context): INotificationLogRepo
 
         return entity;
     }
-
 }
