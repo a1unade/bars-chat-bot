@@ -21,15 +21,15 @@ public static class ServiceCollectionExtensions
     }
     
     /// <summary>
-    /// Регистрирует Kafka-consumer с кастомным обработчиком.
+    /// Регистрирует Kafka-consumer с поддержкой десериализации сообщений.
     /// </summary>
     public static IServiceCollection AddKafkaConsumer<TMessage>(
         this IServiceCollection services, IConfiguration configuration)
         where TMessage : class
     {
         services.Configure<KafkaOptions>(configuration.GetSection("Kafka"));
-        
         services.AddSingleton<IKafkaConsumer<TMessage>, KafkaConsumer<TMessage>>();
+        
         return services;
     }
 }
