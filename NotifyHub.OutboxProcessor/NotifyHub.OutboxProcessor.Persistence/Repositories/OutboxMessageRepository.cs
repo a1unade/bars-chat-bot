@@ -46,6 +46,7 @@ public class OutboxMessageRepository(IDbContext context): IOutboxMessageReposito
         if (ent is null)
             throw new NotFoundException(id);
         
+        entity.Id = ent.Id;
         _context.Entry(ent).CurrentValues.SetValues(entity);
         _context.OutboxMessages.Update(ent); 
         

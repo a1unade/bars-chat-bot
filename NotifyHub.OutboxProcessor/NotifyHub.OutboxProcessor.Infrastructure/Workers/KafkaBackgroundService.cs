@@ -1,5 +1,4 @@
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -7,17 +6,14 @@ using NotifyHub.Abstractions.DTOs;
 using NotifyHub.Abstractions.Enums;
 using NotifyHub.Kafka.Exceptions;
 using NotifyHub.Kafka.Interfaces;
-using NotifyHub.OutboxProcessor.Application.Interfaces;
-using NotifyHub.OutboxProcessor.Domain.Common.Enums;
-using NotifyHub.OutboxProcessor.Domain.Entities;
+using NotifyHub.OutboxProcessor.Domain.Events;
 
 namespace NotifyHub.OutboxProcessor.Infrastructure.Workers;
 
 public class KafkaBackgroundService(
     ILogger<KafkaBackgroundService> logger,
     IKafkaConsumer<NotificationEventDto> consumer,
-    IServiceScopeFactory factory,
-    IMapper mapper)
+    IServiceScopeFactory scopeFactory)
     : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
@@ -34,39 +30,30 @@ public class KafkaBackgroundService(
                 {
                     logger.LogInformation("Kafka: message received from Outbox: {Type}, {Message}", message.EventType, message.Notification?.Id);
                     
-                    using var scope = factory.CreateScope();
-                    var repository = scope.ServiceProvider.GetRequiredService<IOutboxMessageRepository>();
+                    using var scope = scopeFactory.CreateScope();
+
+                    var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
                     
                     switch (message.EventType)
                     {
                         case DomainEventType.Created:
                         {
-                            var outboxMessage = mapper.Map<OutboxMessage>(message);
-                            await repository.AddAsync(outboxMessage, cancellationToken);
+                            if (message.Notification is not null)
+                                await mediator.Publish(new NotificationCreatedDomainEvent(message.Notification!), cancellationToken);
                             
                             break;
                         }
                         case DomainEventType.Updated:
                         {
-                            var outboxMessage = mapper.Map<OutboxMessage>(message);
-                            
-                            var existingOutboxMessage = await repository.Get(x =>
-                                x.NotificationId == message.Notification!.Id && 
-                                x.Status != OperationStatus.Sent).FirstOrDefaultAsync(cancellationToken);
-                            
-                            if (existingOutboxMessage is not null)
-                                await repository.UpdateAsync(existingOutboxMessage.Id, outboxMessage, cancellationToken);
+                            if (message.Notification is not null)
+                                await mediator.Publish(new NotificationUpdatedDomainEvent(message.Notification!), cancellationToken);
                             
                             break;
                         }
                         case DomainEventType.Deleted:
                         {
-                            var existingOutboxMessage = await repository.Get(x =>
-                                x.NotificationId == message.Notification!.Id && 
-                                x.Status != OperationStatus.Sent).FirstOrDefaultAsync(cancellationToken);
-                            
-                            if (existingOutboxMessage is not null)
-                                await repository.RemoveByIdAsync(existingOutboxMessage.Id, cancellationToken);
+                            if (message.DeletedId is not null)
+                                await mediator.Publish(new NotificationDeletedDomainEvent(message.DeletedId.Value), cancellationToken);
                             
                             break;
                         }
