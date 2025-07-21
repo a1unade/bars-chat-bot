@@ -1,20 +1,32 @@
 using MediatR;
-using Microsoft.Extensions.Logging;
+using NotifyHub.Domain.DTOs;
 using NotifyHub.Domain.Events;
+using NotifyHub.Kafka.Interfaces;
+using Microsoft.Extensions.Logging;
+using NotifyHub.Domain.Common.Enums;
 
 namespace NotifyHub.Application.Features.Events;
 
-public class NotificationUpdatedDomainEventHandler(ILogger<NotificationUpdatedDomainEventHandler> logger)
+public class NotificationUpdatedDomainEventHandler(
+    ILogger<NotificationUpdatedDomainEventHandler> logger,
+    IKafkaProducer<NotificationEventDto> producer)
     : INotificationHandler<NotificationUpdatedDomainEvent>
 {
-    public Task Handle(NotificationUpdatedDomainEvent notificationEvent, CancellationToken cancellationToken)
+    public async Task Handle(NotificationUpdatedDomainEvent notificationEvent, CancellationToken cancellationToken)
     {
         var notification = notificationEvent.Notification;
         logger.LogInformation("NotificationUpdatedDomainEvent triggered: Id={Id}, Title={Title}, ScheduledAt={ScheduledAt}",
             notification.Id, notification.Title, notification.ScheduledAt);
 
-        // TODO: отправка в Kafka сообщения о создании сущности (NotificationEventDto) с Type = Updated
-
-        return Task.CompletedTask;
+        var message = new NotificationEventDto
+        {
+            EventType = DomainEventType.Created,
+            Notification = notification,
+        };
+        
+        // Отправка в Kafka
+        await producer.ProduceAsync("Outbox", "outbox-key", message, cancellationToken);
+        
+        logger.LogInformation("Kafka: Message sent to Outbox {0}", message);
     }
 }

@@ -4,8 +4,8 @@ using NotifyHub.OutboxProcessor.WebApi.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Регистрация outbox processor
-builder.Services.AddInfrastructureLayer();
+// Регистрация outbox processor и Kafka
+builder.Services.AddInfrastructureLayer(builder.Configuration);
 // Регистрация контекста базы данных и репозиториев
 builder.Services.AddPersistenceLayer(builder.Configuration);
 
