@@ -36,9 +36,10 @@ public static class ServiceCollectionExtensions
     /// <summary>
     /// Регистрация инциализатора топиков
     /// </summary>
-    public static IServiceCollection AddKafkaTopicsInitializer(this IServiceCollection services)
+    public static IServiceCollection AddKafkaTopicsInitializer(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<KafkaTopicInitializer>();
+        services.Configure<KafkaOptions>(configuration.GetSection("Kafka"));
+        services.AddTransient<IKafkaTopicsInitializer, KafkaTopicInitializer>();
         
         return services;
     }
