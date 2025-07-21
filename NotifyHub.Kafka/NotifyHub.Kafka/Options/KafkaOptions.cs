@@ -13,10 +13,10 @@ public class KafkaOptions
     /// <summary>
     /// Топики для продюсеров
     /// </summary>
-    public required Dictionary<string, string> ProducerTopics { get; set; }
+    public required Dictionary<string, string> ProducerTopics { get; set; } = new();
 
     /// <summary>
     /// Топики для консюмеров
     /// </summary>
-    public required Dictionary<string, string> ConsumerTopics { get; set; }
+    public required Dictionary<string, string> ConsumerTopics { get; set; } = new();
 }
