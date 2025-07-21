@@ -18,9 +18,11 @@ public static class ServiceCollectionExtensions
         services.AddKafka(configuration);
     }
 
-    public static void AddKafka(this IServiceCollection services, IConfiguration configuration)
+    private static void AddKafka(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddKafkaProducer<NotificationEventDto>(configuration);
+        services
+            .AddKafkaProducer<NotificationEventDto>(configuration)
+            .AddKafkaTopicsInitializer(configuration);
     }
 
     private static void AddGraphQl(this IServiceCollection services)
