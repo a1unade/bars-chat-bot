@@ -1,3 +1,4 @@
+using NotifyHub.Abstractions.Enums;
 using NotifyHub.OutboxProcessor.Domain.Common;
 using NotifyHub.OutboxProcessor.Domain.Common.Enums;
 
@@ -16,12 +17,12 @@ public class OutboxMessage: BaseEntity
     /// <summary>
     /// Тип отправки (периодическая/одноразовая)
     /// </summary>
-    public required OperationType Type { get; set; }
+    public required NotificationType Type { get; set; }
     
     /// <summary>
     /// Частота отправки
     /// </summary>
-    public OperationFrequency? Frequency { get; set; }
+    public NotificationFrequency? Frequency { get; set; }
 
     /// <summary>
     /// Когда запланирована отправка

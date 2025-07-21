@@ -1,4 +1,4 @@
-using NotifyHub.Domain.Common.Enums;
+using NotifyHub.Abstractions.Enums;
 
 namespace NotifyHub.Application.Helpers;
 

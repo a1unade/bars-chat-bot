@@ -1,5 +1,8 @@
 ![build](https://github.com/a1unade/bars-chat-bot/actions/workflows/build.yml/badge.svg)
-![deploy](https://github.com/a1unade/bars-chat-bot/actions/workflows/deploy.yml/badge.svg)
+![deploy](https://github.com/a1unade/bars-chat-bot/actions/workflows/deploy.yml/badge.svg) 
+
+[![NotifyHub.Kafka](https://img.shields.io/nuget/v/NotifyHub.Kafka?label=NotifyHub.Kafka&logo=nuget)](https://nuget.org/packages/NotifyHub.Kafka)
+[![NotifyHub.Abstractions](https://img.shields.io/nuget/v/NotifyHub.Abstractions?label=NotifyHub.Abstractions&logo=nuget)](https://nuget.org/packages/NotifyHub.Abstractions) 
 
 ## Описание проекта
 

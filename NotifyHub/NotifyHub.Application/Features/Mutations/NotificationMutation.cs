@@ -1,6 +1,6 @@
 using MediatR;
 using AutoMapper;
-using NotifyHub.Domain.DTOs;
+using NotifyHub.Abstractions.DTOs;
 using NotifyHub.Domain.Events;
 using NotifyHub.Domain.Entities;
 using NotifyHub.Application.Requests.Notification;
