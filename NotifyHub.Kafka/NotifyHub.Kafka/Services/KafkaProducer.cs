@@ -3,6 +3,7 @@ using NotifyHub.Kafka.Options;
 using NotifyHub.Kafka.Interfaces;
 using Microsoft.Extensions.Options;
 using NotifyHub.Kafka.Configurations;
+using NotifyHub.Kafka.Exceptions;
 
 namespace NotifyHub.Kafka.Services;
 
@@ -28,7 +29,7 @@ public class KafkaProducer<TMessage> : IKafkaProducer<TMessage>
     public async Task ProduceAsync(string topicKey, string key, TMessage message, CancellationToken cancellationToken = default)
     {
         if (!_options.ProducerTopics.TryGetValue(topicKey, out var topicName))
-            throw new InvalidOperationException($"Unknown topic key: {topicKey}");
+            throw new KafkaProduceException("Unknown topic key: {0}", topicKey);
         
         await _producer.ProduceAsync(topicName, new Message<string, TMessage>
         {

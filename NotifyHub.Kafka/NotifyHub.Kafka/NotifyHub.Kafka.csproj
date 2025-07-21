@@ -4,7 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>NotifyHub.Kafka</PackageId>
-        <Version>1.1.0</Version>
+        <Version>1.1.1</Version>
         <Authors>a1unade</Authors>
         <Description>Kafka Producer и Consumer с поддержкой сериализации и DI для проекта NotifyHub</Description>
         <PackageTags>Kafka;Messaging;Producer;Consumer</PackageTags>
@@ -15,7 +15,6 @@
     <ItemGroup>
       <PackageReference Include="Confluent.Kafka" Version="2.8.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
     </ItemGroup>
