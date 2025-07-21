@@ -32,4 +32,14 @@ public static class ServiceCollectionExtensions
         
         return services;
     }
+
+    /// <summary>
+    /// Регистрация инциализатора топиков
+    /// </summary>
+    public static IServiceCollection AddKafkaTopicsInitializer(this IServiceCollection services)
+    {
+        services.AddSingleton<KafkaTopicInitializer>();
+        
+        return services;
+    }
 }
