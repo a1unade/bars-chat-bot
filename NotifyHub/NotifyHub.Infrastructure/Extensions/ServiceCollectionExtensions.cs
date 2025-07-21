@@ -1,12 +1,12 @@
 using System.Reflection;
-using NotifyHub.Application.Interfaces;
-using HotChocolate.Execution.Configuration;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using NotifyHub.Application.Features.Queries;
-using NotifyHub.Domain.DTOs;
-using NotifyHub.Infrastructure.Configurations;
 using NotifyHub.Kafka.Extensions;
+using NotifyHub.Abstractions.DTOs;
+using NotifyHub.Application.Interfaces;
+using Microsoft.Extensions.Configuration;
+using HotChocolate.Execution.Configuration;
+using NotifyHub.Application.Features.Queries;
+using NotifyHub.Infrastructure.Configurations;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace NotifyHub.Infrastructure.Extensions;
 

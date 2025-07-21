@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace NotifyHub.Domain.Common.Enums;
+namespace NotifyHub.Abstractions.Enums;
 
 /// <summary>
 /// Периодичность уведомлений

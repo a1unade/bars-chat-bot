@@ -1,9 +1,10 @@
 using Confluent.Kafka;
+using Microsoft.Extensions.Logging;
 using NotifyHub.Kafka.Options;
 using NotifyHub.Kafka.Interfaces;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NotifyHub.Kafka.Configurations;
+using NotifyHub.Kafka.Exceptions;
 
 namespace NotifyHub.Kafka.Services;
 
@@ -13,16 +14,14 @@ namespace NotifyHub.Kafka.Services;
 /// <typeparam name="TMessage">Тип ожидаемого сообщения.</typeparam>
 public class KafkaConsumer<TMessage> : IKafkaConsumer<TMessage> where TMessage : class
 {
-    private readonly ILogger<KafkaConsumer<TMessage>> _logger;
     private readonly IConsumer<string, TMessage> _consumer;
     private readonly Dictionary<string, string> _consumerTopics;
+    private readonly ILogger<KafkaConsumer<TMessage>> _logger;
 
-    public KafkaConsumer(
-        IOptions<KafkaOptions> options,
-        ILogger<KafkaConsumer<TMessage>> logger)
+    public KafkaConsumer(IOptions<KafkaOptions> options, ILogger<KafkaConsumer<TMessage>> logger)
     {
-        _logger = logger;
         _consumerTopics = options.Value.ConsumerTopics;
+        _logger = logger;
 
         var config = new ConsumerConfig
         {
@@ -36,7 +35,7 @@ public class KafkaConsumer<TMessage> : IKafkaConsumer<TMessage> where TMessage :
             .SetValueDeserializer(new KafkaJsonDeserializer<TMessage>())
             .SetErrorHandler((_, e) =>
             {
-                _logger.LogError("Kafka consume error: {0}", e.Reason);
+                _logger.LogError("Kafka consume error: { 0 }", e.Reason);
             })
             .Build();
 
@@ -46,10 +45,7 @@ public class KafkaConsumer<TMessage> : IKafkaConsumer<TMessage> where TMessage :
     public Task<TMessage?> ConsumeAsync(string topicKey, CancellationToken cancellationToken)
     {
         if (!_consumerTopics.TryGetValue(topicKey, out var topicName))
-        {
-            _logger.LogError("Topic key '{TopicKey}' not found in ConsumerTopics.", topicKey);
-            return Task.FromResult<TMessage?>(null);
-        }
+            throw new ArgumentException($"Topic key '{topicKey}' not found in ConsumerTopics.", nameof(topicKey));
 
         try
         {
@@ -60,8 +56,7 @@ public class KafkaConsumer<TMessage> : IKafkaConsumer<TMessage> where TMessage :
         }
         catch (ConsumeException ex)
         {
-            _logger.LogError("Consume error from topic '{TopicName}': {Error}", topicName, ex.Error.Reason);
-            return Task.FromResult<TMessage?>(null);
+            throw new KafkaConsumeException($"Consume error from topic '{topicName}': {ex.Error.Reason}", ex);
         }
     }
 

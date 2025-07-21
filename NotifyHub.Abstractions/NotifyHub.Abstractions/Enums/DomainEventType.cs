@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace NotifyHub.OutboxProcessor.Domain.Common.Enums;
+namespace NotifyHub.Abstractions.Enums;
 
 /// <summary>
 /// Тип доменного события у сущности

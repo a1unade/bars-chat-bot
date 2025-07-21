@@ -1,6 +1,6 @@
-using NotifyHub.OutboxProcessor.Domain.Common.Enums;
+using NotifyHub.Abstractions.Enums;
 
-namespace NotifyHub.OutboxProcessor.Domain.DTOs;
+namespace NotifyHub.Abstractions.DTOs;
 
 public class NotificationEventDto
 {

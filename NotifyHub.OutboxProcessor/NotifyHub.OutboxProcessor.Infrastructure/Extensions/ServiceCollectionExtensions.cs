@@ -1,9 +1,9 @@
 using Hangfire;
 using Hangfire.MemoryStorage;
+using NotifyHub.Kafka.Extensions;
+using NotifyHub.Abstractions.DTOs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NotifyHub.Kafka.Extensions;
-using NotifyHub.OutboxProcessor.Domain.DTOs;
 using NotifyHub.OutboxProcessor.Infrastructure.Jobs;
 using NotifyHub.OutboxProcessor.Infrastructure.Workers;
 

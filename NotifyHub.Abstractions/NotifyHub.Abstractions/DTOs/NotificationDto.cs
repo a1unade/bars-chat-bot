@@ -1,6 +1,6 @@
-using NotifyHub.Domain.Common.Enums;
+using NotifyHub.Abstractions.Enums;
 
-namespace NotifyHub.Domain.DTOs;
+namespace NotifyHub.Abstractions.DTOs;
 
 /// <summary>
 /// DTO для передачи уведомления

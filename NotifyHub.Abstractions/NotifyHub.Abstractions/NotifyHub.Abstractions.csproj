@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <PackageId>NotifyHub.Abstractions</PackageId>
+        <Version>1.0.1</Version>
+        <Authors>a1unade</Authors>
+        <Description>Абстракции для проекта NotifyHub</Description>
+        <PackageTags>abstractions;shared;notifyhub;notifyhub-abstractions</PackageTags>
+    </PropertyGroup>
+
+</Project>
