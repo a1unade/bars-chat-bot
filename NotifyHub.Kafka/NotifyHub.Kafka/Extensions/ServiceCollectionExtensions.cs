@@ -39,7 +39,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddKafkaTopicsInitializer(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<KafkaOptions>(configuration.GetSection("Kafka"));
-        services.AddSingleton<IKafkaTopicsInitializer, KafkaTopicInitializer>();
+        services.AddTransient<IKafkaTopicsInitializer, KafkaTopicInitializer>();
         
         return services;
     }
