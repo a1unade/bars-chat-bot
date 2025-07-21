@@ -46,8 +46,9 @@ public class NotificationLogRepository(IDbContext context): INotificationLogRepo
         if (ent is null)
             throw new NotFoundException(id);
 
+        _context.Entry(ent).CurrentValues.SetValues(entity);
+        _context.NotificationLogs.Update(ent);
 
-        _context.NotificationLogs.Update(ent).CurrentValues.SetValues(entity);
         await _context.SaveChangesAsync(cancellationToken);
 
         return entity;
