@@ -1,17 +1,26 @@
 using System.Reflection;
 using NotifyHub.Application.Interfaces;
 using HotChocolate.Execution.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NotifyHub.Application.Features.Queries;
+using NotifyHub.Domain.DTOs;
 using NotifyHub.Infrastructure.Configurations;
+using NotifyHub.Kafka.Extensions;
 
 namespace NotifyHub.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static void AddInfrastructureLayer(this IServiceCollection services)
+    public static void AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddGraphQl();
+        services.AddKafka(configuration);
+    }
+
+    public static void AddKafka(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddKafkaProducer<NotificationEventDto>(configuration);
     }
 
     private static void AddGraphQl(this IServiceCollection services)

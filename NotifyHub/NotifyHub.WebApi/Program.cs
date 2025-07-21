@@ -7,8 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Регистрация query и mutations
 builder.Services.AddApplicationLayer();
-// Регистрация сервисов
-builder.Services.AddInfrastructureLayer();
+// Регистрация graphql и kafka
+builder.Services.AddInfrastructureLayer(builder.Configuration);
 // Регистрация контекста базы данных и репозиториев
 builder.Services.AddPersistenceLayer(builder.Configuration);
 
