@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 using NotifyHub.NotificationService.Domain.Entities;
 
@@ -30,4 +31,12 @@ public interface IDbContext
     /// Сохранение изменений
     /// </summary>
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Получает объект для указанной сущности,
+    /// позволяя управлять её состоянием и получать доступ к данным отслеживания.
+    /// </summary>
+    /// <typeparam name="T">Тип сущности.</typeparam>
+    /// <param name="entity">Экземпляр сущности, для которого требуется получить entry.</param>
+    EntityEntry<T> Entry<T>(T entity) where T : class;
 }
