@@ -4,7 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>NotifyHub.Kafka</PackageId>
-        <Version>1.1.2</Version>
+        <Version>1.2.2</Version>
         <Authors>a1unade</Authors>
         <Description>Kafka Producer и Consumer с поддержкой сериализации и DI для проекта NotifyHub</Description>
         <PackageTags>Kafka;Messaging;Producer;Consumer</PackageTags>
