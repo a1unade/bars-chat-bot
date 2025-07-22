@@ -22,7 +22,10 @@ public static class ServiceCollectionExtensions
 
     private static void AddKafka(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddKafkaConsumer<NotificationEventDto>(configuration);
+        services
+            .AddKafkaConsumer<NotificationEventDto>(configuration)
+            .AddKafkaProducer<NotificationMessageDto>(configuration)
+            .AddKafkaTopicsInitializer(configuration);
     }
 
     private static void AddWorkers(this IServiceCollection services)

@@ -1,9 +1,12 @@
 using System.Text.Json;
+using AutoMapper;
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NotifyHub.Abstractions.DTOs;
 using NotifyHub.Abstractions.Enums;
+using NotifyHub.Kafka.Interfaces;
 using NotifyHub.OutboxProcessor.Application.Interfaces;
 using NotifyHub.OutboxProcessor.Domain.Common.Enums;
 using NotifyHub.OutboxProcessor.Domain.Entities;
@@ -11,11 +14,18 @@ using StackExchange.Redis;
 
 namespace NotifyHub.OutboxProcessor.Infrastructure.Processors;
 
-public class OutboxProcessor(IServiceScopeFactory scopeFactory, ILogger<OutboxProcessor> logger, IConnectionMultiplexer redis)
+public class OutboxProcessor(
+    IServiceScopeFactory scopeFactory, 
+    ILogger<OutboxProcessor> logger, 
+    IConnectionMultiplexer redis,
+    IKafkaProducer<NotificationMessageDto> producer,
+    IMapper mapper)
 {
-    private readonly IServiceScopeFactory _scopeFactory = scopeFactory;
-    private readonly ILogger<OutboxProcessor> _logger = logger;
+    private readonly IMapper _mapper = mapper;
     private readonly IConnectionMultiplexer _redis = redis;
+    private readonly ILogger<OutboxProcessor> _logger = logger;
+    private readonly IServiceScopeFactory _scopeFactory = scopeFactory;
+    private readonly IKafkaProducer<NotificationMessageDto> _producer = producer;
     
     [AutomaticRetry(Attempts = 0)]
     public async Task ProcessAsync(CancellationToken cancellationToken)
@@ -65,7 +75,9 @@ public class OutboxProcessor(IServiceScopeFactory scopeFactory, ILogger<OutboxPr
 
             _logger.LogInformation("Sending message ID={Id}, ScheduledAt={ScheduledAt}", message.Id, message.ScheduledAt);
 
-            // TODO: Отправка в Kafka через producer
+            // Отправка сообщения в Kafka
+            var kafkaMessage = _mapper.Map<NotificationMessageDto>(JsonSerializer.Deserialize<NotificationDto>(message.PayloadJson));
+            await _producer.ProduceAsync("Notification", "notification-key", kafkaMessage, cancellationToken);
 
             message.Status = OperationStatus.Sent;
             message.SentAt = DateTime.UtcNow;

@@ -16,6 +16,8 @@ var app = builder.Build();
 
 // Применение миграций
 await app.UseMigrations();
+// Создание топиков в Kafka
+await app.UseKafka();
 // Hangfire jobs
 app.UseHangfire();
 
