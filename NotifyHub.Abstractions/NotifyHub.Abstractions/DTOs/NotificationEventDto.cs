@@ -2,6 +2,9 @@ using NotifyHub.Abstractions.Enums;
 
 namespace NotifyHub.Abstractions.DTOs;
 
+/// <summary>
+/// Сообщение для OutboxProcessor (Kafka)
+/// </summary>
 public class NotificationEventDto
 {
     /// <summary>
