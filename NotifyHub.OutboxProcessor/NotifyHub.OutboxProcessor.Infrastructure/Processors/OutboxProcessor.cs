@@ -76,7 +76,14 @@ public class OutboxProcessor(
             _logger.LogInformation("Sending message ID={Id}, ScheduledAt={ScheduledAt}", message.Id, message.ScheduledAt);
 
             // Отправка сообщения в Kafka
-            var kafkaMessage = _mapper.Map<NotificationMessageDto>(JsonSerializer.Deserialize<NotificationDto>(message.PayloadJson));
+            var notification = JsonSerializer.Deserialize<NotificationDto>(
+                message.PayloadJson,
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+            var kafkaMessage = _mapper.Map<NotificationMessageDto>(notification);
             await _producer.ProduceAsync("Notification", "notification-key", kafkaMessage, cancellationToken);
 
             message.Status = OperationStatus.Sent;
@@ -123,7 +130,7 @@ public class OutboxProcessor(
     /// <summary>
     /// Попытка сделать ретрай для hangfire job
     /// </summary>
-    private async Task ProcessRetryAsync(Guid messageId, CancellationToken cancellationToken)
+    public async Task ProcessRetryAsync(Guid messageId, CancellationToken cancellationToken)
     {
         using var scope = _scopeFactory.CreateScope();
         var repository = scope.ServiceProvider.GetRequiredService<IOutboxMessageRepository>();

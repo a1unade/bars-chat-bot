@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Регистрация MediatR
 builder.Services.AddApplicationLayer();
 // Регистрация сервисов
-builder.Services.AddInfrastructureLayer();
+builder.Services.AddInfrastructureLayer(builder.Configuration);
 // Регистрация контекста базы данных и репозиториев
 builder.Services.AddPersistenceLayer(builder.Configuration);
 
