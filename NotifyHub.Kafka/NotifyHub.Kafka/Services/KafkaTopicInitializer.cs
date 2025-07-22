@@ -14,7 +14,6 @@ public class KafkaTopicInitializer(IOptions<KafkaOptions> options): IKafkaTopics
     public async Task EnsureTopicsCreatedAsync()
     {
         var allTopics = _kafkaOptions.ProducerTopics.Values
-            .Concat(_kafkaOptions.ConsumerTopics.Values)
             .Distinct()
             .ToList();
 

@@ -4,9 +4,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NotifyHub.Abstractions.DTOs;
 using NotifyHub.Abstractions.Enums;
+using NotifyHub.Abstractions.Events;
 using NotifyHub.Kafka.Exceptions;
 using NotifyHub.Kafka.Interfaces;
-using NotifyHub.OutboxProcessor.Domain.Events;
 
 namespace NotifyHub.OutboxProcessor.Infrastructure.Workers;
 

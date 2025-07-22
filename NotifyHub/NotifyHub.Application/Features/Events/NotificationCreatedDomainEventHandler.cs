@@ -1,9 +1,9 @@
 using MediatR;
-using NotifyHub.Domain.Events;
 using NotifyHub.Kafka.Interfaces;
 using NotifyHub.Abstractions.DTOs;
 using NotifyHub.Abstractions.Enums;
 using Microsoft.Extensions.Logging;
+using NotifyHub.Abstractions.Events;
 
 namespace NotifyHub.Application.Features.Events;
 
