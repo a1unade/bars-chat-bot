@@ -18,9 +18,9 @@ public class User: BaseEntity
     public required string Name { get; set; }
     
     /// <summary>
-    /// Тег телеграм
+    /// ID пользователя в Telegram
     /// </summary>
-    public required string TelegramTag { get; set; }
+    public required string TelegramUserId { get; set; }
 
     /// <summary>
     /// Созданные уведомления

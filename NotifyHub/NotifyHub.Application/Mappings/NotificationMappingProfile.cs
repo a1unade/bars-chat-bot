@@ -12,7 +12,7 @@ public class NotificationMappingProfile: Profile
         CreateMap<CreateNotificationRequest, Notification>();
         
         CreateMap<Notification, NotificationDto>()
-            .ForMember(dest => dest.TelegramTag, opt => opt.MapFrom(src => src.User.TelegramTag))
+            .ForMember(dest => dest.TelegramUserId, opt => opt.MapFrom(src => src.User.TelegramUserId))
             .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.User.Email));
     }
 }
