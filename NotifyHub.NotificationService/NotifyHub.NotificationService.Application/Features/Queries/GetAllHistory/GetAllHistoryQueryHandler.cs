@@ -1,18 +1,30 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NotifyHub.NotificationService.Application.Common.Requests.History;
+using NotifyHub.NotificationService.Application.Interfaces;
 
 namespace NotifyHub.NotificationService.Application.Features.Queries.GetAllHistory;
 
 /// <summary>
 /// Обработчик для <see cref="GetAllHistoryQuery"/>
 /// </summary>
-public class GetAllHistoryQueryHandler: IRequestHandler<GetAllHistoryQuery, GetHistoryResponse>
+public class GetAllHistoryQueryHandler(
+    INotificationLogRepository repository): IRequestHandler<GetAllHistoryQuery, GetHistoryResponse>
 {
     public async Task<GetHistoryResponse> Handle(GetAllHistoryQuery request, CancellationToken cancellationToken)
     {
-        // TODO: реализовать query handler для запроса истории через INotificationLogsRepository, добавить логирование
-        await Task.CompletedTask;
+        var logs = repository.GetAll();
 
-        return new GetHistoryResponse { History = [] };
+        var responseItems =  await logs
+            .Select(log => new GetHistoryResponseItem
+            {
+                Id = log.Id,
+                SentAt = log.SentAt,
+                Status = log.Status,
+                ErrorMessage = log.ErrorMessage
+            })
+            .ToListAsync(cancellationToken);
+
+        return new GetHistoryResponse { History = responseItems };
     }
 }
