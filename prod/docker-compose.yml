@@ -52,8 +52,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__Postgres=Host=outbox_db;Port=5432;Username=postgres;Password=notify_hub_outbox;Database=notify_hub_outbox_db;
+      - ConnectionStrings__Redis=outbox_redis:6379
     depends_on:
       outbox_db:
+        condition: service_healthy
+      outbox_redis: 
         condition: service_healthy
     ports:
       - "8086:8080"
@@ -62,6 +65,20 @@ services:
     volumes:
       - data_protection:/root/.aspnet/DataProtection-Keys
     restart: always
+
+  outbox_redis:
+    image: redis:7-alpine
+    container_name: NotifyHub.OutboxProcessor.Redis
+    ports:
+      - "6379:6379"
+    networks:
+      - notify_hub_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   outbox_db:
     image: postgres:16
