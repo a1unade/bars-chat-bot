@@ -38,9 +38,9 @@ public class NotificationDto
     public DateTime ScheduledAt { get; set; }
     
     /// <summary>
-    /// Telegram пользователя
+    /// ID пользователя в Telegram
     /// </summary>
-    public required string TelegramTag { get; set; }
+    public required long TelegramUserId { get; set; }
     
     /// <summary>
     /// Почта пользователя, если потребуется отправка по почте

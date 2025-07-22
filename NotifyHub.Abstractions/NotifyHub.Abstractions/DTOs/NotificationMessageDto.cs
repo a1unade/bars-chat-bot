@@ -21,7 +21,7 @@ public class NotificationMessageDto
     public required string Title { get; set; }
     
     /// <summary>
-    /// Telegram пользователя
+    /// ID пользователя в Telegram
     /// </summary>
     public required string TelegramTag { get; set; }
     
