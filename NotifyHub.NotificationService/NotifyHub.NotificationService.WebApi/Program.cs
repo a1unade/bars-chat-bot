@@ -26,8 +26,8 @@ var app = builder.Build();
 
 // Применение миграций
 await app.UseMigrations();
-
-app.UseDeveloperExceptionPage();
+// Создание топиков в Kafka
+await app.UseKafka();
 
 app.UseSwagger();
 app.UseSwaggerUI();

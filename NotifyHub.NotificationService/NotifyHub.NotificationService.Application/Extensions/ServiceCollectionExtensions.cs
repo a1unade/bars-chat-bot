@@ -10,15 +10,15 @@ public static class ServiceCollectionExtensions
     {
         services.AddMediator();
         services.AddValidators();
+        services.AddAutoMapper();
     }
     
-    private static void AddMediator(this IServiceCollection services)
-    {
+    private static void AddMediator(this IServiceCollection services) =>
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-    }
     
-    private static void AddValidators(this IServiceCollection services)
-    {
+    private static void AddAutoMapper(this IServiceCollection services) => 
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    
+    private static void AddValidators(this IServiceCollection services) =>
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-    }
 }
