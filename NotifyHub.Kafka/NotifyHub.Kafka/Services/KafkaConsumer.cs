@@ -47,17 +47,19 @@ public class KafkaConsumer<TMessage> : IKafkaConsumer<TMessage> where TMessage :
         if (!_consumerTopics.TryGetValue(topicKey, out var topicName))
             throw new ArgumentException($"Topic key '{topicKey}' not found in ConsumerTopics.", nameof(topicKey));
 
-        try
+        return Task.Run(() =>
         {
-            _consumer.Subscribe(topicName);
-
-            var result = _consumer.Consume(cancellationToken);
-            return Task.FromResult(result?.Message?.Value);
-        }
-        catch (ConsumeException ex)
-        {
-            throw new KafkaConsumeException($"Consume error from topic '{topicName}': {ex.Error.Reason}", ex);
-        }
+            try
+            {
+                _consumer.Subscribe(topicName);
+                var result = _consumer.Consume(cancellationToken);
+                return result?.Message?.Value;
+            }
+            catch (ConsumeException ex)
+            {
+                throw new KafkaConsumeException($"Consume error from topic '{topicName}': {ex.Error.Reason}", ex);
+            }
+        }, cancellationToken);
     }
 
     public void Close() => _consumer.Close();
