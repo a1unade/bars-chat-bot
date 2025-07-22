@@ -18,7 +18,7 @@ public class UserDto
     public required string Name { get; set; }
     
     /// <summary>
-    /// Тег телеграм
+    /// ID пользователя в Telegram
     /// </summary>
-    public required string TelegramTag { get; set; }
+    public required long TelegramUserId { get; set; }
 }

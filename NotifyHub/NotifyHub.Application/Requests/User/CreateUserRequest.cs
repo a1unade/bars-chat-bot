@@ -16,7 +16,7 @@ public class CreateUserRequest
     public required string Name { get; set; }
     
     /// <summary>
-    /// Тег в телеграм
+    /// ID пользователя в телеграм
     /// </summary>
-    public required string TelegramTag { get; set; }
+    public required long TelegramUserId { get; set; }
 }
