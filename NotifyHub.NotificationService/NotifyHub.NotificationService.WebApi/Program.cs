@@ -27,12 +27,10 @@ var app = builder.Build();
 // Применение миграций
 await app.UseMigrations();
 
+app.UseDeveloperExceptionPage();
+
 app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Notification API");
-    c.RoutePrefix = "swagger";
-});
+app.UseSwaggerUI();
 
 // Cors политика для gateway
 app.UseCorsPolicy();
