@@ -1,19 +1,36 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NotifyHub.Abstractions.DTOs;
+using NotifyHub.Kafka.Extensions;
 using NotifyHub.NotificationService.Application.Interfaces;
 using NotifyHub.NotificationService.Infrastructure.Services;
+using NotifyHub.NotificationService.Infrastructure.Workers;
 
 namespace NotifyHub.NotificationService.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static void AddInfrastructureLayer(this IServiceCollection services)
+    public static void AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddServices();
+        services.AddKafka(configuration);
+        services.AddWorkers();
     }
     
     private static void AddServices(this IServiceCollection services)
     {
         services
             .AddScoped<IEmailService, EmailService>();
+    }
+    
+    private static void AddKafka(this IServiceCollection services, IConfiguration configuration)
+    {
+        services
+            .AddKafkaConsumer<NotificationMessageDto>(configuration);
+    }
+    
+    private static void AddWorkers(this IServiceCollection services)
+    {
+        services.AddHostedService<KafkaBackgroundService>();
     }
 }
