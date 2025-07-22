@@ -22,9 +22,14 @@ public static class ServiceCollectionExtensions
     
     private static void AddServices(this IServiceCollection services) => 
         services.AddScoped<IEmailService, EmailService>();
-    
-    private static void AddKafka(this IServiceCollection services, IConfiguration configuration) =>
-        services.AddKafkaConsumer<NotificationMessageDto>(configuration);
+
+    private static void AddKafka(this IServiceCollection services, IConfiguration configuration)
+    {
+        services
+            .AddKafkaConsumer<NotificationMessageDto>(configuration)
+            .AddKafkaProducer<NotificationMessageDto>(configuration)
+            .AddKafkaTopicsInitializer(configuration);
+    }
     
     private static void AddWorkers(this IServiceCollection services) =>
         services.AddHostedService<KafkaBackgroundService>();
