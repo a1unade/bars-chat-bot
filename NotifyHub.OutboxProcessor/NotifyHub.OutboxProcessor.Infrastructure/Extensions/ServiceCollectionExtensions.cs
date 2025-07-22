@@ -1,11 +1,12 @@
 using Hangfire;
-using Hangfire.MemoryStorage;
+using Hangfire.Redis.StackExchange;
 using NotifyHub.Kafka.Extensions;
 using NotifyHub.Abstractions.DTOs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NotifyHub.OutboxProcessor.Infrastructure.Jobs;
 using NotifyHub.OutboxProcessor.Infrastructure.Workers;
+using StackExchange.Redis;
 
 namespace NotifyHub.OutboxProcessor.Infrastructure.Extensions;
 
@@ -13,7 +14,8 @@ public static class ServiceCollectionExtensions
 {
     public static void AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddHangfireJobs();
+        services.AddRedis(configuration);
+        services.AddHangfireJobs(configuration);
         services.AddKafka(configuration);
         services.AddWorkers();
     }
@@ -28,18 +30,41 @@ public static class ServiceCollectionExtensions
         services.AddHostedService<KafkaBackgroundService>();
     }
     
-    private static void AddHangfireJobs(this IServiceCollection services)
+    private static void AddHangfireJobs(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<Processors.OutboxProcessor>();
         services.AddScoped<OutboxJob>();
         
+        var redisConnection = configuration.GetConnectionString("Redis");
+        
         services.AddHangfire(config =>
         {
-            config.UseSimpleAssemblyNameTypeSerializer()
+            config
+                .UseSimpleAssemblyNameTypeSerializer()
                 .UseRecommendedSerializerSettings()
-                .UseMemoryStorage(); // TODO: заменить storage на redis + прикрутить логирование
+                .UseRedisStorage(redisConnection, new RedisStorageOptions
+                {
+                    Db = 5,
+                    Prefix = "hangfire:"
+                });
+            
+            GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute
+            {
+                Attempts = 5,
+                DelaysInSeconds = [60, 120, 300],
+                OnAttemptsExceeded = AttemptsExceededAction.Fail
+            });
         });
         
-        services.AddHangfireServer();
+        services.AddHangfireServer(options =>
+        {
+            options.WorkerCount = Environment.ProcessorCount * 2;
+        });
+    }
+
+    private static void AddRedis(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddSingleton<IConnectionMultiplexer>(_ =>
+            ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")!));
     }
 }

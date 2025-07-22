@@ -1,70 +1,148 @@
+using System.Text.Json;
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NotifyHub.Abstractions.Enums;
 using NotifyHub.OutboxProcessor.Application.Interfaces;
 using NotifyHub.OutboxProcessor.Domain.Common.Enums;
 using NotifyHub.OutboxProcessor.Domain.Entities;
+using StackExchange.Redis;
 
 namespace NotifyHub.OutboxProcessor.Infrastructure.Processors;
 
-public class OutboxProcessor(IOutboxMessageRepository repository, ILogger<OutboxProcessor> logger)
+public class OutboxProcessor(IServiceScopeFactory scopeFactory, ILogger<OutboxProcessor> logger, IConnectionMultiplexer redis)
 {
-    private readonly IOutboxMessageRepository _repository = repository;
+    private readonly IServiceScopeFactory _scopeFactory = scopeFactory;
     private readonly ILogger<OutboxProcessor> _logger = logger;
+    private readonly IConnectionMultiplexer _redis = redis;
     
+    [AutomaticRetry(Attempts = 0)]
     public async Task ProcessAsync(CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;
-
-        var messages = await _repository
-            .Get(x => x.ScheduledAt <= now && x.Status == OperationStatus.Created)
-            .ToListAsync(cancellationToken);
-
-        foreach (var message in messages)
+        
+        List<OutboxMessage> messages;
+        using (var scope = _scopeFactory.CreateScope())
         {
+            var repository = scope.ServiceProvider.GetRequiredService<IOutboxMessageRepository>();
+            messages = await repository
+                .Get(x => x.ScheduledAt <= now && x.Status == OperationStatus.Created)
+                .ToListAsync(cancellationToken);
+        }
+
+        var semaphore = new SemaphoreSlim(5);
+
+        var tasks = messages.Select(async message =>
+        {
+            await semaphore.WaitAsync(cancellationToken);
             try
             {
-                if (message.Status == OperationStatus.Failed)
-                    message.Status = OperationStatus.Created;
-
-                message.Status = OperationStatus.InProgress;
-                
-                _logger.LogInformation("Message sent: {0}, ScheduledAt: {1}", message.PayloadJson, message.ScheduledAt);
-
-                // TODO: прикрутить отправку сообщений в Kafka через Kafka producer
-
-                message.Status = OperationStatus.Sent;
-                message.SentAt = DateTime.UtcNow;
-                message.ScheduledAt = GetNewScheduledAt(message);
-                
-                if (message.Type == NotificationType.OneTime)
-                    await _repository.RemoveByIdAsync(message.Id, cancellationToken);
-                else
-                    await _repository.UpdateAsync(message.Id, message, cancellationToken);
-            }
-            catch (TimeoutException timeoutEx)
-            {
-                _logger.LogError(timeoutEx, "Timeout during sending message ID={Id}", message.Id);
-                
-                message.Status = OperationStatus.Failed;
-                message.Error = timeoutEx.Message;
-                // Назначаем повторную отправку сообщения
-                message.ScheduledAt = DateTime.UtcNow.AddMinutes(1);
-                
-                await _repository.UpdateAsync(message.Id, message, cancellationToken);
+                await ProcessMessageAsync(message, cancellationToken);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error sending message ID={Id}", message.Id);
-                
-                message.Status = OperationStatus.Failed;
-                message.Error = ex.Message;
-                // Назначаем повторную отправку сообщения
-                message.ScheduledAt = DateTime.UtcNow.AddMinutes(1);
-                
-                await _repository.UpdateAsync(message.Id, message, cancellationToken);
+                _logger.LogError(ex, "Unhandled error in processing message ID={Id}", message.Id);
             }
+            finally
+            {
+                semaphore.Release();
+            }
+        });
+
+        await Task.WhenAll(tasks);
+    }
+    
+    private async Task ProcessMessageAsync(OutboxMessage message, CancellationToken cancellationToken)
+    {
+        using var scope = _scopeFactory.CreateScope();
+        var repository = scope.ServiceProvider.GetRequiredService<IOutboxMessageRepository>();
+        
+        try
+        {
+            message.Status = OperationStatus.InProgress;
+            await repository.UpdateAsync(message.Id, message, cancellationToken);
+
+            _logger.LogInformation("Sending message ID={Id}, ScheduledAt={ScheduledAt}", message.Id, message.ScheduledAt);
+
+            // TODO: Отправка в Kafka через producer
+
+            message.Status = OperationStatus.Sent;
+            message.SentAt = DateTime.UtcNow;
+            message.ScheduledAt = GetNewScheduledAt(message);
+
+            if (message.Type == NotificationType.OneTime)
+                await repository.RemoveByIdAsync(message.Id, cancellationToken);
+            else
+                await repository.UpdateAsync(message.Id, message, cancellationToken);
         }
+        catch (TimeoutException timeoutEx)
+        {
+            _logger.LogError(timeoutEx, "Timeout during message ID={Id}", message.Id);
+            await HandleFailureAsync(message, timeoutEx, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error sending message ID={Id}", message.Id);
+            await HandleFailureAsync(message, ex, cancellationToken);
+        }
+    }
+    
+    private async Task HandleFailureAsync(OutboxMessage message, Exception ex, CancellationToken cancellationToken)
+    {
+        using var scope = _scopeFactory.CreateScope();
+        var repository = scope.ServiceProvider.GetRequiredService<IOutboxMessageRepository>();
+        
+        message.Status = OperationStatus.Failed;
+        message.Error = ex.Message;
+        message.ScheduledAt = DateTime.UtcNow.AddMinutes(1);
+        await repository.UpdateAsync(message.Id, message, cancellationToken);
+
+        // Лог в Redis об ошибке
+        await LogFailureToRedisAsync(message, ex);
+        
+        // Постановка в очередь на ретрай
+        BackgroundJob.Schedule<OutboxProcessor>(
+            processor => processor.ProcessRetryAsync(message.Id, CancellationToken.None),
+            TimeSpan.FromMinutes(1)
+        );
+    }
+    
+    /// <summary>
+    /// Попытка сделать ретрай для hangfire job
+    /// </summary>
+    private async Task ProcessRetryAsync(Guid messageId, CancellationToken cancellationToken)
+    {
+        using var scope = _scopeFactory.CreateScope();
+        var repository = scope.ServiceProvider.GetRequiredService<IOutboxMessageRepository>();
+        
+        var message = await repository.GetByIdAsync(messageId, cancellationToken);
+        if (message is null || message.Status != OperationStatus.Failed)
+        {
+            _logger.LogWarning("Skipping retry: message not found or not failed. ID={Id}", messageId);
+            return;
+        }
+
+        await ProcessMessageAsync(message, cancellationToken);
+    }
+    
+    /// <summary>
+    /// Логирование в Redis
+    /// </summary>
+    private async Task LogFailureToRedisAsync(OutboxMessage message, Exception ex)
+    {
+        var db = _redis.GetDatabase();
+        var key = $"outbox:failures:{message.Id}";
+        var errorLog = JsonSerializer.Serialize(new
+        {
+            message.Id,
+            message.PayloadJson,
+            message.ScheduledAt,
+            Exception = ex.ToString(),
+            Timestamp = DateTime.UtcNow
+        });
+
+        await db.StringSetAsync(key, errorLog, TimeSpan.FromDays(7));
     }
     
     /// <summary>
