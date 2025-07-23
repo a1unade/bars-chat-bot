@@ -1,4 +1,6 @@
 using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using NotifyHub.Application.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +14,7 @@ public static class ServiceCollectionExtensions
         services.AddMutation();
         services.AddMediator();
         services.AddAutoMapper();
+        services.AddValidators();
     }
     
     private static void AddMediator(this IServiceCollection services) =>
@@ -19,6 +22,9 @@ public static class ServiceCollectionExtensions
 
     private static void AddAutoMapper(this IServiceCollection services) => 
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    
+    private static void AddValidators(this IServiceCollection services) =>
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
     private static void AddQueries(this IServiceCollection services)
     {

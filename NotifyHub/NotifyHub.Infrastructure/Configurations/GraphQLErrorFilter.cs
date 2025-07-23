@@ -3,7 +3,7 @@ using NotifyHub.Application.Common.Exceptions;
 
 namespace NotifyHub.Infrastructure.Configurations;
 
-public class GraphQLErrorFilter : IErrorFilter
+public class GraphQLErrorFilter: IErrorFilter
 {
     private readonly ILogger<GraphQLErrorFilter> _logger;
 
@@ -15,6 +15,17 @@ public class GraphQLErrorFilter : IErrorFilter
     public IError OnError(IError error)
     {
         _logger.LogError(error.Exception, "GraphQL Error: {Message}", error.Message);
+        
+        if (error.Extensions != null
+            && error.Extensions.TryGetValue("code", out var codeObj)
+            && codeObj is string codeStr
+            && codeStr.Contains("Validator", StringComparison.OrdinalIgnoreCase))
+        {
+            return error
+                .WithMessage(error.Message)
+                .WithCode("VALIDATION_ERROR")
+                .SetExtension("validationCode", codeStr);
+        }
         
         if (error.Exception is ArgumentException argEx)
         {

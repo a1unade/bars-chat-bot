@@ -44,4 +44,6 @@
 
 - GitHub Actions (CI/CD)
 
-**[Документация](https://github.com/a1unade/bars-chat-bot/wiki/Docs)**
+**[Документация](https://github.com/a1unade/bars-chat-bot/wiki/General)**
+
+**[Документаця по коду](https://a1unade.github.io/bars-chat-bot/)**

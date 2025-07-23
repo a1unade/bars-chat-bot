@@ -1,7 +1,9 @@
+using AppAny.HotChocolate.FluentValidation;
 using AutoMapper;
 using NotifyHub.Domain.Entities;
 using NotifyHub.Application.Requests.User;
 using NotifyHub.Application.Interfaces.Repositories;
+using NotifyHub.Application.Validators;
 using NotifyHub.Domain.DTOs;
 
 namespace NotifyHub.Application.Features.Mutations;
@@ -12,6 +14,7 @@ public class UserMutation(IMapper mapper): BaseMutation
     [GraphQLDescription("Создание пользователя")]
     public async Task<Guid> CreateUserAsync(
         [Service] IGenericRepository<User> userRepository,
+        [UseFluentValidation, UseValidator<CreateUserRequestValidator>]
         CreateUserRequest request,
         CancellationToken cancellationToken)
     {
@@ -24,6 +27,7 @@ public class UserMutation(IMapper mapper): BaseMutation
     [GraphQLDescription("Обновление информации о пользователе")]
     public async Task<UserDto> UpdateUserAsync(
         [Service] IGenericRepository<User> userRepository,
+        [UseFluentValidation, UseValidator<UpdateUserRequestValidator>]
         UpdateUserRequest request,
         CancellationToken cancellationToken)
     {
