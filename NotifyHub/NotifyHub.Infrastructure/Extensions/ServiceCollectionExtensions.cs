@@ -1,4 +1,5 @@
 using System.Reflection;
+using AppAny.HotChocolate.FluentValidation;
 using NotifyHub.Kafka.Extensions;
 using NotifyHub.Abstractions.DTOs;
 using NotifyHub.Application.Interfaces;
@@ -27,9 +28,13 @@ public static class ServiceCollectionExtensions
 
     private static void AddGraphQl(this IServiceCollection services)
     {
-        // TODO: реализовать query и mutation для graphql в Application слое
         services
             .AddGraphQLServer()
+            .AddFluentValidation(options =>
+            {
+                options.UseInputValidators();
+                options.UseDefaultErrorMapper();
+            })
             .AddQueryType(d => d.Name("Query"))
             .AddMutationType(d => d.Name("Mutation"))
             .AddTypeExtensionsFromAssembly(typeof(BaseQuery).Assembly)

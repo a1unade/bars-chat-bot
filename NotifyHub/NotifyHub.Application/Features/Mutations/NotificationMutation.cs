@@ -1,8 +1,10 @@
 using MediatR;
 using AutoMapper;
+using NotifyHub.Domain.Entities;
 using NotifyHub.Abstractions.DTOs;
 using NotifyHub.Abstractions.Events;
-using NotifyHub.Domain.Entities;
+using NotifyHub.Application.Validators;
+using AppAny.HotChocolate.FluentValidation;
 using NotifyHub.Application.Requests.Notification;
 using NotifyHub.Application.Interfaces.Repositories;
 
@@ -15,6 +17,7 @@ public class NotificationMutation(IMapper mapper, IMediator mediator) : BaseMuta
     public async Task<NotificationDto> CreateNotificationAsync(
         [Service] IGenericRepository<Notification> notificationRepository,
         [Service] IGenericRepository<User> userRepository,
+        [UseFluentValidation, UseValidator<CreateNotificationRequestValidator>]
         CreateNotificationRequest request,
         CancellationToken cancellationToken)
     {
@@ -38,6 +41,7 @@ public class NotificationMutation(IMapper mapper, IMediator mediator) : BaseMuta
     public async Task<NotificationDto> UpdateNotificationAsync(
         [Service] IGenericRepository<Notification> notificationRepository,
         [Service] IGenericRepository<User> userRepository,
+        [UseFluentValidation, UseValidator<UpdateNotificationRequestValidator>]
         UpdateNotificationRequest request,
         CancellationToken cancellationToken)
     {
