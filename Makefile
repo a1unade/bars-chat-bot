@@ -1,6 +1,16 @@
-docker-rebuild:  
-		docker-compose down --rmi all -v
-		docker-compose up --build -d
+DOCS_OUT_DIR=docs
 
-docker:  
-		docker-compose up --build
+GEN_CMD="xmldoc2md"
+
+generate-docs:
+	docfx metadata   
+	docfx build
+
+.PHONY: generate-docs docker docker-rebuild
+
+docker-rebuild:
+	docker-compose down --rmi all -v
+	docker-compose up --build -d
+
+docker:
+	docker-compose up --build

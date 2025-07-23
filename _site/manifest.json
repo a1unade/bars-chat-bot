@@ -1,0 +1,2214 @@
+{
+  "source_base_path": "/Users/jinx/Desktop/bars-chat-bot",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Conceptual",
+      "source_relative_path": "README.md",
+      "output": {
+        ".html": {
+          "relative_path": "README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Abstractions.DTOs.NotificationDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Abstractions.DTOs.NotificationDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Abstractions.DTOs.NotificationDto",
+      "Summary": "<p sourcefile=\"api/NotifyHub.Abstractions.DTOs.NotificationDto.yml\" sourcestartlinenumber=\"1\">DTO для передачи уведомления</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Abstractions.DTOs.NotificationEventDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Abstractions.DTOs.NotificationEventDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Abstractions.DTOs.NotificationEventDto",
+      "Summary": "<p sourcefile=\"api/NotifyHub.Abstractions.DTOs.NotificationEventDto.yml\" sourcestartlinenumber=\"1\">Сообщение для OutboxProcessor (Kafka)</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Abstractions.DTOs.NotificationMessageDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Abstractions.DTOs.NotificationMessageDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Abstractions.DTOs.NotificationMessageDto",
+      "Summary": "<p sourcefile=\"api/NotifyHub.Abstractions.DTOs.NotificationMessageDto.yml\" sourcestartlinenumber=\"1\">Сообщение для NotificationService</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Abstractions.DTOs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Abstractions.DTOs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Abstractions.DTOs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Abstractions.Enums.DomainEventType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Abstractions.Enums.DomainEventType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Abstractions.Enums.DomainEventType",
+      "Summary": "<p sourcefile=\"api/NotifyHub.Abstractions.Enums.DomainEventType.yml\" sourcestartlinenumber=\"1\">Тип доменного события у сущности</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Abstractions.Enums.NotificationFrequency.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Abstractions.Enums.NotificationFrequency.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Abstractions.Enums.NotificationFrequency",
+      "Summary": "<p sourcefile=\"api/NotifyHub.Abstractions.Enums.NotificationFrequency.yml\" sourcestartlinenumber=\"1\">Периодичность уведомлений</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Abstractions.Enums.NotificationType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Abstractions.Enums.NotificationType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Abstractions.Enums.NotificationType",
+      "Summary": "<p sourcefile=\"api/NotifyHub.Abstractions.Enums.NotificationType.yml\" sourcestartlinenumber=\"1\">Тип уведомления</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Abstractions.Enums.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Abstractions.Enums.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Abstractions.Enums",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Abstractions.Events.BaseDomainEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Abstractions.Events.BaseDomainEvent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Abstractions.Events.BaseDomainEvent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Abstractions.Events.NotificationCreatedDomainEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Abstractions.Events.NotificationCreatedDomainEvent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Abstractions.Events.NotificationCreatedDomainEvent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Abstractions.Events.NotificationDeletedDomainEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Abstractions.Events.NotificationDeletedDomainEvent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Abstractions.Events.NotificationDeletedDomainEvent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Abstractions.Events.NotificationUpdatedDomainEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Abstractions.Events.NotificationUpdatedDomainEvent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Abstractions.Events.NotificationUpdatedDomainEvent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Abstractions.Events.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Abstractions.Events.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Abstractions.Events",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Configurations.KafkaJsonDeserializer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Configurations.KafkaJsonDeserializer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Configurations.KafkaJsonDeserializer<TMessage>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Configurations.KafkaJsonSerializer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Configurations.KafkaJsonSerializer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Configurations.KafkaJsonSerializer<TMessage>",
+      "Summary": "<p sourcefile=\"api/NotifyHub.Kafka.Configurations.KafkaJsonSerializer-1.yml\" sourcestartlinenumber=\"1\">JSON-сериализатор сообщений Kafka</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Configurations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Configurations.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Configurations",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Exceptions.KafkaConsumeException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Exceptions.KafkaConsumeException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Exceptions.KafkaConsumeException",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Exceptions.KafkaProduceException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Exceptions.KafkaProduceException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Exceptions.KafkaProduceException",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Exceptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Exceptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Exceptions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Extensions.ServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Extensions.ServiceCollectionExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Extensions.ServiceCollectionExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Extensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Extensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Interfaces.IKafkaConsumer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Interfaces.IKafkaConsumer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Interfaces.IKafkaConsumer<TMessage>",
+      "Summary": "<p sourcefile=\"api/NotifyHub.Kafka.Interfaces.IKafkaConsumer-1.yml\" sourcestartlinenumber=\"1\">Kafka-consumer, обрабатывающий входящие сообщения.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Interfaces.IKafkaProducer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Interfaces.IKafkaProducer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Interfaces.IKafkaProducer<TMessage>",
+      "Summary": "<p sourcefile=\"api/NotifyHub.Kafka.Interfaces.IKafkaProducer-1.yml\" sourcestartlinenumber=\"1\">Kafka-producer сообщений</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Interfaces.IKafkaTopicsInitializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Interfaces.IKafkaTopicsInitializer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Interfaces.IKafkaTopicsInitializer",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Interfaces.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Interfaces",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Options.KafkaOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Options.KafkaOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Options.KafkaOptions",
+      "Summary": "<p sourcefile=\"api/NotifyHub.Kafka.Options.KafkaOptions.yml\" sourcestartlinenumber=\"1\">Настройки для Kafka</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Options.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Options.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Options",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Services.KafkaConsumer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Services.KafkaConsumer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Services.KafkaConsumer<TMessage>",
+      "Summary": "<p sourcefile=\"api/NotifyHub.Kafka.Services.KafkaConsumer-1.yml\" sourcestartlinenumber=\"1\">Kafka-consumer для обработки сообщений определённого типа.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Services.KafkaProducer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Services.KafkaProducer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Services.KafkaProducer<TMessage>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Services.KafkaTopicInitializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Services.KafkaTopicInitializer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Services.KafkaTopicInitializer",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.Kafka.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.Kafka.Services.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.Kafka.Services",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Common.Exceptions.BaseException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Common.Exceptions.BaseException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Common.Exceptions.BaseException",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Common.Exceptions.NotFoundException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Common.Exceptions.NotFoundException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Common.Exceptions.NotFoundException",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Common.Exceptions.ValidationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Common.Exceptions.ValidationException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Common.Exceptions.ValidationException",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Common.Exceptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Common.Exceptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Common.Exceptions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Common.Requests.History.GetHistoryByIdResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Common.Requests.History.GetHistoryByIdResponse.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Common.Requests.History.GetHistoryByIdResponse",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.Application.Common.Requests.History.GetHistoryByIdResponse.yml\" sourcestartlinenumber=\"1\">Запись об отправке</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Common.Requests.History.GetHistoryResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Common.Requests.History.GetHistoryResponse.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Common.Requests.History.GetHistoryResponse",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.Application.Common.Requests.History.GetHistoryResponse.yml\" sourcestartlinenumber=\"1\">Ответ на запрос о получении истории отправок</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Common.Requests.History.GetHistoryResponseItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Common.Requests.History.GetHistoryResponseItem.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Common.Requests.History.GetHistoryResponseItem",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.Application.Common.Requests.History.GetHistoryResponseItem.yml\" sourcestartlinenumber=\"1\">Запись об отправке уведомления</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Common.Requests.History.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Common.Requests.History.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Common.Requests.History",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Common.Requests.IdRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Common.Requests.IdRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Common.Requests.IdRequest",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Common.Requests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Common.Requests.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Common.Requests",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Common.Responses.BaseResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Common.Responses.BaseResponse.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Common.Responses.BaseResponse",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.Application.Common.Responses.BaseResponse.yml\" sourcestartlinenumber=\"1\">Базовый ответ</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Common.Responses.ErrorResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Common.Responses.ErrorResponse.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Common.Responses.ErrorResponse",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Common.Responses.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Common.Responses.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Common.Responses",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Extensions.ServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Extensions.ServiceCollectionExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Extensions.ServiceCollectionExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Extensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Extensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Features.Events.MessageFailedDomainEventHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Features.Events.MessageFailedDomainEventHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Features.Events.MessageFailedDomainEventHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Features.Events.MessageSentDomainEventHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Features.Events.MessageSentDomainEventHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Features.Events.MessageSentDomainEventHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Features.Events.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Features.Events.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Features.Events",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Features.Queries.GetAllHistory.GetAllHistoryQuery.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Features.Queries.GetAllHistory.GetAllHistoryQuery.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Features.Queries.GetAllHistory.GetAllHistoryQuery",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.Application.Features.Queries.GetAllHistory.GetAllHistoryQuery.yml\" sourcestartlinenumber=\"1\">Запрос на получение истории уведомдений</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Features.Queries.GetAllHistory.GetAllHistoryQueryHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Features.Queries.GetAllHistory.GetAllHistoryQueryHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Features.Queries.GetAllHistory.GetAllHistoryQueryHandler",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.Application.Features.Queries.GetAllHistory.GetAllHistoryQueryHandler.yml\" sourcestartlinenumber=\"1\">Обработчик для <xref href=\"NotifyHub.NotificationService.Application.Features.Queries.GetAllHistory.GetAllHistoryQuery\" data-throw-if-not-resolved=\"false\"></xref></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Features.Queries.GetAllHistory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Features.Queries.GetAllHistory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Features.Queries.GetAllHistory",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Features.Queries.GetHistoryById.GetHistoryByIdQuery.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Features.Queries.GetHistoryById.GetHistoryByIdQuery.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Features.Queries.GetHistoryById.GetHistoryByIdQuery",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Features.Queries.GetHistoryById.GetHistoryByIdQueryHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Features.Queries.GetHistoryById.GetHistoryByIdQueryHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Features.Queries.GetHistoryById.GetHistoryByIdQueryHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Features.Queries.GetHistoryById.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Features.Queries.GetHistoryById.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Features.Queries.GetHistoryById",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Interfaces.IDbContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Interfaces.IDbContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Interfaces.IDbContext",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Interfaces.IEmailService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Interfaces.IEmailService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Interfaces.IEmailService",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Interfaces.INotificationLogRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Interfaces.INotificationLogRepository.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Interfaces.INotificationLogRepository",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Interfaces.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Interfaces",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Mappings.NotificationLogProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Mappings.NotificationLogProfile.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Mappings.NotificationLogProfile",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Mappings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Mappings.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Mappings",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Validators.IdRequestValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Validators.IdRequestValidator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Validators.IdRequestValidator",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Application.Validators.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Application.Validators.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Application.Validators",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Domain.Common.BaseEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Domain.Common.BaseEntity.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Domain.Common.BaseEntity",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Domain.Common.Enums.OperationStatus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Domain.Common.Enums.OperationStatus.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Domain.Common.Enums.OperationStatus",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.Domain.Common.Enums.OperationStatus.yml\" sourcestartlinenumber=\"1\">Статус операции</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Domain.Common.Enums.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Domain.Common.Enums.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Domain.Common.Enums",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Domain.Common.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Domain.Common.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Domain.Common",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Domain.Entities.NotificationLog.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Domain.Entities.NotificationLog.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Domain.Entities.NotificationLog",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.Domain.Entities.NotificationLog.yml\" sourcestartlinenumber=\"1\">Лог для отправленных операций</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Domain.Entities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Domain.Entities.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Domain.Entities",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Domain.Events.MessageFailedDomainEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Domain.Events.MessageFailedDomainEvent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Domain.Events.MessageFailedDomainEvent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Domain.Events.MessageSentDomainEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Domain.Events.MessageSentDomainEvent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Domain.Events.MessageSentDomainEvent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Domain.Events.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Domain.Events.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Domain.Events",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Infrastructure.Behaviours.ValidationBehavior-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Infrastructure.Behaviours.ValidationBehavior-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Infrastructure.Behaviours.ValidationBehavior<TRequest, TResponse>",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.Infrastructure.Behaviours.ValidationBehavior-2.yml\" sourcestartlinenumber=\"1\">Валидация перед хэндлерами CQRS command/query</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Infrastructure.Behaviours.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Infrastructure.Behaviours.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Infrastructure.Behaviours",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Infrastructure.Extensions.ServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Infrastructure.Extensions.ServiceCollectionExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Infrastructure.Extensions.ServiceCollectionExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Infrastructure.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Infrastructure.Extensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Infrastructure.Extensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Infrastructure.Jobs.NotifierWorker.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Infrastructure.Jobs.NotifierWorker.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Infrastructure.Jobs.NotifierWorker",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Infrastructure.Jobs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Infrastructure.Jobs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Infrastructure.Jobs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Infrastructure.Options.EmailOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Infrastructure.Options.EmailOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Infrastructure.Options.EmailOptions",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.Infrastructure.Options.EmailOptions.yml\" sourcestartlinenumber=\"1\">Настройки для почтового клиента</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Infrastructure.Options.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Infrastructure.Options.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Infrastructure.Options",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Infrastructure.Services.EmailService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Infrastructure.Services.EmailService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Infrastructure.Services.EmailService",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.Infrastructure.Services.EmailService.yml\" sourcestartlinenumber=\"1\">Сервис для отправки сообщений на почту</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Infrastructure.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Infrastructure.Services.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Infrastructure.Services",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Infrastructure.Workers.KafkaBackgroundService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Infrastructure.Workers.KafkaBackgroundService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Infrastructure.Workers.KafkaBackgroundService",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Infrastructure.Workers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Infrastructure.Workers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Infrastructure.Workers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Persistence.Contexts.ApplicationDbContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Persistence.Contexts.ApplicationDbContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Persistence.Contexts.ApplicationDbContext",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Persistence.Contexts.EfFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Persistence.Contexts.EfFactory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Persistence.Contexts.EfFactory",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Persistence.Contexts.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Persistence.Contexts.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Persistence.Contexts",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Persistence.Extensions.ServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Persistence.Extensions.ServiceCollectionExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Persistence.Extensions.ServiceCollectionExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Persistence.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Persistence.Extensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Persistence.Extensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Persistence.MigrationTools.Migrator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Persistence.MigrationTools.Migrator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Persistence.MigrationTools.Migrator",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Persistence.MigrationTools.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Persistence.MigrationTools.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Persistence.MigrationTools",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Persistence.Migrations.Init.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Persistence.Migrations.Init.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Persistence.Migrations.Init",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.Persistence.Migrations.Init.yml\" sourcestartlinenumber=\"1\">A base class inherited by each EF Core migration.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Persistence.Migrations.NotificationLogs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Persistence.Migrations.NotificationLogs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Persistence.Migrations.NotificationLogs",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.Persistence.Migrations.NotificationLogs.yml\" sourcestartlinenumber=\"1\">A base class inherited by each EF Core migration.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Persistence.Migrations.TelegramUserId.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Persistence.Migrations.TelegramUserId.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Persistence.Migrations.TelegramUserId",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.Persistence.Migrations.TelegramUserId.yml\" sourcestartlinenumber=\"1\">A base class inherited by each EF Core migration.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Persistence.Migrations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Persistence.Migrations.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Persistence.Migrations",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Persistence.Repositories.NotificationLogRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Persistence.Repositories.NotificationLogRepository.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Persistence.Repositories.NotificationLogRepository",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.Persistence.Repositories.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.Persistence.Repositories.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.Persistence.Repositories",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.WebApi.Configurations.CorsPolicyConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.WebApi.Configurations.CorsPolicyConfiguration.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.WebApi.Configurations.CorsPolicyConfiguration",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.WebApi.Configurations.KafkaConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.WebApi.Configurations.KafkaConfiguration.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.WebApi.Configurations.KafkaConfiguration",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.WebApi.Configurations.MiddlewareConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.WebApi.Configurations.MiddlewareConfiguration.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.WebApi.Configurations.MiddlewareConfiguration",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.WebApi.Configurations.MigrationsConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.WebApi.Configurations.MigrationsConfiguration.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.WebApi.Configurations.MigrationsConfiguration",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.WebApi.Configurations.SerilogConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.WebApi.Configurations.SerilogConfiguration.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.WebApi.Configurations.SerilogConfiguration",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.WebApi.Configurations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.WebApi.Configurations.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.WebApi.Configurations",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.WebApi.Controllers.HistoryController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.WebApi.Controllers.HistoryController.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.WebApi.Controllers.HistoryController",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.WebApi.Controllers.HistoryController.yml\" sourcestartlinenumber=\"1\">Контроллер для запросов записей об истории отправки</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.WebApi.Controllers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.WebApi.Controllers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.WebApi.Controllers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.WebApi.Middlewares.ExceptionMiddleware.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.WebApi.Middlewares.ExceptionMiddleware.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.WebApi.Middlewares.ExceptionMiddleware",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.WebApi.Middlewares.RequestValidationMiddleware.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.WebApi.Middlewares.RequestValidationMiddleware.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.WebApi.Middlewares.RequestValidationMiddleware",
+      "Summary": "<p sourcefile=\"api/NotifyHub.NotificationService.WebApi.Middlewares.RequestValidationMiddleware.yml\" sourcestartlinenumber=\"1\">Middleware для валидации пустых полей в запросе</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.NotificationService.WebApi.Middlewares.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.NotificationService.WebApi.Middlewares.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.NotificationService.WebApi.Middlewares",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Application.Common.Exceptions.NotFoundException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Application.Common.Exceptions.NotFoundException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Application.Common.Exceptions.NotFoundException",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Application.Common.Exceptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Application.Common.Exceptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Application.Common.Exceptions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Application.Extensions.ServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Application.Extensions.ServiceCollectionExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Application.Extensions.ServiceCollectionExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Application.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Application.Extensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Application.Extensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Application.Features.Events.NotificationCreatedDomainEventHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Application.Features.Events.NotificationCreatedDomainEventHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Application.Features.Events.NotificationCreatedDomainEventHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Application.Features.Events.NotificationDeletedDomainEventHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Application.Features.Events.NotificationDeletedDomainEventHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Application.Features.Events.NotificationDeletedDomainEventHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Application.Features.Events.NotificationUpdatedDomainEventHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Application.Features.Events.NotificationUpdatedDomainEventHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Application.Features.Events.NotificationUpdatedDomainEventHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Application.Features.Events.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Application.Features.Events.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Application.Features.Events",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Application.Interfaces.IDbContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Application.Interfaces.IDbContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Application.Interfaces.IDbContext",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Application.Interfaces.IOutboxMessageRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Application.Interfaces.IOutboxMessageRepository.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Application.Interfaces.IOutboxMessageRepository",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Application.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Application.Interfaces.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Application.Interfaces",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Application.Mappings.NotificationMessageDtoProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Application.Mappings.NotificationMessageDtoProfile.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Application.Mappings.NotificationMessageDtoProfile",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Application.Mappings.OutboxMessageProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Application.Mappings.OutboxMessageProfile.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Application.Mappings.OutboxMessageProfile",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Application.Mappings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Application.Mappings.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Application.Mappings",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Domain.Common.BaseEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Domain.Common.BaseEntity.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Domain.Common.BaseEntity",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Domain.Common.Enums.OperationStatus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Domain.Common.Enums.OperationStatus.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Domain.Common.Enums.OperationStatus",
+      "Summary": "<p sourcefile=\"api/NotifyHub.OutboxProcessor.Domain.Common.Enums.OperationStatus.yml\" sourcestartlinenumber=\"1\">Статус операции</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Domain.Common.Enums.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Domain.Common.Enums.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Domain.Common.Enums",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Domain.Common.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Domain.Common.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Domain.Common",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Domain.Entities.OutboxMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Domain.Entities.OutboxMessage.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Domain.Entities.OutboxMessage",
+      "Summary": "<p sourcefile=\"api/NotifyHub.OutboxProcessor.Domain.Entities.OutboxMessage.yml\" sourcestartlinenumber=\"1\">Операция по отправке уведомления</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Domain.Entities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Domain.Entities.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Domain.Entities",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Extensions.ServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Extensions.ServiceCollectionExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Infrastructure.Extensions.ServiceCollectionExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Extensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Infrastructure.Extensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Jobs.OutboxJob.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Jobs.OutboxJob.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Infrastructure.Jobs.OutboxJob",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Jobs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Jobs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Infrastructure.Jobs",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Processors.OutboxProcessor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Processors.OutboxProcessor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Infrastructure.Processors.OutboxProcessor",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Processors.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Processors.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Infrastructure.Processors",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Workers.KafkaBackgroundService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Workers.KafkaBackgroundService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Infrastructure.Workers.KafkaBackgroundService",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Workers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Infrastructure.Workers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Infrastructure.Workers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Configurations.OutboxMessageConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Configurations.OutboxMessageConfiguration.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Persistence.Configurations.OutboxMessageConfiguration",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Configurations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Configurations.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Persistence.Configurations",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Contexts.ApplicationDbContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Contexts.ApplicationDbContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Persistence.Contexts.ApplicationDbContext",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Contexts.EfFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Contexts.EfFactory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Persistence.Contexts.EfFactory",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Contexts.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Contexts.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Persistence.Contexts",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Extensions.ServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Extensions.ServiceCollectionExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Persistence.Extensions.ServiceCollectionExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Extensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Persistence.Extensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Persistence.MigrationTools.Migrator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Persistence.MigrationTools.Migrator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Persistence.MigrationTools.Migrator",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Persistence.MigrationTools.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Persistence.MigrationTools.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Persistence.MigrationTools",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Migrations.Init.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Migrations.Init.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Persistence.Migrations.Init",
+      "Summary": "<p sourcefile=\"api/NotifyHub.OutboxProcessor.Persistence.Migrations.Init.yml\" sourcestartlinenumber=\"1\">A base class inherited by each EF Core migration.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Migrations.UpdateAbstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Migrations.UpdateAbstractions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Persistence.Migrations.UpdateAbstractions",
+      "Summary": "<p sourcefile=\"api/NotifyHub.OutboxProcessor.Persistence.Migrations.UpdateAbstractions.yml\" sourcestartlinenumber=\"1\">A base class inherited by each EF Core migration.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Migrations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Migrations.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Persistence.Migrations",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Repositories.OutboxMessageRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Repositories.OutboxMessageRepository.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Persistence.Repositories.OutboxMessageRepository",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Repositories.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.Persistence.Repositories.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.Persistence.Repositories",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.WebApi.Configurations.HangfireConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.WebApi.Configurations.HangfireConfiguration.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.WebApi.Configurations.HangfireConfiguration",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.WebApi.Configurations.KafkaConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.WebApi.Configurations.KafkaConfiguration.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.WebApi.Configurations.KafkaConfiguration",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.WebApi.Configurations.MigrationsConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.WebApi.Configurations.MigrationsConfiguration.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.WebApi.Configurations.MigrationsConfiguration",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.WebApi.Configurations.SerilogConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.WebApi.Configurations.SerilogConfiguration.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.WebApi.Configurations.SerilogConfiguration",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NotifyHub.OutboxProcessor.WebApi.Configurations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NotifyHub.OutboxProcessor.WebApi.Configurations.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "NotifyHub.OutboxProcessor.WebApi.Configurations",
+      "Summary": null
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

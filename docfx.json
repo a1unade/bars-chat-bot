@@ -1,0 +1,23 @@
+{
+  "metadata": [
+    {
+      "src": [
+        { "files": ["NotifyHub.*/**/*.csproj"] }
+      ],
+      "dest": "api"
+    }
+  ],
+  "build": {
+    "content": [
+      { "files": ["api/*.yml"] },
+      { "files": ["api/toc.yml"] },
+      { "files": ["**/*.md"], "src": ".", "dest": "." },
+      { "files": ["api/**.yml"], "dest": "api" },
+      { "files": ["api/**.md"], "dest": "api" }
+    ],
+    "resource": [
+      { "files": ["**/images/**"] }
+    ],
+    "dest": "_site"
+  }
+}
