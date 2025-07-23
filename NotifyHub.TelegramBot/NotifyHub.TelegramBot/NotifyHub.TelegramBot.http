@@ -1,0 +1,6 @@
+@NotifyHub.TelegramBot_HostAddress = http://localhost:5003
+
+GET {{NotifyHub.TelegramBot_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
