@@ -20,7 +20,7 @@ public class User: BaseEntity
     /// <summary>
     /// ID пользователя в Telegram
     /// </summary>
-    public required string TelegramUserId { get; set; }
+    public required long TelegramUserId { get; set; }
 
     /// <summary>
     /// Созданные уведомления

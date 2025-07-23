@@ -1,5 +1,6 @@
 using AppAny.HotChocolate.FluentValidation;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using NotifyHub.Domain.Entities;
 using NotifyHub.Application.Requests.User;
 using NotifyHub.Application.Interfaces.Repositories;
@@ -18,11 +19,24 @@ public class UserMutation(IMapper mapper): BaseMutation
         CreateUserRequest request,
         CancellationToken cancellationToken)
     {
+        // Ищем пользователя с таким telegramUserId
+        var existingUser = await userRepository
+            .Get(u => u.TelegramUserId == request.TelegramUserId)
+            .FirstOrDefaultAsync(cancellationToken);
+
+        if (existingUser != null)
+        {
+            // Пользователь уже есть — возвращаем его Id
+            return existingUser.Id;
+        }
+
+        // Нет пользователя — создаём нового
         var userEntity = mapper.Map<User>(request);
-        var savedUser = await Add(userRepository, userEntity, cancellationToken);
+        var savedUser = await userRepository.AddAsync(userEntity, cancellationToken);
 
         return savedUser.Id;
     }
+
     
     [GraphQLDescription("Обновление информации о пользователе")]
     public async Task<UserDto> UpdateUserAsync(
