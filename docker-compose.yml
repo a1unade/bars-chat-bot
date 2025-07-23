@@ -204,6 +204,9 @@ volumes:
   outbox_db_data:
   data_protection:
   zookeeper-volume:
+  mongo_data:
+  es_data:
+  graylog_journal:
 
 networks:
   notify_hub_network:

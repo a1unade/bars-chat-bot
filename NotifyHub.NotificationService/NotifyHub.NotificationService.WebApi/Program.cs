@@ -14,6 +14,8 @@ builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddPersistenceLayer(builder.Configuration);
 
 builder.Services.AddCors();
+// Настройка serilog + sentry
+builder.Services.AddSerilog(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
