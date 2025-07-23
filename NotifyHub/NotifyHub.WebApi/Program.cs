@@ -13,6 +13,8 @@ builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddPersistenceLayer(builder.Configuration);
 
 builder.Services.AddCors();
+// Настройка serilog + sentry
+builder.Services.AddSerilog(builder.Configuration);
 
 var app = builder.Build();
 

@@ -11,6 +11,8 @@ builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 // Регистрация контекста базы данных и репозиториев
 builder.Services.AddPersistenceLayer(builder.Configuration);
+// Настройка serilog + sentry
+builder.Services.AddSerilog(builder.Configuration);
 
 var app = builder.Build();
 
