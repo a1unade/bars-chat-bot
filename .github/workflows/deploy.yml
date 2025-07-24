@@ -133,6 +133,38 @@ jobs:
           docker push $IMAGE:latest
           docker push $IMAGE:$VERSION
 
+  deploy-telegram-bot:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    needs: deploy-notification
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.14
+        with:
+          versionSpec: '6.2.x'
+
+      - name: Run GitVersion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.14
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build and push outbox image
+        run: |
+          VERSION=${{ steps.gitversion.outputs.semVer }}
+          IMAGE=ghcr.io/${{ github.repository_owner }}/bars-chat-bot-telegram-bot
+          docker build -t $IMAGE:latest -t $IMAGE:$VERSION -f ./NotifyHub.TelegramBot/NotifyHub.TelegramBot/Dockerfile NotifyHub.TelegramBot
+          docker push $IMAGE:latest
+          docker push $IMAGE:$VERSION
+
   deploy-compose:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
