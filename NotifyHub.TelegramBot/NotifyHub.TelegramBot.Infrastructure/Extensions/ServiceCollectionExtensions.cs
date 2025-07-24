@@ -1,11 +1,14 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using NotifyHub.Abstractions.DTOs;
+using NotifyHub.Kafka.Extensions;
 using NotifyHub.TelegramBot.Application.Interfaces;
 using NotifyHub.TelegramBot.Infrastructure.Handlers;
 using NotifyHub.TelegramBot.Infrastructure.Managers;
 using NotifyHub.TelegramBot.Infrastructure.Options;
 using NotifyHub.TelegramBot.Infrastructure.Services;
+using NotifyHub.TelegramBot.Infrastructure.Workers;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 
@@ -19,6 +22,8 @@ public static class ServiceCollectionExtensions
         services.AddTelegramBot(configuration);
         services.AddHandlers();
         services.AddManagers();
+        services.AddKafka(configuration);
+        services.AddWorkers();
     }
 
     private static void AddServices(this IServiceCollection services, IConfiguration configuration)
@@ -74,4 +79,13 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<NotificationCreationSessionManager>();
         services.AddSingleton<NotificationDeletionSessionManager>();
     }
+    
+    private static void AddKafka(this IServiceCollection services, IConfiguration configuration)
+    {
+        services
+            .AddKafkaConsumer<NotificationMessageDto>(configuration);
+    }
+    
+    private static void AddWorkers(this IServiceCollection services) =>
+        services.AddHostedService<KafkaBackgroundService>();
 }
