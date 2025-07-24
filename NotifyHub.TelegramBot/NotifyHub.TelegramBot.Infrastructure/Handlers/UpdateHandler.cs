@@ -42,10 +42,6 @@ public class UpdateHandler(
             { ChosenInlineResult: { } chosenInlineResult }  => OnChosenInlineResult(chosenInlineResult),
             { Poll: { } poll }                              => OnPoll(poll),
             { PollAnswer: { } pollAnswer }                  => OnPollAnswer(pollAnswer),
-            // UpdateType.ChannelPost:
-            // UpdateType.EditedChannelPost:
-            // UpdateType.ShippingQuery:
-            // UpdateType.PreCheckoutQuery:
             _                                               => UnknownUpdateHandlerAsync(update)
         });
     }
@@ -65,6 +61,13 @@ public class UpdateHandler(
         
         if (_pendingNotificationDeletions.TryGetValue(msg.From!.Id, out var notificationIds))
         {
+            if (msg.Text.Trim() == "❌ Отмена")
+            {
+                _pendingNotificationDeletions.Remove(msg.From.Id);
+                await bot.SendMessage(msg.Chat, "🚫 Удаление отменено.", replyMarkup: new ReplyKeyboardRemove(), cancellationToken: cancellationToken);
+                return;
+            }
+
             if (int.TryParse(msg.Text, out int index) && index >= 1 && index <= notificationIds.Count)
             {
                 var notificationIdToDelete = notificationIds[index - 1];
@@ -76,11 +79,11 @@ public class UpdateHandler(
 
                 _pendingNotificationDeletions.Remove(msg.From.Id);
 
-                await bot.SendMessage(msg.Chat, "✅ Уведомление удалено.", cancellationToken: cancellationToken);
+                await bot.SendMessage(msg.Chat, "✅ Уведомление удалено.", replyMarkup: new ReplyKeyboardRemove(), cancellationToken: cancellationToken);
             }
             else
             {
-                await bot.SendMessage(msg.Chat, "❌ Введён некорректный номер. Попробуйте снова.", cancellationToken: cancellationToken);
+                await bot.SendMessage(msg.Chat, "❌ Введён некорректный номер. Попробуй снова или нажми <b>❌ Отмена</b>.", parseMode: ParseMode.Html, cancellationToken: cancellationToken);
             }
 
             return;
@@ -389,9 +392,20 @@ public class UpdateHandler(
 
         _pendingNotificationDeletions[telegramUserId] = notifications.Select(n => n.Id).ToList();
 
+        var keyboard = new ReplyKeyboardMarkup(new[]
+        {
+            new KeyboardButton[] { "❌ Отмена" }
+        })
+        {
+            ResizeKeyboard = true,
+            OneTimeKeyboard = true
+        };
+
         await bot.SendMessage(chat, 
             $"📋 Вот твои уведомления:\n\n{listText}\n\n" +
-            "Введите номер уведомления, которое хотите удалить.", 
+            "✏️ Введи номер уведомления для удаления или нажми <b>❌ Отмена</b>.",
+            parseMode: ParseMode.Html,
+            replyMarkup: keyboard,
             cancellationToken: cancellationToken);
     }
 }
