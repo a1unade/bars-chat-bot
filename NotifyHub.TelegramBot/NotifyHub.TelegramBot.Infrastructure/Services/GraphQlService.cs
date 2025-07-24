@@ -1,9 +1,12 @@
 using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NotifyHub.TelegramBot.Application.Interfaces;
 using NotifyHub.TelegramBot.Application.Responses;
 using NotifyHub.TelegramBot.Domain.DTOs;
+using NotifyHub.TelegramBot.Infrastructure.Helpers;
 using NotifyHub.TelegramBot.Infrastructure.Options;
 
 namespace NotifyHub.TelegramBot.Infrastructure.Services;
@@ -115,5 +118,81 @@ public class GraphQlService(
             logger.LogError(ex, "Failed to parse deleteNotification response. Content: {Content}", responseContent);
             throw;
         }
+    }
+    
+    public async Task<Guid> CreateNotificationAsync(CreateNotificationDto dto, Guid userId, CancellationToken cancellationToken)
+    {
+        var query = new
+        {
+            query = @"
+            mutation($request: CreateNotificationRequestInput!) {
+                createNotification(request: $request) {
+                    id
+                }
+            }
+        ",
+            variables = new
+            {
+                request = new
+                {
+                    userId,
+                    title = dto.Title,
+                    description = dto.Description,
+                    type = ToGraphQlEnumString(dto.Type),
+                    frequency = dto.Frequency.HasValue ? ToGraphQlEnumString(dto.Frequency.Value) : null,
+                    scheduledAt = dto.ScheduledAt.ToUniversalTime().ToString("o")
+                }
+            }
+        };
+        
+        logger.LogInformation(query.ToString());
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            Converters = { new GraphQlEnumConverter() }
+        };
+
+        var json = JsonSerializer.Serialize(query, options);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        logger.LogInformation("Sending createNotification mutation for UserId: {UserId}", userId);
+
+        var response = await httpClient.PostAsync(_options.Graphql, content, cancellationToken);
+        var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            logger.LogError("GraphQL error: {StatusCode}, Content: {Content}", response.StatusCode, responseContent);
+            throw new HttpRequestException($"GraphQL error: {response.StatusCode}, Content: {responseContent}");
+        }
+
+        try
+        {
+            var parsed = JsonSerializer.Deserialize<GraphQlResponse<CreateNotificationResponse>>(responseContent, options);
+            return parsed?.Data.CreateNotification.Id ?? Guid.Empty;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to parse createNotification response. Content: {Content}", responseContent);
+            throw;
+        }
+    }
+    
+    private string ToGraphQlEnumString(Enum enumValue)
+    {
+        var name = enumValue.ToString(); 
+        
+        var builder = new StringBuilder();
+        for (int i = 0; i < name.Length; i++)
+        {
+            var c = name[i];
+            if (char.IsUpper(c) && i > 0)
+            {
+                builder.Append('_');
+            }
+            builder.Append(char.ToUpperInvariant(c));
+        }
+        return builder.ToString();
     }
 }

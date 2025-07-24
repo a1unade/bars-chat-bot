@@ -28,4 +28,13 @@ public interface IGraphQlService
     /// <param name="cancellationToken">Токен отмены</param>
     /// <returns>Результат выполнения операции</returns>
     Task<bool> DeleteNotificationAsync(Guid id, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Создание уведомления 
+    /// </summary>
+    /// <param name="dto">Данные для создания уведомления</param>
+    /// <param name="userId">ID пользователя-автора</param>
+    /// <param name="cancellationToken">Токен отмены</param>
+    /// <returns>ID созданного уведомления</returns>
+    Task<Guid> CreateNotificationAsync(CreateNotificationDto dto, Guid userId, CancellationToken cancellationToken);
 }
