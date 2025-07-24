@@ -1,5 +1,9 @@
+using MediatR;
 using Microsoft.Extensions.Logging;
-using NotifyHub.TelegramBot.Application.Interfaces;
+using NotifyHub.TelegramBot.Application.Features.Commands.DeleteUserNotification;
+using NotifyHub.TelegramBot.Application.Features.Queries.GetUserNotifications;
+using NotifyHub.TelegramBot.Domain.DTOs;
+using NotifyHub.TelegramBot.Domain.Events;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
@@ -13,9 +17,10 @@ namespace NotifyHub.TelegramBot.Infrastructure.Handlers;
 public class UpdateHandler(
     ITelegramBotClient bot, 
     ILogger<UpdateHandler> logger,
-    IGraphQlService graphQlService) : IUpdateHandler
+    IMediator mediator) : IUpdateHandler
 {
     private static readonly InputPollOption[] PollOptions = ["Hello", "World!"];
+    private readonly Dictionary<long, List<Guid>> _pendingNotificationDeletions = new();
 
     public async Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, HandleErrorSource source, CancellationToken cancellationToken)
     {
@@ -32,7 +37,7 @@ public class UpdateHandler(
         {
             { Message: { } message }                        => OnMessage(message, cancellationToken),
             { EditedMessage: { } message }                  => OnMessage(message, cancellationToken),
-            { CallbackQuery: { } callbackQuery }            => OnCallbackQuery(callbackQuery),
+            { CallbackQuery: { } callbackQuery }            => OnCallbackQuery(callbackQuery, cancellationToken),
             { InlineQuery: { } inlineQuery }                => OnInlineQuery(inlineQuery),
             { ChosenInlineResult: { } chosenInlineResult }  => OnChosenInlineResult(chosenInlineResult),
             { Poll: { } poll }                              => OnPoll(poll),
@@ -57,6 +62,29 @@ public class UpdateHandler(
             "ℹ️ Помощь" => "/help",
             _ => messageText
         };
+        
+        if (_pendingNotificationDeletions.TryGetValue(msg.From!.Id, out var notificationIds))
+        {
+            if (int.TryParse(msg.Text, out int index) && index >= 1 && index <= notificationIds.Count)
+            {
+                var notificationIdToDelete = notificationIds[index - 1];
+
+                await mediator.Send(new DeleteUserNotificationCommand
+                {
+                    NotificationId = notificationIdToDelete
+                }, cancellationToken);
+
+                _pendingNotificationDeletions.Remove(msg.From.Id);
+
+                await bot.SendMessage(msg.Chat, "✅ Уведомление удалено.", cancellationToken: cancellationToken);
+            }
+            else
+            {
+                await bot.SendMessage(msg.Chat, "❌ Введён некорректный номер. Попробуйте снова.", cancellationToken: cancellationToken);
+            }
+
+            return;
+        }
         
         var command = messageText.Split(' ')[0];
 
@@ -160,11 +188,30 @@ public class UpdateHandler(
     }
 
     // Process Inline Keyboard callback data
-    private async Task OnCallbackQuery(CallbackQuery callbackQuery)
+    private async Task OnCallbackQuery(CallbackQuery callbackQuery, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Received inline keyboard callback from: {CallbackQueryId}", callbackQuery.Id);
-        await bot.AnswerCallbackQuery(callbackQuery.Id, $"Received {callbackQuery.Data}");
-        await bot.SendMessage(callbackQuery.Message!.Chat, $"Received {callbackQuery.Data}");
+        logger.LogInformation("Received inline keyboard callback: {CallbackData}", callbackQuery.Data);
+
+        switch (callbackQuery.Data)
+        {
+            case "notifications-list":
+                await HandleListNotifications(callbackQuery.From.Id, callbackQuery.Message!, cancellationToken);
+                break;
+            case "notifications-delete":
+                await HandleDeleteNotifications(callbackQuery.From.Id, callbackQuery.Message!.Chat, cancellationToken);
+                break;
+            case "notifications-create":
+                await bot.SendMessage(callbackQuery.Message!.Chat, "Создание уведомлений пока не реализовано.");
+                break;
+            case "notifications-update":
+                await bot.SendMessage(callbackQuery.Message!.Chat, "Обновление уведомлений пока не реализовано.");
+                break;
+            default:
+                await bot.SendMessage(callbackQuery.Message!.Chat, $"Получена команда: {callbackQuery.Data}", cancellationToken: cancellationToken);
+                break;
+        }
+
+        await bot.AnswerCallbackQuery(callbackQuery.Id);
     }
 
     #region Inline Mode
@@ -214,14 +261,17 @@ public class UpdateHandler(
         
         var username = user?.Username;
         var fullName = $"{user?.FirstName} {user?.LastName}".Trim();
-        
-        var userId = await graphQlService.CreateUserAsync(
-            name: msg.From?.Username ?? "unknown",
-            telegramUserId: msg.From!.Id,
-            cancellationToken: cancellationToken
-        );
 
-        logger.LogInformation("User joined: {UserId} | @{Username} | {FullName}", userId, username, fullName);
+        var userDto = new TelegramUserDto
+        {
+            Name = fullName,
+            TelegramTag = username ?? "@unknown",
+            TelegramUserId = msg.From!.Id
+        };
+        
+        await mediator.Publish(new UserCreatedDomainEvent(userDto), cancellationToken);
+
+        logger.LogInformation("User joined: {UserId} | @{Username} | {FullName}", msg.From!.Id, username, fullName);
 
         var greetingText = $"""
             👋 <b>Привет, {fullName}!</b>
@@ -242,7 +292,8 @@ public class UpdateHandler(
             msg.Chat,
             greetingText,
             parseMode: ParseMode.Html,
-            replyMarkup: keyboard
+            replyMarkup: keyboard,
+            cancellationToken: cancellationToken
         );
     }
     
@@ -267,10 +318,80 @@ public class UpdateHandler(
         const string notificationText = """
             📨 <b>Уведомления</b>
 
-            Тут будут отображаться уведомления из системы.
-            Пока что — просто тестовое сообщение.
+            Здесь ты можешь управлять уведомлениями:
+
+            🆕 Создать — добавить новое уведомление  
+            🗑️ Удалить — удалить существующее  
+            ✏️ Обновить — изменить уведомление  
+            📋 Список — посмотреть все уведомления  
             """;
 
-        return await bot.SendMessage(msg.Chat, notificationText, parseMode: ParseMode.Html);
+        var keyboard = new InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton.WithCallbackData("🆕 Создать", "notifications-create"),
+                InlineKeyboardButton.WithCallbackData("🗑️ Удалить", "notifications-delete")
+            ],
+            [
+                InlineKeyboardButton.WithCallbackData("✏️ Обновить", "notifications-update"),
+                InlineKeyboardButton.WithCallbackData("📋 Список", "notifications-list")
+            ]
+        ]);
+
+        return await bot.SendMessage(
+            chatId: msg.Chat,
+            text: notificationText,
+            parseMode: ParseMode.Html,
+            replyMarkup: keyboard);
+    }
+    
+    private async Task HandleListNotifications(long telegramUserId, Message msg, CancellationToken cancellationToken)
+    {
+        var notifications = await mediator.Send(new GetUserNotificationsQuery
+        {
+            TelegramUserId = telegramUserId
+        }, cancellationToken);
+
+        if (!notifications.Any())
+        {
+            await bot.SendMessage(msg.Chat, "У тебя пока нет уведомлений.", cancellationToken: cancellationToken);
+            return;
+        }
+
+        var textBlocks = notifications.Select(n => 
+            $"""
+             <b>📋 {n.Title}</b>
+             Описание: {n.Description}
+             Тип: {n.Type}
+             {(!string.IsNullOrEmpty(n.Frequency) ? $"Периодичность: {n.Frequency}" : "")}
+             Запланировано на: {n.ScheduledAt:dd.MM.yyyy HH:mm}
+             """);
+
+        var text = string.Join("\n\n", textBlocks);
+
+        await bot.SendMessage(msg.Chat, text, parseMode: ParseMode.Html, cancellationToken: cancellationToken);
+    }
+    
+    private async Task HandleDeleteNotifications(long telegramUserId, Chat chat, CancellationToken cancellationToken)
+    {
+        var notifications = await mediator.Send(new GetUserNotificationsQuery
+        {
+            TelegramUserId = telegramUserId
+        }, cancellationToken);
+
+        if (!notifications.Any())
+        {
+            await bot.SendMessage(chat, "У тебя нет уведомлений для удаления.", cancellationToken: cancellationToken);
+            return;
+        }
+
+        var listText = string.Join("\n", notifications
+            .Select((n, index) => $"{index + 1}. {n.Title} ({n.ScheduledAt:dd.MM.yyyy})"));
+
+        _pendingNotificationDeletions[telegramUserId] = notifications.Select(n => n.Id).ToList();
+
+        await bot.SendMessage(chat, 
+            $"📋 Вот твои уведомления:\n\n{listText}\n\n" +
+            "Введите номер уведомления, которое хотите удалить.", 
+            cancellationToken: cancellationToken);
     }
 }
