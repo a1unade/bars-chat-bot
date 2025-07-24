@@ -3,9 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NotifyHub.TelegramBot.Application.Interfaces;
 using NotifyHub.TelegramBot.Infrastructure.Handlers;
+using NotifyHub.TelegramBot.Infrastructure.Managers;
 using NotifyHub.TelegramBot.Infrastructure.Options;
 using NotifyHub.TelegramBot.Infrastructure.Services;
 using Telegram.Bot;
+using Telegram.Bot.Polling;
 
 namespace NotifyHub.TelegramBot.Infrastructure.Extensions;
 
@@ -16,6 +18,7 @@ public static class ServiceCollectionExtensions
         services.AddServices(configuration);
         services.AddTelegramBot(configuration);
         services.AddHandlers();
+        services.AddManagers();
     }
 
     private static void AddServices(this IServiceCollection services, IConfiguration configuration)
@@ -24,7 +27,9 @@ public static class ServiceCollectionExtensions
         
         // Register Graphql client
         services.AddHttpClient<IGraphQlService, GraphQlService>();
-        
+        services.AddScoped<INotificationService, NotificationService>();
+        services.AddSingleton<IUserStateService, InMemoryUserStateService>();
+        services.AddScoped<IUserService, UserService>();
         services.AddScoped<ReceiverService>();
         services.AddHostedService<PollingService>();
     }
@@ -49,6 +54,22 @@ public static class ServiceCollectionExtensions
 
     private static void AddHandlers(this IServiceCollection services)
     {
-        services.AddScoped<UpdateHandler>();
+        services.AddScoped<IUpdateHandler, UpdateHandler>();
+        services.AddScoped<IMessageHandler, CreateNotificationMessageHandler>();
+        services.AddScoped<IMessageHandler, DeleteNotificationMessageHandler>();
+        services.AddScoped<IMessageHandler, StartMessageHandler>();
+        services.AddScoped<IMessageHandler, NotificationListMessageHandler>();
+        services.AddScoped<IMessageHandler, HelpMessageHandler>();
+        services.AddScoped<IMessageHandler, DeleteNotificationMessageHandler>();
+        services.AddScoped<IMessageHandler, ConfirmDeleteMessageHandler>();
+        services.AddScoped<IMessageHandler, DefaultMessageHandler>();
+        
+        services.AddScoped<ICallbackHandler, NotificationCallbackHandler>();
+    }
+
+    private static void AddManagers(this IServiceCollection services)
+    {
+        services.AddSingleton<NotificationCreationSessionManager>();
+        services.AddSingleton<NotificationDeletionSessionManager>();
     }
 }
