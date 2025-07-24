@@ -10,13 +10,16 @@ public class DeleteNotificationMessageHandler : IMessageHandler
 {
     private readonly INotificationService _notificationService;
     private readonly NotificationDeletionSessionManager _sessionManager;
+    private readonly IUserStateService _userStateService;
 
     public DeleteNotificationMessageHandler(
         INotificationService notificationService,
-        NotificationDeletionSessionManager sessionManager)
+        NotificationDeletionSessionManager sessionManager,
+        IUserStateService userStateService)
     {
         _notificationService = notificationService;
         _sessionManager = sessionManager;
+        _userStateService = userStateService;
     }
 
     public bool CanHandle(Message msg, UserState state)
@@ -34,7 +37,9 @@ public class DeleteNotificationMessageHandler : IMessageHandler
             return;
         }
 
+        var userId = msg.From!.Id;
         _sessionManager.StartSession(msg.From.Id, notifications.Select(n => n.Id).ToList());
+        _userStateService.SetState(userId, UserState.DeletingNotification);
 
         var listText = string.Join("\n", notifications.Select((n, i) =>
             $"{i + 1}. {n.Title} ({n.ScheduledAt:dd.MM.yyyy})"));

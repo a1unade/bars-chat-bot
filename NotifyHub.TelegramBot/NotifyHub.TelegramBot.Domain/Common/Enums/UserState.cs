@@ -4,5 +4,6 @@ public enum UserState
 {
     Default = 0,
     CreatingNotification = 1,
-    DeletingNotification = 2
+    DeletingNotification = 2,
+    UpdatingNotification = 3,
 }
