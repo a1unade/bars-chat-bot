@@ -1,4 +1,5 @@
 using MediatR;
+using NotifyHub.TelegramBot.Application.Features.Commands.CreateUserNotification;
 using NotifyHub.TelegramBot.Application.Features.Commands.DeleteUserNotification;
 using NotifyHub.TelegramBot.Application.Features.Queries.GetUserNotifications;
 using NotifyHub.TelegramBot.Application.Interfaces;
@@ -24,11 +25,12 @@ public class NotificationService(IMediator mediator) : INotificationService
         }, ct);
     }
 
-    // public async Task<Guid> CreateNotificationAsync(CreateNotificationDto dto, CancellationToken ct)
-    // {
-    //     return await mediator.Send(new CreateUserNotificationCommand
-    //     {
-    //         Dto = dto
-    //     }, ct);
-    // }
+    public async Task<Guid> CreateNotificationAsync(long telegramUserId, CreateNotificationDto dto, CancellationToken ct)
+    {
+        return await mediator.Send(new CreateUserNotificationCommand
+        {
+            TelegramUserId = telegramUserId,
+            Dto = dto
+        }, ct);
+    }
 }

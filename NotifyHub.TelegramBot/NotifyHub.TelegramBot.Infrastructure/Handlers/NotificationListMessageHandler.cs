@@ -24,7 +24,15 @@ public class NotificationListMessageHandler : IMessageHandler
 
         if (notifications.Count == 0)
         {
-            await bot.SendMessage(msg.Chat, "У тебя нет уведомлений.", cancellationToken: token);
+            var createKeyboard = new ReplyKeyboardMarkup([
+                new KeyboardButton[] { "Создать" }
+            ]);
+            
+            await bot.SendMessage(
+                msg.Chat, 
+                "У тебя нет уведомлений.", 
+                replyMarkup: createKeyboard, 
+                cancellationToken: token);
             return;
         }
 
