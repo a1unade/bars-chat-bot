@@ -3,6 +3,7 @@ using NotifyHub.TelegramBot.Domain.Common.Enums;
 using NotifyHub.TelegramBot.Infrastructure.Managers;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace NotifyHub.TelegramBot.Infrastructure.Handlers;
 
@@ -31,9 +32,18 @@ public class BeginUpdateNotificationHandler(
 
         var listText = string.Join("\n", notifications.Select((n, i) =>
             $"{i + 1}. {n.Title} ({n.ScheduledAt:dd.MM.yyyy})"));
+        
+        var cancelMarkup = new ReplyKeyboardMarkup([
+            ["Отмена"]
+        ])
+        {
+            ResizeKeyboard = true,
+            OneTimeKeyboard = false
+        };
 
         await bot.SendMessage(msg.Chat.Id,
             $"Что обновить?\n\n{listText}\n\nВведи номер уведомления для редактирования.",
+            replyMarkup: cancelMarkup,
             cancellationToken: token);
     }
 }

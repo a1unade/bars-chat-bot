@@ -25,7 +25,7 @@ public class NotificationListMessageHandler : IMessageHandler
         if (notifications.Count == 0)
         {
             var createKeyboard = new ReplyKeyboardMarkup([
-                ["Создать"]
+                ["Создать", "История"]
             ]);
             
             await bot.SendMessage(
@@ -44,10 +44,9 @@ public class NotificationListMessageHandler : IMessageHandler
 
         var message = "<b>Твои уведомления:</b>\n\n" + string.Join("\n\n", cards);
         
-        var keyboard = new ReplyKeyboardMarkup(new[]
-        {
-            new KeyboardButton[] { "Создать", "Удалить", "Изменить", "История" }
-        })
+        var keyboard = new ReplyKeyboardMarkup([
+            ["Создать", "Удалить", "Изменить", "История"]
+        ])
         {
             ResizeKeyboard = true,
             OneTimeKeyboard = false

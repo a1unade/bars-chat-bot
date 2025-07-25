@@ -49,6 +49,23 @@ services:
       - data_protection:/root/.aspnet/DataProtection-Keys
     restart: always
 
+  telegram_bot:
+    image: ghcr.io/a1unade/bars-chat-bot-telegram-bot:$VERSION
+    container_name: NotifyHub.TelegramBot
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Postgres=Host=telegram_db;Port=5432;Username=postgres;Password=notify_hub_telegram;Database=notify_hub_telegram_db;
+    depends_on:
+      telegram_db:
+        condition: service_healthy
+    ports:
+      - "8092:8080"
+    networks:
+      - notify_hub_network
+    volumes:
+      - data_protection:/root/.aspnet/DataProtection-Keys
+    restart: always
+
   outbox_processor:
     image: ghcr.io/a1unade/bars-chat-bot-outbox:
     container_name: NotifyHub.OutboxProcessor
@@ -143,6 +160,26 @@ services:
       interval: 5s
       retries: 5
 
+  telegram_db:
+    image: postgres:16
+    container_name: NotifyHub.TelegramBot.PostgresSQL
+    environment:
+      TZ: UTC
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: notify_hub_telegram
+      POSTGRES_DB: notify_hub_telegram_db
+    command: ["postgres", "-c", "timezone=UTC"]
+    volumes:
+      - telegram_db_data:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+    networks:
+      - notify_hub_network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 5
+
   zookeeper:
     restart: always
     image: docker.io/bitnami/zookeeper:3.8
@@ -182,6 +219,7 @@ volumes:
   outbox_db_data:
   data_protection:
   zookeeper-volume:
+  telegram_db_data:
 
 networks:
   notify_hub_network:

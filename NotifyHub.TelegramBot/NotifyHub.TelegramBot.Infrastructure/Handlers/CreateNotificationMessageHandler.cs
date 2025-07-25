@@ -39,11 +39,19 @@ public class CreateNotificationMessageHandler(
         var draft = sessionManager.GetOrCreateDraft(userId);
         var text = msg.Text?.Trim();
         
+        var keyboard = new ReplyKeyboardMarkup([
+            ["Получить уведомления", "Помощь"]
+        ])
+        {
+            ResizeKeyboard = true,
+            OneTimeKeyboard = false
+        };
+        
         if (text?.Equals("Отмена", StringComparison.OrdinalIgnoreCase) == true)
         {
             sessionManager.RemoveDraft(userId);
             userStateService.SetState(userId, UserState.Default);
-            await bot.SendMessage(userId, "Создание уведомления отменено.", cancellationToken: token);
+            await bot.SendMessage(userId, "Создание уведомления отменено.", replyMarkup: keyboard,  cancellationToken: token);
             return;
         }
         
@@ -53,6 +61,15 @@ public class CreateNotificationMessageHandler(
         {
             ResizeKeyboard = true,
             OneTimeKeyboard = false
+        };
+        
+        var typeKeyboard = new ReplyKeyboardMarkup([
+            [new KeyboardButton("ONE_TIME"), new KeyboardButton("RECURRING")],
+            [new KeyboardButton("Отмена")]
+        ])
+        {
+            ResizeKeyboard = true,
+            OneTimeKeyboard = true
         };
 
         switch (draft.Step)
@@ -66,20 +83,34 @@ public class CreateNotificationMessageHandler(
             case NotificationCreationStep.Description:
                 draft.Description = text;
                 draft.Step = NotificationCreationStep.Type;
-                await bot.SendMessage(userId, "Введите тип уведомления: ONE_TIME или RECURRING", replyMarkup: cancelMarkup, cancellationToken: token);
+                await bot.SendMessage(userId, "Введите тип уведомления: ONE_TIME или RECURRING", replyMarkup: typeKeyboard, cancellationToken: token);
                 break;
 
             case NotificationCreationStep.Type:
+            {
                 if (text is not ("ONE_TIME" or "RECURRING"))
                 {
-                    await bot.SendMessage(userId, "Неверный тип. Введите ONE_TIME или RECURRING", replyMarkup: cancelMarkup, cancellationToken: token);
+
+                    await bot.SendMessage(
+                        chatId: userId,
+                        text: "Неверный тип. Выберите ONE_TIME или RECURRING:",
+                        replyMarkup: typeKeyboard,
+                        cancellationToken: token
+                    );
                     return;
                 }
-
+                
                 draft.Type = text;
                 draft.Step = NotificationCreationStep.ScheduledAt;
-                await bot.SendMessage(userId, "Введите дату и время (в формате: dd.MM.yyyy HH:mm)", replyMarkup: cancelMarkup, cancellationToken: token);
+
+                await bot.SendMessage(
+                    chatId: userId,
+                    text: "Введите дату и время (в формате: dd.MM.yyyy HH:mm)",
+                    replyMarkup: cancelMarkup,
+                    cancellationToken: token
+                );
                 break;
+            }
 
             case NotificationCreationStep.ScheduledAt:
                 if (!DateTime.TryParseExact(text, "dd.MM.yyyy HH:mm", null, System.Globalization.DateTimeStyles.None, out var dt))
@@ -94,12 +125,11 @@ public class CreateNotificationMessageHandler(
                 {
                     draft.Step = NotificationCreationStep.Frequency;
 
-                    var freqKeyboard = new ReplyKeyboardMarkup(new[]
-                    {
-                        new[] { new KeyboardButton("Каждый час"), new KeyboardButton("Каждый день") },
-                        new[] { new KeyboardButton("Каждую неделю"), new KeyboardButton("Каждый месяц") },
-                        new[] { new KeyboardButton("Каждый год"), new KeyboardButton("Отмена") }
-                    })
+                    var freqKeyboard = new ReplyKeyboardMarkup([
+                        [new KeyboardButton("Каждый час"), new KeyboardButton("Каждый день")],
+                        [new KeyboardButton("Каждую неделю"), new KeyboardButton("Каждый месяц")],
+                        [new KeyboardButton("Каждый год"), new KeyboardButton("Отмена")]
+                    ])
                     {
                         ResizeKeyboard = true,
                         OneTimeKeyboard = true
@@ -149,7 +179,15 @@ public class CreateNotificationMessageHandler(
         await notificationService.CreateNotificationAsync(userId, dto, token);
         sessionManager.RemoveDraft(userId);
         userStateService.SetState(userId, UserState.Default);
+        
+        var keyboard = new ReplyKeyboardMarkup([
+            ["Получить уведомления", "Помощь"]
+        ])
+        {
+            ResizeKeyboard = true,
+            OneTimeKeyboard = false
+        };
 
-        await bot.SendMessage(userId, "Уведомление успешно создано!", cancellationToken: token);
+        await bot.SendMessage(userId, "Уведомление успешно создано!", replyMarkup: keyboard, cancellationToken: token);
     }
 }
