@@ -7,22 +7,33 @@ using Telegram.Bot.Types;
 namespace NotifyHub.TelegramBot.Infrastructure.Handlers;
 
 public class BeginUpdateNotificationHandler(
+    INotificationService notificationService,
     NotificationUpdateSessionManager sessionManager,
     IUserStateService userStateService)
     : IMessageHandler
 {
-    public bool CanHandle(Message msg, UserState state)
-    {
-        return state == UserState.Default &&
-               msg.Text?.Trim().ToLower() == "обновить";
-    }
+    public bool CanHandle(Message msg, UserState state) =>
+        msg.Text?.Trim().ToLower() == "изменить";
 
     public async Task HandleAsync(Message msg, ITelegramBotClient bot, CancellationToken token)
     {
         var userId = msg.From!.Id;
-        sessionManager.GetOrCreateDraft(userId);
+        var notifications = await notificationService.GetUserNotificationsAsync(userId, token);
+
+        if (notifications.Count == 0)
+        {
+            await bot.SendMessage(msg.Chat.Id, "У тебя нет уведомлений для обновления.", cancellationToken: token);
+            return;
+        }
+
+        sessionManager.StartSession(userId, notifications.Select(n => n.Id).ToList());
         userStateService.SetState(userId, UserState.UpdatingNotification);
 
-        await bot.SendMessage(userId, "Введите ID уведомления для обновления:", cancellationToken: token);
+        var listText = string.Join("\n", notifications.Select((n, i) =>
+            $"{i + 1}. {n.Title} ({n.ScheduledAt:dd.MM.yyyy})"));
+
+        await bot.SendMessage(msg.Chat.Id,
+            $"Что обновить?\n\n{listText}\n\nВведи номер уведомления для редактирования.",
+            cancellationToken: token);
     }
 }

@@ -16,7 +16,7 @@ public class NotificationListMessageHandler : IMessageHandler
     }
 
     public bool CanHandle(Message msg, UserState state)
-        => msg.Text == "Получить уведомления";
+        => msg.Text == "Получить уведомления" || msg.Text?.Trim().ToLower() == "/notifications";
 
     public async Task HandleAsync(Message msg, ITelegramBotClient bot, CancellationToken token)
     {
@@ -25,7 +25,7 @@ public class NotificationListMessageHandler : IMessageHandler
         if (notifications.Count == 0)
         {
             var createKeyboard = new ReplyKeyboardMarkup([
-                new KeyboardButton[] { "Создать" }
+                ["Создать"]
             ]);
             
             await bot.SendMessage(

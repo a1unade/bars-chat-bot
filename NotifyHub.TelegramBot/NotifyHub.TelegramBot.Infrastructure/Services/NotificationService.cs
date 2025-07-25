@@ -1,6 +1,7 @@
 using MediatR;
 using NotifyHub.TelegramBot.Application.Features.Commands.CreateUserNotification;
 using NotifyHub.TelegramBot.Application.Features.Commands.DeleteUserNotification;
+using NotifyHub.TelegramBot.Application.Features.Commands.UpdateUserNotification;
 using NotifyHub.TelegramBot.Application.Features.Queries.GetUserNotifications;
 using NotifyHub.TelegramBot.Application.Interfaces;
 using NotifyHub.TelegramBot.Domain.DTOs;
@@ -30,6 +31,14 @@ public class NotificationService(IMediator mediator) : INotificationService
         return await mediator.Send(new CreateUserNotificationCommand
         {
             TelegramUserId = telegramUserId,
+            Dto = dto
+        }, ct);
+    }
+
+    public async Task<Guid> UpdateNotificationAsync(UpdateNotificationDto dto, CancellationToken ct)
+    {
+        return await mediator.Send(new UpdateUserNotificationCommand
+        {
             Dto = dto
         }, ct);
     }

@@ -37,4 +37,12 @@ public interface IGraphQlService
     /// <param name="cancellationToken">Токен отмены</param>
     /// <returns>ID созданного уведомления</returns>
     Task<Guid> CreateNotificationAsync(CreateNotificationDto dto, Guid userId, CancellationToken cancellationToken);
+    
+    /// <summary>
+    /// Обновление уведомления
+    /// </summary>
+    /// <param name="dto">Данные для обновления уведомления</param>
+    /// <param name="cancellationToken">Токен отмены</param>
+    /// <returns>ID обновленного уведомления</returns>
+    Task<Guid> UpdateNotificationAsync(UpdateNotificationDto dto, CancellationToken cancellationToken);
 }
