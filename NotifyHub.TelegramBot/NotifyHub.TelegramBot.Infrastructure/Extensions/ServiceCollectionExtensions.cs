@@ -69,6 +69,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IMessageHandler, DeleteNotificationMessageHandler>();
         services.AddScoped<IMessageHandler, ConfirmDeleteMessageHandler>();
         services.AddScoped<IMessageHandler, NotificationListMessageHandler>();
+        services.AddScoped<IMessageHandler, HistoryMessageHandler>();
         services.AddScoped<IMessageHandler, HelpMessageHandler>();
         services.AddScoped<IMessageHandler, DefaultMessageHandler>();
         
