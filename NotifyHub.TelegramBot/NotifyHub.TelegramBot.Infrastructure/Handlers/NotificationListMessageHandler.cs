@@ -46,7 +46,7 @@ public class NotificationListMessageHandler : IMessageHandler
         
         var keyboard = new ReplyKeyboardMarkup(new[]
         {
-            new KeyboardButton[] { "Создать", "Удалить", "Изменить" }
+            new KeyboardButton[] { "Создать", "Удалить", "Изменить", "История" }
         })
         {
             ResizeKeyboard = true,

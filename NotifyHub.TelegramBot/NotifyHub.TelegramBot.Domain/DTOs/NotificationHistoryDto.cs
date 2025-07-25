@@ -1,11 +1,8 @@
-using NotifyHub.NotificationService.Domain.Common.Enums;
+using System.Buffers;
 
-namespace NotifyHub.NotificationService.Application.Common.Requests.History;
+namespace NotifyHub.TelegramBot.Domain.DTOs;
 
-/// <summary>
-/// Запись об отправке
-/// </summary>
-public class GetHistoryByIdResponse
+public class NotificationHistoryDto
 {
     /// <summary>
     /// Id записи

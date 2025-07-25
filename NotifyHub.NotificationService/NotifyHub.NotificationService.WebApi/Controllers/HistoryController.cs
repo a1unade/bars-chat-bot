@@ -29,15 +29,15 @@ public class HistoryController(IMediator mediator) : ControllerBase
         => await _mediator.Send(new GetAllHistoryQuery(), cancellationToken);
     
     /// <summary>
-    /// Получить запись об отправке по Id
+    /// Получить записи об отправке по Id Telegram пользователя
     /// </summary>
-    /// <param name="historyid">Id записи об отправке</param>
+    /// <param name="userId">Id Telegram пользователя</param>
     /// <param name="cancellationToken">Токен отмены</param>
     /// <returns>Запись об отправке</returns>
-    [HttpGet("{historyid}")]
+    [HttpGet("{userId}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetHistoryByIdResponse))]
-    public async Task<GetHistoryByIdResponse> GetProjectByIdAsync([FromRoute] Guid historyid, CancellationToken cancellationToken)
-        => await _mediator.Send(new GetHistoryByIdQuery( new IdRequest{ Id = historyid }), cancellationToken);
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetHistoryByIdResponse[]))]
+    public async Task<GetHistoryByIdResponse[]> GetProjectByIdAsync([FromRoute] long userId, CancellationToken cancellationToken)
+        => await _mediator.Send(new GetHistoryByIdQuery( new IdRequest{ Id = userId }), cancellationToken);
 }

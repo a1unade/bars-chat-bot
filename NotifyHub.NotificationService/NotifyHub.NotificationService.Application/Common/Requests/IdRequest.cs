@@ -3,9 +3,9 @@ namespace NotifyHub.NotificationService.Application.Common.Requests;
 public class IdRequest
 {
     /// <summary>
-    /// ID для запроса сущности
+    /// IDп пользователя для запроса истории
     /// </summary>
-    public Guid Id { get; set; } 
+    public long Id { get; set; } 
     
     public IdRequest()
     {
