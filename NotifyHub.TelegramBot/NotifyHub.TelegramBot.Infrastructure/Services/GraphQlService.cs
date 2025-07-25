@@ -178,7 +178,64 @@ public class GraphQlService(
             throw;
         }
     }
-    
+
+    public async Task<Guid> UpdateNotificationAsync(UpdateNotificationDto dto, CancellationToken cancellationToken)
+    {
+        var query = new
+        {
+            query = @"
+            mutation($request: UpdateNotificationRequestInput!) {
+                updateNotification(request: $request) {
+                    id
+                }
+            }
+            ",
+            variables = new
+            {
+                request = new
+                {
+                    id = dto.Id,
+                    title = dto.Title,
+                    description = dto.Description,
+                    type = dto.Type.HasValue ? ToGraphQlEnumString(dto.Type.Value) : null,
+                    frequency = dto.Frequency.HasValue ? ToGraphQlEnumString(dto.Frequency.Value) : null,
+                    scheduledAt = dto.ScheduledAt?.ToUniversalTime().ToString("o")
+                }
+            }
+        };
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            Converters = { new GraphQlEnumConverter() }
+        };
+
+        var json = JsonSerializer.Serialize(query, options);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        logger.LogInformation("Sending updateNotification mutation for NotificationId: {NotificationId}", dto.Id);
+
+        var response = await httpClient.PostAsync(_options.Graphql, content, cancellationToken);
+        var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            logger.LogError("GraphQL error: {StatusCode}, Content: {Content}", response.StatusCode, responseContent);
+            throw new HttpRequestException($"GraphQL error: {response.StatusCode}, Content: {responseContent}");
+        }
+
+        try
+        {
+            var parsed = JsonSerializer.Deserialize<GraphQlResponse<UpdateNotificationResponse>>(responseContent, options);
+            return parsed?.Data.UpdateNotification.Id ?? Guid.Empty;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to parse updateNotification response. Content: {Content}", responseContent);
+            throw;
+        }
+    }
+
     private string ToGraphQlEnumString(Enum enumValue)
     {
         var name = enumValue.ToString(); 

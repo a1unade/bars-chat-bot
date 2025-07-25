@@ -27,4 +27,12 @@ public interface INotificationService
     /// <param name="ct">Токен отмены</param>
     /// <returns>ID созданного уведомления</returns>
     Task<Guid> CreateNotificationAsync(long telegramUserId, CreateNotificationDto dto, CancellationToken ct);
+    
+    /// <summary>
+    /// Обновление уведомления пользователя
+    /// </summary>
+    /// <param name="dto">Данные, необходимые для обновления уведомления</param>
+    /// <param name="ct">Токен отмены</param>
+    /// <returns>ID обновленного уведомления</returns>
+    Task<Guid> UpdateNotificationAsync(UpdateNotificationDto dto, CancellationToken ct);
 }

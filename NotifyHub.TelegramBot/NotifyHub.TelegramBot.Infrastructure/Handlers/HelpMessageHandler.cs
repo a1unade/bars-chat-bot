@@ -8,7 +8,7 @@ namespace NotifyHub.TelegramBot.Infrastructure.Handlers;
 public class HelpMessageHandler : IMessageHandler
 {
     public bool CanHandle(Message msg, UserState state)
-        => msg.Text == "Помощь";
+        => msg.Text == "Помощь" || msg.Text?.Trim().ToLower() == "/help";
 
     public async Task HandleAsync(Message msg, ITelegramBotClient bot, CancellationToken token)
     {

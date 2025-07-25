@@ -1,9 +1,8 @@
 using NotifyHub.Abstractions.Enums;
-using NotifyHub.TelegramBot.Domain.Common.Enums;
 
 namespace NotifyHub.TelegramBot.Domain.DTOs;
 
-public class UpdateNotificationDraft
+public class UpdateNotificationDto
 {
     /// <summary>
     /// ID уведомления
@@ -23,17 +22,15 @@ public class UpdateNotificationDraft
     /// <summary>
     /// Новый тип уведомлений
     /// </summary>
-    public string? Type { get; set; }
+    public NotificationType? Type { get; set; }
     
     /// <summary>
     /// Новая частота отправки
     /// </summary>
-    public int? Frequency { get; set; }
+    public NotificationFrequency? Frequency { get; set; }
     
     /// <summary>
     /// Новое время для отправки
     /// </summary>
     public DateTime? ScheduledAt { get; set; }
-
-    public NotificationUpdateStep Step { get; set; } = NotificationUpdateStep.AskTitle;
 }

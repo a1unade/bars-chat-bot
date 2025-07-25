@@ -60,15 +60,16 @@ public static class ServiceCollectionExtensions
     private static void AddHandlers(this IServiceCollection services)
     {
         services.AddScoped<IUpdateHandler, UpdateHandler>();
-        services.AddScoped<IMessageHandler, CreateNotificationMessageHandler>();
-        services.AddScoped<IMessageHandler, DeleteNotificationMessageHandler>();
+        
         services.AddScoped<IMessageHandler, StartMessageHandler>();
-        services.AddScoped<IMessageHandler, NotificationListMessageHandler>();
-        services.AddScoped<IMessageHandler, HelpMessageHandler>();
+        services.AddScoped<IMessageHandler, CreateNotificationMessageHandler>();
+        services.AddScoped<IMessageHandler, BeginCreateNotificationHandler>();
+        services.AddScoped<IMessageHandler, BeginUpdateNotificationHandler>();
+        services.AddScoped<IMessageHandler, UpdateNotificationMessageHandler>();
         services.AddScoped<IMessageHandler, DeleteNotificationMessageHandler>();
         services.AddScoped<IMessageHandler, ConfirmDeleteMessageHandler>();
-        services.AddScoped<IMessageHandler, BeginCreateNotificationHandler>();
-        services.AddScoped<IMessageHandler, CreateNotificationMessageHandler>();
+        services.AddScoped<IMessageHandler, NotificationListMessageHandler>();
+        services.AddScoped<IMessageHandler, HelpMessageHandler>();
         services.AddScoped<IMessageHandler, DefaultMessageHandler>();
         
         services.AddScoped<ICallbackHandler, NotificationCallbackHandler>();
@@ -78,6 +79,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddSingleton<NotificationCreationSessionManager>();
         services.AddSingleton<NotificationDeletionSessionManager>();
+        services.AddSingleton<NotificationUpdateSessionManager>();
     }
     
     private static void AddKafka(this IServiceCollection services, IConfiguration configuration)

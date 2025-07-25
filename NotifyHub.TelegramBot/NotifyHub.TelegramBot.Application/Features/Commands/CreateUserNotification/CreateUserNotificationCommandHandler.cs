@@ -20,7 +20,8 @@ public class CreateUserNotificationCommandHandler(
 
         if (existingUser is not null)
         {
-            logger.LogInformation("Notification create command sent");
+            logger.LogInformation("Notification create command sent by user {0}", request.TelegramUserId);
+            
             return await graphQlService.CreateNotificationAsync(
                 dto: request.Dto,
                 userId: existingUser.Id,
@@ -28,6 +29,7 @@ public class CreateUserNotificationCommandHandler(
             );
         }
         
+        logger.LogInformation("Notification create command reverted {0}", request.TelegramUserId);
         return Guid.Empty;
     }
 }

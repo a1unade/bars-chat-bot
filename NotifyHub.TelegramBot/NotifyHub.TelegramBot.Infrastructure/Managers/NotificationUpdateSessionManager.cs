@@ -4,19 +4,36 @@ namespace NotifyHub.TelegramBot.Infrastructure.Managers;
 
 public class NotificationUpdateSessionManager
 {
-    private readonly Dictionary<long, UpdateNotificationDraft> _drafts = new();
+    private readonly Dictionary<long, (List<Guid> Ids, Guid? SelectedId, UpdateNotificationDraft Draft)> _sessions = new();
 
-    public bool HasDraft(long userId) => _drafts.ContainsKey(userId);
-
-    public UpdateNotificationDraft GetOrCreateDraft(long userId)
+    public void StartSession(long userId, List<Guid> ids)
     {
-        if (!_drafts.ContainsKey(userId))
-            _drafts[userId] = new UpdateNotificationDraft();
-        return _drafts[userId];
+        _sessions[userId] = (ids, null, new UpdateNotificationDraft());
     }
 
-    public UpdateNotificationDraft? GetDraft(long userId) =>
-        _drafts.GetValueOrDefault(userId);
+    public bool HasSession(long userId) => _sessions.ContainsKey(userId);
 
-    public void RemoveDraft(long userId) => _drafts.Remove(userId);
+    public void SetSelected(long userId, int index)
+    {
+        var session = _sessions[userId];
+        session.SelectedId = session.Ids[index];
+        _sessions[userId] = session;
+    }
+
+    public Guid GetSelectedId(long userId)
+    {
+        if (!_sessions.TryGetValue(userId, out var session) || session.SelectedId is null)
+            return Guid.Empty;
+
+        return session.SelectedId.Value;
+    }
+
+    public bool HasSelectedId(long userId)
+    {
+        return _sessions.TryGetValue(userId, out var session) && session.SelectedId != null;
+    }
+
+    public UpdateNotificationDraft GetDraft(long userId) => _sessions[userId].Draft;
+
+    public void RemoveSession(long userId) => _sessions.Remove(userId);
 }
