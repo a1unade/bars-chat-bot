@@ -2,6 +2,7 @@ using NotifyHub.TelegramBot.Application.Interfaces;
 using NotifyHub.TelegramBot.Domain.Common.Enums;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace NotifyHub.TelegramBot.Infrastructure.Handlers;
 
@@ -20,9 +21,19 @@ public class DefaultMessageHandler : IMessageHandler
 
     public async Task HandleAsync(Message msg, ITelegramBotClient bot, CancellationToken token)
     {
+        var keyboard = new ReplyKeyboardMarkup(new[]
+        {
+            new KeyboardButton[] { "Получить уведомления", "Помощь" }
+        })
+        {
+            ResizeKeyboard = true,
+            OneTimeKeyboard = false
+        };
+        
         await bot.SendMessage(
             chatId: msg.Chat.Id,
             text: "Команда не распознана. Используй /help для списка команд.",
+            replyMarkup: keyboard,
             cancellationToken: token);
     }
 }

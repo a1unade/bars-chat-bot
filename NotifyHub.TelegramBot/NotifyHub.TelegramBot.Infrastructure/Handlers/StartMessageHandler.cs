@@ -37,10 +37,9 @@ public class StartMessageHandler : IMessageHandler
         
         await _userService.RegisterUserAsync(userDto, cancellationToken);
         
-        var keyboard = new ReplyKeyboardMarkup(new[]
-        {
-            new KeyboardButton[] { "Получить уведомления", "Помощь" }
-        })
+        var keyboard = new ReplyKeyboardMarkup([
+            ["Получить уведомления", "Помощь"]
+        ])
         {
             ResizeKeyboard = true,
             OneTimeKeyboard = false

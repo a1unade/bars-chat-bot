@@ -4,6 +4,7 @@ using NotifyHub.TelegramBot.Application.Interfaces;
 using NotifyHub.TelegramBot.Domain.Common.Enums;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace NotifyHub.TelegramBot.Infrastructure.Handlers;
 
@@ -14,13 +15,21 @@ public class HistoryMessageHandler(IMediator mediator) : IMessageHandler
 
     public async Task HandleAsync(Message msg, ITelegramBotClient bot, CancellationToken token)
     {
+        var keyboard = new ReplyKeyboardMarkup([
+            ["Получить уведомления", "Помощь"]
+        ])
+        {
+            ResizeKeyboard = true,
+            OneTimeKeyboard = false
+        };
+        
         var userId = msg.From!.Id;
 
         var logs = await mediator.Send(new GetNotificationHistoryQuery(userId), token);
 
         if (logs.Count == 0)
         {
-            await bot.SendMessage(msg.Chat.Id, "История пуста.", cancellationToken: token);
+            await bot.SendMessage(msg.Chat.Id, "История пуста.", replyMarkup: keyboard, cancellationToken: token);
             return;
         }
 
@@ -35,6 +44,7 @@ public class HistoryMessageHandler(IMediator mediator) : IMessageHandler
             msg.Chat.Id,
             $"<b>История уведомлений:</b>\n\n{text}",
             parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
+            replyMarkup: keyboard,
             cancellationToken: token);
     }
 }

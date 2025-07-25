@@ -243,9 +243,6 @@ volumes:
   outbox_db_data:
   data_protection:
   zookeeper-volume:
-  mongo_data:
-  es_data:
-  graylog_journal:
   telegram_db_data:
 
 networks:
